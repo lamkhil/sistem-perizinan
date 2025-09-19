@@ -29,6 +29,10 @@ Route::middleware('auth')->group(function () {
 
     // Permohonan (CRUD)
     Route::resource('permohonan', PermohonanController::class);
+    
+    // Export routes
+    Route::get('/permohonan/export/excel', [PermohonanController::class, 'exportExcel'])->name('permohonan.export.excel');
+    Route::get('/permohonan/export/pdf', [PermohonanController::class, 'exportPdf'])->name('permohonan.export.pdf');
 
     // ✅ Rute untuk Ekspor (Excel/PDF)
     Route::get('/export/{type}/{format}', [ExportController::class, 'export'])->name('export');

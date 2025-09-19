@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">Inputan Teks</label>
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Kegiatan</label>
                                     <p class="text-gray-900"><?php echo e($permohonan->inputan_teks ?? '-'); ?></p>
                                 </div>
                                 <?php endif; ?>

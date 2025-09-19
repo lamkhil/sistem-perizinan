@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
+use App\Exports\PermohonanExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PermohonanController extends Controller
 {
@@ -399,5 +402,26 @@ class PermohonanController extends Controller
         $permohonan->delete();
 
         return redirect()->route('dashboard')->with('success', 'Permohonan berhasil dihapus!');
+    }
+
+    /**
+     * Export data permohonan to Excel
+     */
+    public function exportExcel()
+    {
+        return Excel::download(new PermohonanExport, 'data_permohonan_' . date('Y-m-d_H-i-s') . '.xlsx');
+    }
+
+    /**
+     * Export data permohonan to PDF
+     */
+    public function exportPdf()
+    {
+        $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        
+        $pdf = Pdf::loadView('permohonan.export-pdf', compact('permohonans'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download('data_permohonan_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 }

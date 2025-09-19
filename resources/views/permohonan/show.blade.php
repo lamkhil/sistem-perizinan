@@ -323,7 +323,7 @@
                                                         @endforeach
                                                     </div>
                                                 @else
-                                                    {{ $log->keterangan }}
+                                        {{ $log->keterangan }}
                                                 @endif
                                             </div>
                                         </div>

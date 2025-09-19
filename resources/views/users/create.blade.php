@@ -22,7 +22,7 @@
                         <div class="max-w-2xl mx-auto">
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Data User</h3>
-                                
+
                                 <!-- Nama Lengkap -->
                                 <div>
                                     <x-input-label for="name" value="Nama Lengkap" />
@@ -62,8 +62,8 @@
                                     </select>
                                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
                                 </div>
-                            </div>
-                        </div>
+                                </div>
+                                </div>
 
                         <!-- Tombol Submit -->
                         <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
