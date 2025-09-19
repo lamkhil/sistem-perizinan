@@ -199,9 +199,9 @@
 
                                 <div>
                                     <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
-                                    <textarea id="inputan_teks" name="inputan_teks" rows="3"
+                                    <input id="inputan_teks" name="inputan_teks" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        placeholder="Masukkan kegiatan">{{ old('inputan_teks', $permohonan->inputan_teks) }}</textarea>
+                                        value="{{ old('inputan_teks', $permohonan->inputan_teks) }}" placeholder="Masukkan kegiatan" />
                                     @error('inputan_teks')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 @endif

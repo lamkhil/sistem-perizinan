@@ -280,9 +280,9 @@ unset($__errorArgs, $__bag); ?>
 
                                 <div>
                                     <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
-                                    <textarea id="inputan_teks" name="inputan_teks" rows="3"
+                                    <input id="inputan_teks" name="inputan_teks" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        placeholder="Masukkan kegiatan"><?php echo e(old('inputan_teks', $permohonan->inputan_teks)); ?></textarea>
+                                        value="<?php echo e(old('inputan_teks', $permohonan->inputan_teks)); ?>" placeholder="Masukkan kegiatan" />
                                     <?php $__errorArgs = ['inputan_teks'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
