@@ -198,10 +198,10 @@
                                 </div>
 
                                 <div>
-                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Inputan Teks</label>
+                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
                                     <textarea id="inputan_teks" name="inputan_teks" rows="3"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        placeholder="Masukkan teks tambahan">{{ old('inputan_teks', $permohonan->inputan_teks) }}</textarea>
+                                        placeholder="Masukkan kegiatan">{{ old('inputan_teks', $permohonan->inputan_teks) }}</textarea>
                                     @error('inputan_teks')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 @endif
