@@ -21,7 +21,6 @@ class PermohonanController extends Controller
         // Ambil parameter dari request
         $searchQuery = $request->query('search');
         $selectedSektor = $request->query('sektor');
-        $selectedDateFilter = $request->query('date_filter');
         $dateFrom = $request->query('date_from');
         $dateTo = $request->query('date_to');
 
@@ -43,13 +42,11 @@ class PermohonanController extends Controller
         }
 
         // Terapkan filter tanggal
-        if ($selectedDateFilter == 'custom') {
-            if ($dateFrom) {
-                $permohonans->whereDate('created_at', '>=', $dateFrom);
-            }
-            if ($dateTo) {
-                $permohonans->whereDate('created_at', '<=', $dateTo);
-            }
+        if ($dateFrom) {
+            $permohonans->whereDate('created_at', '>=', $dateFrom);
+        }
+        if ($dateTo) {
+            $permohonans->whereDate('created_at', '<=', $dateTo);
         }
 
         // Terapkan logika pencarian
@@ -65,7 +62,7 @@ class PermohonanController extends Controller
         // Ambil daftar sektor unik
         $sektors = Permohonan::select('sektor')->whereNotNull('sektor')->distinct()->pluck('sektor');
 
-        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'dateFrom', 'dateTo'));
+        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'dateFrom', 'dateTo'));
     }
 
     /**

@@ -31,15 +31,6 @@
             </div>
             
             <!-- Filter Tanggal -->
-            <div class="md:w-48">
-                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Semua Tanggal</option>
-                    <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Filter Tanggal</option>
-                </select>
-            </div>
-            
-            <!-- Custom Date Range (muncul jika Filter Tanggal dipilih) -->
-            @if(($selectedDateFilter ?? '') == 'custom')
             <div class="md:w-80 flex gap-2">
                 <div class="flex-1">
                     <label class="block text-xs text-gray-600 mb-1">Dari Tanggal</label>
@@ -57,10 +48,9 @@
                     </button>
                 </div>
             </div>
-            @endif
             
             <!-- Reset Filter -->
-            @if($searchQuery || $selectedSektor || $selectedDateFilter)
+            @if($searchQuery || $selectedSektor || $dateFrom || $dateTo)
             <div>
                 <a href="{{ route('permohonan.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +84,7 @@
                         </svg>
                         Daftar Permohonan
                     </h3>
-                    @if($searchQuery || $selectedSektor || $selectedDateFilter)
+                    @if($searchQuery || $selectedSektor || $dateFrom || $dateTo)
                     <div class="mt-2 flex flex-wrap gap-2">
                         @if($searchQuery)
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -112,12 +102,12 @@
                             Sektor: {{ $selectedSektor }}
                         </span>
                         @endif
-                        @if($selectedDateFilter)
+                        @if($dateFrom || $dateTo)
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                            Tanggal: {{ $dateFrom ?? '' }} - {{ $dateTo ?? '' }}
+                            Tanggal: {{ $dateFrom ?? 'Semua' }} - {{ $dateTo ?? 'Semua' }}
                         </span>
                         @endif
                     </div>
