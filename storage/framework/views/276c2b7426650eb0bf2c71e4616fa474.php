@@ -335,7 +335,7 @@
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </div>
                                                 <?php else: ?>
-                                                    <?php echo e($log->keterangan); ?>
+                                        <?php echo e($log->keterangan); ?>
 
                                                 <?php endif; ?>
                                             </div>
