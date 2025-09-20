@@ -27,15 +27,36 @@ class TtdSettingController extends Controller
             'mengetahui_nama' => 'required|string|max:255',
             'mengetahui_pangkat' => 'required|string|max:255',
             'mengetahui_nip' => 'required|string|max:255',
+            'mengetahui_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'menyetujui_title' => 'required|string|max:255',
             'menyetujui_jabatan' => 'required|string|max:255',
             'menyetujui_nama' => 'required|string|max:255',
             'menyetujui_pangkat' => 'required|string|max:255',
             'menyetujui_nip' => 'required|string|max:255',
+            'menyetujui_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $ttdSettings = TtdSetting::getSettings();
-        $ttdSettings->update($request->all());
+        
+        $data = $request->except(['mengetahui_photo', 'menyetujui_photo']);
+        
+        // Handle upload foto mengetahui
+        if ($request->hasFile('mengetahui_photo')) {
+            $file = $request->file('mengetahui_photo');
+            $filename = 'mengetahui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/ttd_photos', $filename);
+            $data['mengetahui_photo'] = $filename;
+        }
+        
+        // Handle upload foto menyetujui
+        if ($request->hasFile('menyetujui_photo')) {
+            $file = $request->file('menyetujui_photo');
+            $filename = 'menyetujui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/ttd_photos', $filename);
+            $data['menyetujui_photo'] = $filename;
+        }
+        
+        $ttdSettings->update($data);
 
         return redirect()->back()->with('success', 'Pengaturan TTD berhasil diperbarui.');
     }

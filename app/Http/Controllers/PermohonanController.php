@@ -445,4 +445,21 @@ class PermohonanController extends Controller
         
         return $pdf->download('data_permohonan_ringkasan_' . date('Y-m-d_H-i-s') . '.pdf');
     }
+
+    /**
+     * Export data permohonan to PDF (Penerbitan Berkas version with TTD photos)
+     */
+    public function exportPdfPenerbitan()
+    {
+        $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        $ttdSettings = \App\Models\TtdSetting::getSettings();
+        
+        // Proses title menyetujui untuk mengganti placeholder tanggal
+        $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
+        
+        $pdf = Pdf::loadView('permohonan.export-pdf-penerbitan', compact('permohonans', 'ttdSettings', 'menyetujuiTitle'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download('data_permohonan_penerbitan_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
 }

@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/permohonan/export/excel', [PermohonanController::class, 'exportExcel'])->name('permohonan.export.excel');
     Route::get('/permohonan/export/pdf', [PermohonanController::class, 'exportPdf'])->name('permohonan.export.pdf');
     Route::get('/permohonan/export/pdf-compact', [PermohonanController::class, 'exportPdfCompact'])->name('permohonan.export.pdf-compact');
+Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'exportPdfPenerbitan'])->name('permohonan.export.pdf-penerbitan');
 
     // ✅ Rute untuk Ekspor (Excel/PDF)
     Route::get('/export/{type}/{format}', [ExportController::class, 'export'])->name('export');

@@ -28,6 +28,17 @@
                 </h3>
             </div>
 
+            <!-- Export Button -->
+            <div class="mb-4 flex flex-wrap gap-3">
+                <a href="<?php echo e(route('permohonan.export.pdf-penerbitan')); ?>" 
+                   class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Export PDF dengan TTD
+                </a>
+            </div>
+
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
@@ -1171,7 +1182,7 @@
 
                 <!-- Form Edit TTD (Hidden by default) -->
                 <div x-show="editTTD" x-transition class="mb-6 p-4 bg-gray-50 rounded-lg">
-                    <form method="POST" action="<?php echo e(route('ttd-settings.update')); ?>" class="space-y-6">
+                    <form method="POST" action="<?php echo e(route('ttd-settings.update')); ?>" enctype="multipart/form-data" class="space-y-6">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('PUT'); ?>
                         
@@ -1437,6 +1448,36 @@
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?>
                                 </div>
+
+                                <div class="md:col-span-2">
+                                    <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'mengetahui_foto','value' => 'Foto TTD Mengetahui']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'mengetahui_foto','value' => 'Foto TTD Mengetahui']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                                    <input id="mengetahui_foto" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="mengetahui_foto" accept="image/*">
+                                    <?php if($ttdSettings->mengetahui_foto): ?>
+                                        <div class="mt-2">
+                                            <img src="<?php echo e(asset('storage/ttd-photos/' . $ttdSettings->mengetahui_foto)); ?>" alt="Foto TTD Mengetahui" class="h-20 w-auto rounded border">
+                                            <p class="text-xs text-gray-500 mt-1">Foto saat ini</p>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
 
@@ -1660,6 +1701,36 @@
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?>
                                 </div>
+
+                                <div class="md:col-span-2">
+                                    <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'menyetujui_foto','value' => 'Foto TTD Menyetujui']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'menyetujui_foto','value' => 'Foto TTD Menyetujui']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                                    <input id="menyetujui_foto" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="menyetujui_foto" accept="image/*">
+                                    <?php if($ttdSettings->menyetujui_foto): ?>
+                                        <div class="mt-2">
+                                            <img src="<?php echo e(asset('storage/ttd-photos/' . $ttdSettings->menyetujui_foto)); ?>" alt="Foto TTD Menyetujui" class="h-20 w-auto rounded border">
+                                            <p class="text-xs text-gray-500 mt-1">Foto saat ini</p>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
 
@@ -1702,7 +1773,18 @@
                         <p class="text-sm text-gray-600 mb-4"><?php echo e($ttdSettings->mengetahui_title); ?></p>
                         <p class="text-sm text-gray-600 mb-2"><?php echo e($ttdSettings->mengetahui_jabatan); ?></p>
                         <p class="text-sm text-gray-600 mb-4"><?php echo e($ttdSettings->mengetahui_unit); ?></p>
-                        <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        
+                        <!-- Foto TTD atau garis -->
+                        <?php if($ttdSettings->mengetahui_foto): ?>
+                            <div class="mb-4">
+                                <img src="<?php echo e(asset('storage/ttd-photos/' . $ttdSettings->mengetahui_foto)); ?>" 
+                                     alt="TTD Mengetahui" 
+                                     class="mx-auto h-16 w-auto object-contain border border-gray-200 rounded">
+                            </div>
+                        <?php else: ?>
+                            <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        <?php endif; ?>
+                        
                         <p class="text-sm font-medium text-gray-900"><?php echo e($ttdSettings->mengetahui_nama); ?></p>
                         <p class="text-sm text-gray-600"><?php echo e($ttdSettings->mengetahui_pangkat); ?></p>
                         <p class="text-sm text-gray-600">NIP: <?php echo e($ttdSettings->mengetahui_nip); ?></p>
@@ -1712,7 +1794,18 @@
                     <div class="text-center">
                         <p class="text-sm text-gray-600 mb-4"><?php echo e($menyetujuiTitle); ?></p>
                         <p class="text-sm text-gray-600 mb-2"><?php echo e($ttdSettings->menyetujui_jabatan); ?></p>
-                        <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        
+                        <!-- Foto TTD atau garis -->
+                        <?php if($ttdSettings->menyetujui_foto): ?>
+                            <div class="mb-4">
+                                <img src="<?php echo e(asset('storage/ttd-photos/' . $ttdSettings->menyetujui_foto)); ?>" 
+                                     alt="TTD Menyetujui" 
+                                     class="mx-auto h-16 w-auto object-contain border border-gray-200 rounded">
+                            </div>
+                        <?php else: ?>
+                            <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        <?php endif; ?>
+                        
                         <p class="text-sm font-medium text-gray-900"><?php echo e($ttdSettings->menyetujui_nama); ?></p>
                         <p class="text-sm text-gray-600"><?php echo e($ttdSettings->menyetujui_pangkat); ?></p>
                         <p class="text-sm text-gray-600">NIP: <?php echo e($ttdSettings->menyetujui_nip); ?></p>

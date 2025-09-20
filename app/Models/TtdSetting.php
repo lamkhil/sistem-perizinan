@@ -16,11 +16,13 @@ class TtdSetting extends Model
         'mengetahui_nama',
         'mengetahui_pangkat',
         'mengetahui_nip',
+        'mengetahui_photo',
         'menyetujui_title',
         'menyetujui_jabatan',
         'menyetujui_nama',
         'menyetujui_pangkat',
         'menyetujui_nip',
+        'menyetujui_photo',
     ];
 
     /**

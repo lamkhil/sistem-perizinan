@@ -32,10 +32,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 3%;">NO</th>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NO. PERMOHONAN</th>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NO. PROYEK</th>
@@ -53,9 +53,9 @@
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">SKALA USAHA</th>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
                             @if($permohonans->count() > 0)
                                 @foreach($permohonans as $index => $permohonan)
                                 <tr class="hover:bg-blue-50 transition-colors duration-200">
@@ -178,12 +178,23 @@
                                     </td>
                                 </tr>
                             @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
 
             <!-- Form Input Data Baru -->
+            <!-- Export Button -->
+            <div class="mb-4 flex flex-wrap gap-3">
+                <a href="{{ route('permohonan.export.pdf-penerbitan') }}" 
+                   class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Export PDF dengan TTD
+                </a>
+            </div>
+
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50 mb-6 -m-6">
                     <h3 class="text-xl font-semibold text-gray-900 flex items-center">
@@ -358,7 +369,7 @@
 
                 <!-- Form Edit TTD (Hidden by default) -->
                 <div x-show="editTTD" x-transition class="mb-6 p-4 bg-gray-50 rounded-lg">
-                    <form method="POST" action="{{ route('ttd-settings.update') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('ttd-settings.update') }}" enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         @method('PUT')
                         
@@ -396,8 +407,20 @@
                                     <x-input-label for="mengetahui_nip" value="NIP" />
                                     <x-text-input id="mengetahui_nip" class="block mt-1 w-full" type="text" name="mengetahui_nip" :value="old('mengetahui_nip', $ttdSettings->mengetahui_nip)" required />
                                 </div>
-                            </div>
-                        </div>
+
+                                <div class="md:col-span-2">
+                                    <x-input-label for="mengetahui_photo" value="Foto TTD Mengetahui" />
+                                    <input id="mengetahui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="mengetahui_photo" accept="image/*" />
+                                    @if($ttdSettings->mengetahui_photo)
+                                        <div class="mt-2">
+                                            <p class="text-xs text-gray-500">Foto saat ini:</p>
+                                            <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="w-20 h-20 object-cover rounded border">
+                                        </div>
+                                    @endif
+                                    <x-input-error :messages="$errors->get('mengetahui_photo')" class="mt-2" />
+            </div>
+        </div>
+    </div>
 
                         <!-- Menyetujui Section -->
                         <div class="pb-6">
@@ -429,6 +452,18 @@
                                     <x-input-label for="menyetujui_nip" value="NIP" />
                                     <x-text-input id="menyetujui_nip" class="block mt-1 w-full" type="text" name="menyetujui_nip" :value="old('menyetujui_nip', $ttdSettings->menyetujui_nip)" required />
                                 </div>
+
+                                <div class="md:col-span-2">
+                                    <x-input-label for="menyetujui_photo" value="Foto TTD Menyetujui" />
+                                    <input id="menyetujui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="menyetujui_photo" accept="image/*" />
+                                    @if($ttdSettings->menyetujui_photo)
+                                        <div class="mt-2">
+                                            <p class="text-xs text-gray-500">Foto saat ini:</p>
+                                            <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="w-20 h-20 object-cover rounded border">
+                                        </div>
+                                    @endif
+                                    <x-input-error :messages="$errors->get('menyetujui_photo')" class="mt-2" />
+                                </div>
                             </div>
                         </div>
 
@@ -452,7 +487,11 @@
                         <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_title }}</p>
                         <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->mengetahui_jabatan }}</p>
                         <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_unit }}</p>
-                        <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
+                            @if($ttdSettings->mengetahui_photo)
+                                <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="max-h-16 max-w-32 object-contain">
+                            @endif
+                        </div>
                         <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->mengetahui_nama }}</p>
                         <p class="text-sm text-gray-600">{{ $ttdSettings->mengetahui_pangkat }}</p>
                         <p class="text-sm text-gray-600">NIP: {{ $ttdSettings->mengetahui_nip }}</p>
@@ -462,7 +501,11 @@
                     <div class="text-center">
                         <p class="text-sm text-gray-600 mb-4">{{ $menyetujuiTitle }}</p>
                         <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
-                        <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
+                            @if($ttdSettings->menyetujui_photo)
+                                <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="max-h-16 max-w-32 object-contain">
+                            @endif
+                        </div>
                         <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->menyetujui_nama }}</p>
                         <p class="text-sm text-gray-600">{{ $ttdSettings->menyetujui_pangkat }}</p>
                         <p class="text-sm text-gray-600">NIP: {{ $ttdSettings->menyetujui_nip }}</p>
