@@ -7,9 +7,12 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PermohonanExport implements FromCollection, WithHeadings, WithMapping, WithStyles
+class PermohonanExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -124,7 +127,79 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     {
         return [
             // Style the first row as bold text.
-            1    => ['font' => ['bold' => true]],
+            1    => [
+                'font' => ['bold' => true, 'size' => 12],
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'E3F2FD']
+                ],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 12,  // SEKTOR
+            'B' => 15,  // WAKTU
+            'C' => 25,  // NO. PERMOHONAN
+            'D' => 20,  // NO. PROYEK
+            'E' => 15,  // TANGGAL PERMOHONAN
+            'F' => 15,  // NIB
+            'G' => 8,   // KBU
+            'H' => 20,  // KEGIATAN
+            'I' => 20,  // JENIS PERUSAHAAN
+            'J' => 25,  // NAMA PERUSAHAAN
+            'K' => 25,  // NAMA USAHA
+            'L' => 35,  // ALAMAT PERUSAHAAN
+            'M' => 15,  // MODAL USAHA
+            'N' => 15,  // JENIS PROYEK
+            'O' => 20,  // VERIFIKASI PD TEKNIS
+            'P' => 20,  // VERIFIKASI DPMPTSP
+            'Q' => 15,  // PENGEMBALIAN
+            'R' => 20,  // KETERANGAN
+            'S' => 15,  // MENGHUBUNGI
+            'T' => 20,  // KETERANGAN
+            'U' => 15,  // APPROVED
+            'V' => 15,  // TERBIT
+            'W' => 20,  // KETERANGAN
+            'X' => 30,  // PEMROSES
+            'Y' => 15,  // VERIFIKATOR
+            'Z' => 15,  // KETERANGAN
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function(AfterSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+                
+                // Set all cells to wrap text
+                $sheet->getStyle('A:Z')->getAlignment()->setWrapText(true);
+                
+                // Set row height for header
+                $sheet->getRowDimension(1)->setRowHeight(25);
+                
+                // Set borders for all data
+                $sheet->getStyle('A1:Z' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                
+                // Auto-fit columns
+                foreach (range('A', 'Z') as $column) {
+                    $sheet->getColumnDimension($column)->setAutoSize(false);
+                }
+            },
         ];
     }
 }

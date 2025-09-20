@@ -424,4 +424,17 @@ class PermohonanController extends Controller
         
         return $pdf->download('data_permohonan_' . date('Y-m-d_H-i-s') . '.pdf');
     }
+
+    /**
+     * Export data permohonan to PDF (Compact version)
+     */
+    public function exportPdfCompact()
+    {
+        $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        
+        $pdf = Pdf::loadView('permohonan.export-pdf-compact', compact('permohonans'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download('data_permohonan_ringkasan_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
 }
