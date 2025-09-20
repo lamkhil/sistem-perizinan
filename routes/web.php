@@ -21,6 +21,11 @@ Route::get('/statistik', [DashboardController::class, 'statistik'])
     ->middleware(['auth', 'verified'])
     ->name('statistik');
 
+// Penerbitan Berkas
+Route::get('/penerbitan-berkas', [DashboardController::class, 'penerbitanBerkas'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerbitan-berkas');
+
 Route::middleware('auth')->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -103,4 +103,22 @@ class DashboardController extends Controller
 
         return view('statistik', compact('stats', 'selectedDateFilter', 'customDate'));
     }
+
+    public function penerbitanBerkas()
+    {
+        $user = Auth::user();
+        
+        // Ambil data permohonan
+        $permohonans = Permohonan::with('user')->get();
+        
+        // Hitung statistik
+        $stats = [
+            'totalPermohonan' => $permohonans->count(),
+            'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
+            'diterima' => $permohonans->where('status', 'Diterima')->count(),
+            'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
+        ];
+
+        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats'));
+    }
 }

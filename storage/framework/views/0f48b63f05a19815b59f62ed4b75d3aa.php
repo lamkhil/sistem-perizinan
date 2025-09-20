@@ -50,6 +50,17 @@
                     </svg>
                     Statistik
                 </a>
+
+                <!-- Penerbitan Berkas -->
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
+                <a href="<?php echo e(route('penerbitan-berkas')); ?>" 
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('penerbitan-berkas') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'); ?>">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Penerbitan Berkas
+                </a>
+                <?php endif; ?>
             </div>
         </nav>
 
