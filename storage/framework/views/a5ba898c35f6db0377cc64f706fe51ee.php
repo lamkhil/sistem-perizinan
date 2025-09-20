@@ -278,6 +278,7 @@ unset($__errorArgs, $__bag); ?>
                                 <option value="admin" <?php if(old('role') == 'admin'): echo 'selected'; endif; ?>>Admin</option>
                                 <option value="dpmptsp" <?php if(old('role') == 'dpmptsp'): echo 'selected'; endif; ?>>DPMPTSP</option>
                                 <option value="pd_teknis" <?php if(old('role') == 'pd_teknis'): echo 'selected'; endif; ?>>PD Teknis</option>
+                                <option value="penerbitan_berkas" <?php if(old('role') == 'penerbitan_berkas'): echo 'selected'; endif; ?>>Penerbitan Berkas</option>
                             </select>
                             <?php $__errorArgs = ['role'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
