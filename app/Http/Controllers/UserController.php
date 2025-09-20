@@ -34,7 +34,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:admin,pd_teknis,dpmptsp'],
+            'role' => ['required', 'in:admin,pd_teknis,dpmptsp,penerbitan_berkas'],
         ]);
 
         User::create([
@@ -57,7 +57,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
-            'role' => ['required', 'in:admin,pd_teknis,dpmptsp'],
+            'role' => ['required', 'in:admin,pd_teknis,dpmptsp,penerbitan_berkas'],
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
         ]);
 
