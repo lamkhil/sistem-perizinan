@@ -160,36 +160,32 @@
     <div class="ttd-section">
         <div class="ttd-container">
             <!-- Mengetahui (kiri) -->
-            <div class="ttd-item">
-                <div class="ttd-text" style="font-weight: bold;">Mengetahui</div>
-                <div class="ttd-text">Koordinator Ketua Tim Kerja</div>
-                <div class="ttd-text">Pelayanan Terpadu Satu Pintu</div>
-                <!-- Tambahkan spacing seperti referensi -->
-                <div style="height: 20px;"></div>
-                <div class="ttd-line">
+            <div class="ttd-item" style="text-align: left;">
+                <div class="ttd-text" style="font-weight: bold; text-align: center;">Mengetahui</div>
+                <div class="ttd-text" style="text-align: center;">Koordinator Ketua Tim Kerja</div>
+                <div class="ttd-text" style="text-align: center;">Pelayanan Terpadu Satu Pintu</div>
+                <div class="ttd-line" style="margin: 15px 0;">
                     @if($ttdSettings->mengetahui_photo)
                         <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="ttd-photo">
                     @endif
                 </div>
-                <div class="ttd-name">{{ $ttdSettings->mengetahui_nama }}</div>
-                <div class="ttd-text">{{ $ttdSettings->mengetahui_pangkat }}</div>
-                <div class="ttd-nip">NIP: {{ $ttdSettings->mengetahui_nip }}</div>
+                <div class="ttd-name" style="text-align: left;">{{ $ttdSettings->mengetahui_nama }}</div>
+                <div class="ttd-text" style="text-align: left;">{{ $ttdSettings->mengetahui_pangkat }}</div>
+                <div class="ttd-nip" style="text-align: left;">NIP: {{ $ttdSettings->mengetahui_nip }}</div>
             </div>
 
             <!-- Menyetujui (kanan) -->
-            <div class="ttd-item">
-                <div class="ttd-text" style="font-weight: bold;">{{ $menyetujuiTitle }}</div>
-                <div class="ttd-text">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
-                <!-- Tambahkan spacing seperti referensi -->
-                <div style="height: 20px;"></div>
-                <div class="ttd-line">
+            <div class="ttd-item" style="text-align: right;">
+                <div class="ttd-text" style="font-weight: bold; text-align: right;">{{ $menyetujuiTitle }}</div>
+                <div class="ttd-text" style="text-align: right;">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
+                <div class="ttd-line" style="margin: 15px 0;">
                     @if($ttdSettings->menyetujui_photo)
                         <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="ttd-photo">
                     @endif
                 </div>
-                <div class="ttd-name">{{ $ttdSettings->menyetujui_nama }}</div>
-                <div class="ttd-text">{{ $ttdSettings->menyetujui_pangkat }}</div>
-                <div class="ttd-nip">NIP: {{ $ttdSettings->menyetujui_nip }}</div>
+                <div class="ttd-name" style="text-align: right;">{{ $ttdSettings->menyetujui_nama }}</div>
+                <div class="ttd-text" style="text-align: right;">{{ $ttdSettings->menyetujui_pangkat }}</div>
+                <div class="ttd-nip" style="text-align: right;">NIP: {{ $ttdSettings->menyetujui_nip }}</div>
             </div>
         </div>
     </div>

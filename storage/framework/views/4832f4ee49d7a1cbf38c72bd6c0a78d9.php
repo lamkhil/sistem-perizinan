@@ -94,7 +94,8 @@
 </head>
 <body>
     <div class="header">
-        <h1>DATA PERMOHONAN PERIZINAN BERUSAHA</h1>
+        <h1>PERIZINAN BERUSAHA DISETUJUI</h1>
+        <p>DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
         <p>KOTA SURABAYA TAHUN <?php echo e(date('Y')); ?></p>
     </div>
 
@@ -127,7 +128,7 @@
                     <td><?php echo e($index + 1); ?></td>
                     <td><?php echo e($permohonan->no_permohonan ?? '-'); ?></td>
                     <td><?php echo e($permohonan->no_proyek ?? '-'); ?></td>
-                    <td><?php echo e($permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-'); ?></td>
+                    <td><?php echo e($permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->isoFormat('D MMMM Y') : '-'); ?></td>
                     <td><?php echo e($permohonan->nib ?? '-'); ?></td>
                     <td><?php echo e($permohonan->kbli ?? '-'); ?></td>
                     <td><?php echo e($permohonan->nama_usaha ?? '-'); ?></td>
@@ -138,22 +139,8 @@
                     <td><?php echo e($permohonan->alamat_perusahaan ?? '-'); ?></td>
                     <td><?php echo e($permohonan->jenis_proyek ?? '-'); ?></td>
                     <td><?php echo e($permohonan->nama_perizinan ?? '-'); ?></td>
-                    <td>
-                        <?php if($permohonan->modal_usaha): ?>
-                            <?php if($permohonan->modal_usaha <= 1000000000): ?>
-                                Mikro
-                            <?php elseif($permohonan->modal_usaha <= 5000000000): ?>
-                                Usaha Kecil
-                            <?php elseif($permohonan->modal_usaha <= 10000000000): ?>
-                                Usaha Menengah
-                            <?php else: ?>
-                                Usaha Besar
-                            <?php endif; ?>
-                        <?php else: ?>
-                            -
-                        <?php endif; ?>
-                    </td>
-                    <td>Menengah Tinggi</td>
+                    <td><?php echo e($permohonan->skala_usaha ?? '-'); ?></td>
+                    <td><?php echo e($permohonan->risiko ?? '-'); ?></td>
                     <td>
                         DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
                         No: BAP/OSS/IX/<?php echo e($permohonan->no_permohonan ?? 'N/A'); ?>/436.7.15/<?php echo e(date('Y')); ?><br>
@@ -170,16 +157,16 @@
         </div>
     <?php endif; ?>
 
-    <!-- TTD Section -->
+    <!-- TTD Section - SIDE BY SIDE LAYOUT -->
     <div class="ttd-section">
-        <h3 style="text-align: center; margin-bottom: 20px;">TANDA TANGAN DIGITAL</h3>
-        
         <div class="ttd-container">
-            <!-- Mengetahui -->
+            <!-- Mengetahui (kiri) -->
             <div class="ttd-item">
-                <div class="ttd-text"><?php echo e($ttdSettings->mengetahui_title); ?></div>
-                <div class="ttd-text"><?php echo e($ttdSettings->mengetahui_jabatan); ?></div>
-                <div class="ttd-text"><?php echo e($ttdSettings->mengetahui_unit); ?></div>
+                <div class="ttd-text" style="font-weight: bold;">Mengetahui</div>
+                <div class="ttd-text">Koordinator Ketua Tim Kerja</div>
+                <div class="ttd-text">Pelayanan Terpadu Satu Pintu</div>
+                <!-- Tambahkan spacing seperti referensi -->
+                <div style="height: 20px;"></div>
                 <div class="ttd-line">
                     <?php if($ttdSettings->mengetahui_photo): ?>
                         <img src="<?php echo e(public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo)); ?>" alt="TTD Mengetahui" class="ttd-photo">
@@ -190,10 +177,12 @@
                 <div class="ttd-nip">NIP: <?php echo e($ttdSettings->mengetahui_nip); ?></div>
             </div>
 
-            <!-- Menyetujui -->
+            <!-- Menyetujui (kanan) -->
             <div class="ttd-item">
-                <div class="ttd-text"><?php echo e($menyetujuiTitle); ?></div>
-                <div class="ttd-text"><?php echo e($ttdSettings->menyetujui_jabatan); ?></div>
+                <div class="ttd-text" style="font-weight: bold;"><?php echo e($menyetujuiTitle); ?></div>
+                <div class="ttd-text">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
+                <!-- Tambahkan spacing seperti referensi -->
+                <div style="height: 20px;"></div>
                 <div class="ttd-line">
                     <?php if($ttdSettings->menyetujui_photo): ?>
                         <img src="<?php echo e(public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)); ?>" alt="TTD Menyetujui" class="ttd-photo">

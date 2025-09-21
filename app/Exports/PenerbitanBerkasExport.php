@@ -147,31 +147,34 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 // Add TTD section after data - SIDE BY SIDE LAYOUT
                 $ttdRow = $lastRow + 3;
                 
-                // TTD Mengetahui (kiri) - dengan spacing yang tepat
+                // TTD Mengetahui (kiri) - format yang benar
                 $sheet->setCellValue('A' . $ttdRow, 'Mengetahui');
                 $sheet->getStyle('A' . $ttdRow)->getFont()->setBold(true);
+                $sheet->getStyle('A' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->setCellValue('A' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
+                $sheet->getStyle('A' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->setCellValue('A' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
+                $sheet->getStyle('A' . ($ttdRow + 2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 // Tambahkan baris kosong untuk spacing
                 $sheet->setCellValue('A' . ($ttdRow + 4), 'Yohanes Franklin, S.H.');
                 $sheet->getStyle('A' . ($ttdRow + 4))->getFont()->setBold(true);
                 $sheet->setCellValue('A' . ($ttdRow + 5), 'Penata Tk.1');
-                $sheet->setCellValue('A' . ($ttdRow + 6), 'NIP 198502182010011008');
+                $sheet->setCellValue('A' . ($ttdRow + 6), 'NIP: 198502182010011008');
                 
-                // Add signature line for Mengetahui
-                $sheet->setCellValue('A' . ($ttdRow + 7), '_________________________');
-                
-                // TTD Menyetujui (kanan) - dengan spacing yang tepat
+                // TTD Menyetujui (kanan) - format yang benar
                 $sheet->setCellValue('J' . $ttdRow, 'Surabaya, ' . date('d F Y'));
+                $sheet->getStyle('J' . $ttdRow)->getFont()->setBold(true);
+                $sheet->getStyle('J' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
                 $sheet->setCellValue('J' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
+                $sheet->getStyle('J' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
                 // Tambahkan baris kosong untuk spacing
                 $sheet->setCellValue('J' . ($ttdRow + 3), 'Ulvia Zulvia, ST');
                 $sheet->getStyle('J' . ($ttdRow + 3))->getFont()->setBold(true);
+                $sheet->getStyle('J' . ($ttdRow + 3))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
                 $sheet->setCellValue('J' . ($ttdRow + 4), 'Penata Tk. 1');
-                $sheet->setCellValue('J' . ($ttdRow + 5), 'NIP 197710132006042012');
-                
-                // Add signature line for Menyetujui
-                $sheet->setCellValue('J' . ($ttdRow + 6), '_________________________');
+                $sheet->getStyle('J' . ($ttdRow + 4))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                $sheet->setCellValue('J' . ($ttdRow + 5), 'NIP: 197710132006042012');
+                $sheet->getStyle('J' . ($ttdRow + 5))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
             },
         ];
     }
