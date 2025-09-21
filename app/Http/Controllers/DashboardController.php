@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Permohonan;
 use App\Models\TtdSetting;
+use App\Exports\PenerbitanBerkasExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -127,5 +129,10 @@ class DashboardController extends Controller
         $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
 
         return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'menyetujuiTitle'));
+    }
+
+    public function exportPenerbitanBerkasExcel()
+    {
+        return Excel::download(new PenerbitanBerkasExport, 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
     }
 }
