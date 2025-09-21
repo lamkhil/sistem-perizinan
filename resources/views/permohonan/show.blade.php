@@ -108,24 +108,16 @@
                     
                     <div class="p-8">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Left Column -->
+                            <!-- Left Column - DPMPTSP -->
                             <div class="space-y-6">
-                                <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">No. Permohonan</label>
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                        <span class="font-mono text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded-lg">{{ $permohonan->no_permohonan ?? '-' }}</span>
-                                    </div>
-                                </div>
-                                
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Nama Usaha</label>
                                     <p class="text-gray-900 font-medium">{{ $permohonan->nama_usaha ?? '-' }}</p>
                                 </div>
                                 
                                 <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">Jenis Perusahaan</label>
-                                    <p class="text-gray-900">{{ $permohonan->jenis_pelaku_usaha ?? $permohonan->jenis_perusahaan ?? '-' }}</p>
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Alamat Perusahaan</label>
+                                    <p class="text-gray-900">{{ $permohonan->alamat_perusahaan ?? '-' }}</p>
                                 </div>
                                 
                                 <div class="group">
@@ -139,6 +131,96 @@
                                     @endif
                                 </div>
 
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Modal Usaha</label>
+                                    <p class="text-gray-900">{{ $permohonan->modal_usaha ?? '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Jenis Proyek</label>
+                                    <p class="text-gray-900">{{ $permohonan->jenis_proyek ?? '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Verifikasi Analisa</label>
+                                    @php
+                                        $dpmptspStatus = $permohonan->verifikasi_dpmptsp ?? '';
+                                        $dpmptspClass = match($dpmptspStatus) {
+                                            'Berkas Disetujui' => 'bg-green-100 text-green-800',
+                                            'Berkas Diperbaiki' => 'bg-yellow-100 text-yellow-800',
+                                            'Pemohon Dihubungi' => 'bg-orange-100 text-orange-800',
+                                            'Berkas Diunggah Ulang' => 'bg-red-100 text-red-800',
+                                            'Pemohon Belum Dihubungi' => 'bg-purple-100 text-purple-800',
+                                            default => 'bg-gray-100 text-gray-600'
+                                        };
+                                    @endphp
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $dpmptspClass }}">
+                                        @if($dpmptspStatus == 'Berkas Disetujui')
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        @elseif($dpmptspStatus == 'Berkas Diperbaiki')
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                            </svg>
+                                        @elseif($dpmptspStatus == 'Pemohon Dihubungi')
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                            </svg>
+                                        @elseif($dpmptspStatus == 'Berkas Diunggah Ulang')
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                            </svg>
+                                        @elseif($dpmptspStatus == 'Pemohon Belum Dihubungi')
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        @endif
+                                        {{ $dpmptspStatus ?: '-' }}
+                                    </span>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Verifikator</label>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <span class="text-purple-600 font-semibold text-sm">{{ substr($permohonan->verifikator ?? 'V', 0, 1) }}</span>
+                                        </div>
+                                        <span class="text-gray-900">{{ $permohonan->verifikator ?? '-' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column - PD Teknis -->
+                            <div class="space-y-6">
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">No. Permohonan</label>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                        <span class="font-mono text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded-lg">{{ $permohonan->no_permohonan ?? '-' }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">No. Proyek</label>
+                                    <p class="text-gray-900">{{ $permohonan->no_proyek ?? '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Tanggal Permohonan</label>
+                                    <p class="text-gray-900">{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Jenis Perusahaan</label>
+                                    <p class="text-gray-900">{{ $permohonan->jenis_pelaku_usaha ?? $permohonan->jenis_perusahaan ?? '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">NIB</label>
+                                    <p class="text-gray-900">{{ $permohonan->nib ?? '-' }}</p>
+                                </div>
+
                                 @if(in_array(Auth::user()->role, ['admin', 'pd_teknis']))
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">KBLI</label>
@@ -150,19 +232,6 @@
                                     <p class="text-gray-900">{{ $permohonan->inputan_teks ?? '-' }}</p>
                                 </div>
                                 @endif
-                            </div>
-                            
-                            <!-- Right Column -->
-                            <div class="space-y-6">
-                                <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">Verifikator</label>
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                            <span class="text-purple-600 font-semibold text-sm">{{ substr($permohonan->verifikator ?? 'V', 0, 1) }}</span>
-                                        </div>
-                                        <span class="text-gray-900">{{ $permohonan->verifikator ?? '-' }}</span>
-                                    </div>
-                                </div>
                                 
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Verifikasi PD Teknis</label>
@@ -201,58 +270,6 @@
                                         @endif
                                         {{ $pdTeknisStatus ?: '-' }}
                                     </span>
-                                </div>
-                                
-                                <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">Verifikasi DPMPTSP</label>
-                                    @php
-                                        $dpmptspStatus = $permohonan->verifikasi_dpmptsp ?? '';
-                                        $dpmptspClass = match($dpmptspStatus) {
-                                            'Berkas Disetujui' => 'bg-green-100 text-green-800',
-                                            'Berkas Diperbaiki' => 'bg-yellow-100 text-yellow-800',
-                                            'Pemohon Dihubungi' => 'bg-orange-100 text-orange-800',
-                                            'Berkas Diunggah Ulang' => 'bg-red-100 text-red-800',
-                                            'Pemohon Belum Dihubungi' => 'bg-purple-100 text-purple-800',
-                                            default => 'bg-gray-100 text-gray-600'
-                                        };
-                                    @endphp
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $dpmptspClass }}">
-                                        @if($dpmptspStatus == 'Berkas Disetujui')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                        @elseif($dpmptspStatus == 'Berkas Diperbaiki')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                                            </svg>
-                                        @elseif($dpmptspStatus == 'Pemohon Dihubungi')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                            </svg>
-                                        @elseif($dpmptspStatus == 'Berkas Diunggah Ulang')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                            </svg>
-                                        @elseif($dpmptspStatus == 'Pemohon Belum Dihubungi')
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        @endif
-                                        {{ $dpmptspStatus ?: '-' }}
-                            </span>
-                        </div>
-                        
-                                <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">Dibuat Oleh</label>
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                            <span class="text-green-600 font-semibold text-sm">{{ substr($permohonan->user->name ?? 'U', 0, 1) }}</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-gray-900 font-medium">{{ $permohonan->user->name ?? '-' }}</p>
-                                            <p class="text-xs text-gray-500">{{ $permohonan->user->role ?? '-' }}</p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
