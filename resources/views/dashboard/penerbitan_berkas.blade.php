@@ -268,7 +268,7 @@
                         <!-- Jenis Perusahaan -->
                         <div>
                             <x-input-label for="jenis_pelaku_usaha" value="Jenis Perusahaan" />
-                            <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                            <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700" required>
                                 <option value="">Pilih Jenis Perusahaan</option>
                                 <option value="Orang Perseorangan" @selected(old('jenis_pelaku_usaha') == 'Orang Perseorangan')>Orang Perseorangan</option>
                                 <option value="Badan Usaha" @selected(old('jenis_pelaku_usaha') == 'Badan Usaha')>Badan Usaha</option>
@@ -300,7 +300,7 @@
                         <!-- Jenis Proyek -->
                         <div>
                             <x-input-label for="jenis_proyek" value="Jenis Proyek" />
-                            <select name="jenis_proyek" id="jenis_proyek" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                            <select name="jenis_proyek" id="jenis_proyek" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700" required>
                                 <option value="">Pilih Jenis Proyek</option>
                                 <option value="Utama" @selected(old('jenis_proyek') == 'Utama')>Utama</option>
                                 <option value="Pendukung" @selected(old('jenis_proyek') == 'Pendukung')>Pendukung</option>

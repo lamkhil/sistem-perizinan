@@ -701,7 +701,7 @@
 <?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
 <?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
 <?php endif; ?>
-                            <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                            <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700" required>
                                 <option value="">Pilih Jenis Perusahaan</option>
                                 <option value="Orang Perseorangan" <?php if(old('jenis_pelaku_usaha') == 'Orang Perseorangan'): echo 'selected'; endif; ?>>Orang Perseorangan</option>
                                 <option value="Badan Usaha" <?php if(old('jenis_pelaku_usaha') == 'Badan Usaha'): echo 'selected'; endif; ?>>Badan Usaha</option>
@@ -942,7 +942,7 @@
 <?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
 <?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
 <?php endif; ?>
-                            <select name="jenis_proyek" id="jenis_proyek" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                            <select name="jenis_proyek" id="jenis_proyek" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700" required>
                                 <option value="">Pilih Jenis Proyek</option>
                                 <option value="Utama" <?php if(old('jenis_proyek') == 'Utama'): echo 'selected'; endif; ?>>Utama</option>
                                 <option value="Pendukung" <?php if(old('jenis_proyek') == 'Pendukung'): echo 'selected'; endif; ?>>Pendukung</option>
