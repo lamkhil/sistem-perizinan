@@ -94,7 +94,8 @@
 </head>
 <body>
     <div class="header">
-        <h1>DATA PERMOHONAN PERIZINAN BERUSAHA</h1>
+        <h1>PERIZINAN BERUSAHA DISETUJUI</h1>
+        <p>DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
         <p>KOTA SURABAYA TAHUN {{ date('Y') }}</p>
     </div>
 
@@ -127,7 +128,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $permohonan->no_permohonan ?? '-' }}</td>
                     <td>{{ $permohonan->no_proyek ?? '-' }}</td>
-                    <td>{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-' }}</td>
+                    <td>{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->isoFormat('D MMMM Y') : '-' }}</td>
                     <td>{{ $permohonan->nib ?? '-' }}</td>
                     <td>{{ $permohonan->kbli ?? '-' }}</td>
                     <td>{{ $permohonan->nama_usaha ?? '-' }}</td>
@@ -138,22 +139,8 @@
                     <td>{{ $permohonan->alamat_perusahaan ?? '-' }}</td>
                     <td>{{ $permohonan->jenis_proyek ?? '-' }}</td>
                     <td>{{ $permohonan->nama_perizinan ?? '-' }}</td>
-                    <td>
-                        @if($permohonan->modal_usaha)
-                            @if($permohonan->modal_usaha <= 1000000000)
-                                Mikro
-                            @elseif($permohonan->modal_usaha <= 5000000000)
-                                Usaha Kecil
-                            @elseif($permohonan->modal_usaha <= 10000000000)
-                                Usaha Menengah
-                            @else
-                                Usaha Besar
-                            @endif
-                        @else
-                            -
-                        @endif
-                    </td>
-                    <td>Menengah Tinggi</td>
+                    <td>{{ $permohonan->skala_usaha ?? '-' }}</td>
+                    <td>{{ $permohonan->risiko ?? '-' }}</td>
                     <td>
                         DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
                         No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}<br>
@@ -171,14 +158,12 @@
 
     <!-- TTD Section -->
     <div class="ttd-section">
-        <h3 style="text-align: center; margin-bottom: 20px;">TANDA TANGAN DIGITAL</h3>
-        
         <div class="ttd-container">
             <!-- Mengetahui -->
             <div class="ttd-item">
-                <div class="ttd-text">{{ $ttdSettings->mengetahui_title }}</div>
-                <div class="ttd-text">{{ $ttdSettings->mengetahui_jabatan }}</div>
-                <div class="ttd-text">{{ $ttdSettings->mengetahui_unit }}</div>
+                <div class="ttd-text" style="font-weight: bold;">Mengetahui</div>
+                <div class="ttd-text">Koordinator Ketua Tim Kerja</div>
+                <div class="ttd-text">Pelayanan Terpadu Satu Pintu</div>
                 <div class="ttd-line">
                     @if($ttdSettings->mengetahui_photo)
                         <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="ttd-photo">
@@ -191,8 +176,8 @@
 
             <!-- Menyetujui -->
             <div class="ttd-item">
-                <div class="ttd-text">{{ $menyetujuiTitle }}</div>
-                <div class="ttd-text">{{ $ttdSettings->menyetujui_jabatan }}</div>
+                <div class="ttd-text" style="font-weight: bold;">{{ $menyetujuiTitle }}</div>
+                <div class="ttd-text">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
                 <div class="ttd-line">
                     @if($ttdSettings->menyetujui_photo)
                         <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="ttd-photo">

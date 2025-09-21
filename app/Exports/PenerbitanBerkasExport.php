@@ -3,16 +3,19 @@
 namespace App\Exports;
 
 use App\Models\Permohonan;
+use App\Models\TtdSetting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents
+class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithDrawings
 {
     public function collection()
     {
@@ -27,51 +30,53 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             'NO. PROYEK',
             'TANGGAL PERMOHONAN',
             'NIB',
-            'KBU',
+            'KBLI',
+            'NAMA USAHA',
             'KEGIATAN',
             'JENIS PERUSAHAAN',
-            'NAMA PERUSAHAAN',
-            'NAMA USAHA',
             'PEMILIK',
             'MODAL USAHA',
-            'ALAMAT PERUSAHAAN',
+            'ALAMAT',
             'JENIS PROYEK',
             'NAMA PERIZINAN',
             'SKALA USAHA',
             'RISIKO',
-            'VERIFIKATOR',
-            'STATUS',
-            'SEKTOR',
-            'TANGGAL DIBUAT',
-            'TANGGAL DIPERBARUI'
+            'PEMROSES DAN TGL. E SURAT DAN TGL PERTEK'
         ];
     }
 
     public function map($permohonan): array
     {
+        // Format modal usaha dengan Rp
+        $modalUsaha = $permohonan->modal_usaha ? 'Rp' . number_format($permohonan->modal_usaha, 0, ',', '.') : '-';
+        
+        // Format tanggal permohonan
+        $tanggalPermohonan = $permohonan->tanggal_permohonan ? 
+            \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->isoFormat('D MMMM Y') : '-';
+        
+        // Format pemroses dan tanggal (contoh format)
+        $pemroses = 'DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU' . "\n" .
+                   'No: BAP/OSS/IX/PARKIR-341/436.7.15/' . date('Y') . "\n" .
+                   'tanggal BAP: ' . date('d');
+
         return [
             $permohonan->id,
             $permohonan->no_permohonan ?? '-',
             $permohonan->no_proyek ?? '-',
-            $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-',
+            $tanggalPermohonan,
             $permohonan->nib ?? '-',
             $permohonan->kbli ?? '-',
+            $permohonan->nama_usaha ?? '-',
             $permohonan->inputan_teks ?? '-',
             $permohonan->jenis_pelaku_usaha ?? '-',
-            $permohonan->nama_perusahaan ?? '-',
-            $permohonan->nama_usaha ?? '-',
             $permohonan->pemilik ?? '-',
-            $permohonan->modal_usaha ?? '-',
+            $modalUsaha,
             $permohonan->alamat_perusahaan ?? '-',
             $permohonan->jenis_proyek ?? '-',
             $permohonan->nama_perizinan ?? '-',
             $permohonan->skala_usaha ?? '-',
             $permohonan->risiko ?? '-',
-            $permohonan->verifikator ?? '-',
-            $permohonan->status ?? '-',
-            $permohonan->sektor ?? '-',
-            $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('d/m/Y H:i') : '-',
-            $permohonan->updated_at ? \Carbon\Carbon::parse($permohonan->updated_at)->format('d/m/Y H:i') : '-',
+            $pemroses
         ];
     }
 
@@ -100,27 +105,22 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
     {
         return [
             'A' => 8,   // NO
-            'B' => 20,  // NO. PERMOHONAN
-            'C' => 20,  // NO. PROYEK
-            'D' => 18,  // TANGGAL PERMOHONAN
+            'B' => 25,  // NO. PERMOHONAN
+            'C' => 25,  // NO. PROYEK
+            'D' => 20,  // TANGGAL PERMOHONAN
             'E' => 15,  // NIB
-            'F' => 15,  // KBU
-            'G' => 25,  // KEGIATAN
-            'H' => 20,  // JENIS PERUSAHAAN
-            'I' => 25,  // NAMA PERUSAHAAN
-            'J' => 25,  // NAMA USAHA
-            'K' => 20,  // PEMILIK
-            'L' => 15,  // MODAL USAHA
-            'M' => 30,  // ALAMAT PERUSAHAAN
-            'N' => 20,  // JENIS PROYEK
-            'O' => 25,  // NAMA PERIZINAN
-            'P' => 15,  // SKALA USAHA
-            'Q' => 15,  // RISIKO
-            'R' => 20,  // VERIFIKATOR
-            'S' => 15,  // STATUS
-            'T' => 15,  // SEKTOR
-            'U' => 20,  // TANGGAL DIBUAT
-            'V' => 20,  // TANGGAL DIPERBARUI
+            'F' => 10,  // KBLI
+            'G' => 30,  // NAMA USAHA
+            'H' => 30,  // KEGIATAN
+            'I' => 20,  // JENIS PERUSAHAAN
+            'J' => 25,  // PEMILIK
+            'K' => 20,  // MODAL USAHA
+            'L' => 40,  // ALAMAT
+            'M' => 20,  // JENIS PROYEK
+            'N' => 30,  // NAMA PERIZINAN
+            'O' => 15,  // SKALA USAHA
+            'P' => 20,  // RISIKO
+            'Q' => 50,  // PEMROSES DAN TGL. E SURAT DAN TGL PERTEK
         ];
     }
 
@@ -129,20 +129,77 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         return [
             AfterSheet::class => function(AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
+                $lastRow = $sheet->getHighestRow();
                 
                 // Set text wrapping for all cells
-                $sheet->getStyle('A1:V' . $sheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A1:Q' . $lastRow)->getAlignment()->setWrapText(true);
                 
                 // Set row height
                 $sheet->getDefaultRowDimension()->setRowHeight(20);
                 
                 // Add borders to all cells
-                $sheet->getStyle('A1:V' . $sheet->getHighestRow())->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $sheet->getStyle('A1:Q' . $lastRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
                 // Center align all data
-                $sheet->getStyle('A2:V' . $sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A2:V' . $sheet->getHighestRow())->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                
+                // Add TTD section after data
+                $ttdRow = $lastRow + 3;
+                
+                // TTD Mengetahui
+                $sheet->setCellValue('A' . $ttdRow, 'Mengetahui');
+                $sheet->getStyle('A' . $ttdRow)->getFont()->setBold(true);
+                $sheet->setCellValue('A' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
+                $sheet->setCellValue('A' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
+                $sheet->setCellValue('A' . ($ttdRow + 3), 'Yohanes Franklin, S.H.');
+                $sheet->getStyle('A' . ($ttdRow + 3))->getFont()->setBold(true);
+                $sheet->setCellValue('A' . ($ttdRow + 4), 'Penata Tk.1');
+                $sheet->setCellValue('A' . ($ttdRow + 5), 'NIP 198502182010011008');
+                
+                // TTD Menyetujui
+                $sheet->setCellValue('J' . $ttdRow, 'Surabaya, ' . date('d F Y'));
+                $sheet->setCellValue('J' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
+                $sheet->setCellValue('J' . ($ttdRow + 2), 'Ulvia Zulvia, ST');
+                $sheet->getStyle('J' . ($ttdRow + 2))->getFont()->setBold(true);
+                $sheet->setCellValue('J' . ($ttdRow + 3), 'Penata Tk. 1');
+                $sheet->setCellValue('J' . ($ttdRow + 4), 'NIP 197710132006042012');
+                
+                // Add signature lines
+                $sheet->setCellValue('A' . ($ttdRow + 6), '_________________________');
+                $sheet->setCellValue('J' . ($ttdRow + 5), '_________________________');
             },
         ];
+    }
+
+    public function drawings()
+    {
+        $drawings = [];
+        $ttdSettings = TtdSetting::getSettings();
+        
+        // Add TTD photos if they exist
+        if ($ttdSettings->mengetahui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo))) {
+            $drawing = new Drawing();
+            $drawing->setName('TTD Mengetahui');
+            $drawing->setDescription('TTD Mengetahui');
+            $drawing->setPath(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo));
+            $drawing->setHeight(50);
+            $drawing->setWidth(100);
+            $drawing->setCoordinates('A' . ($this->collection()->count() + 5));
+            $drawings[] = $drawing;
+        }
+        
+        if ($ttdSettings->menyetujui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo))) {
+            $drawing = new Drawing();
+            $drawing->setName('TTD Menyetujui');
+            $drawing->setDescription('TTD Menyetujui');
+            $drawing->setPath(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo));
+            $drawing->setHeight(50);
+            $drawing->setWidth(100);
+            $drawing->setCoordinates('J' . ($this->collection()->count() + 5));
+            $drawings[] = $drawing;
+        }
+        
+        return $drawings;
     }
 }
