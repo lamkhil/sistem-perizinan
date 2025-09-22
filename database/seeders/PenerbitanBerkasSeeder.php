@@ -29,7 +29,7 @@ class PenerbitanBerkasSeeder extends Seeder
             'Perhubungan',
             'Pertanian',
             'Perindustrian',
-            'KKPR',
+            'DKKPR',
             'Ketenagakerjaan'
         ];
 
