@@ -144,37 +144,37 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
-                // Add TTD section after data - SIDE BY SIDE LAYOUT
+                // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 $ttdRow = $lastRow + 3;
                 
-                // TTD Mengetahui (kiri) - format yang benar
-                $sheet->setCellValue('A' . $ttdRow, 'Mengetahui');
-                $sheet->getStyle('A' . $ttdRow)->getFont()->setBold(true);
-                $sheet->getStyle('A' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->setCellValue('A' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
-                $sheet->getStyle('A' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->setCellValue('A' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
-                $sheet->getStyle('A' . ($ttdRow + 2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                // TTD Mengetahui (kiri) - di bawah kolom TANGGAL PERMOHONAN (kolom D)
+                $sheet->setCellValue('D' . $ttdRow, 'Mengetahui');
+                $sheet->getStyle('D' . $ttdRow)->getFont()->setBold(true);
+                $sheet->getStyle('D' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
+                $sheet->getStyle('D' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
+                $sheet->getStyle('D' . ($ttdRow + 2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 // Tambahkan baris kosong untuk spacing
-                $sheet->setCellValue('A' . ($ttdRow + 4), 'Yohanes Franklin, S.H.');
-                $sheet->getStyle('A' . ($ttdRow + 4))->getFont()->setBold(true);
-                $sheet->setCellValue('A' . ($ttdRow + 5), 'Penata Tk.1');
-                $sheet->setCellValue('A' . ($ttdRow + 6), 'NIP: 198502182010011008');
+                $sheet->setCellValue('D' . ($ttdRow + 4), 'Yohanes Franklin, S.H.');
+                $sheet->getStyle('D' . ($ttdRow + 4))->getFont()->setBold(true);
+                $sheet->setCellValue('D' . ($ttdRow + 5), 'Penata Tk.1');
+                $sheet->setCellValue('D' . ($ttdRow + 6), 'NIP: 198502182010011008');
                 
-                // TTD Menyetujui (kanan) - format yang benar
-                $sheet->setCellValue('J' . $ttdRow, 'Surabaya, ' . date('d F Y'));
-                $sheet->getStyle('J' . $ttdRow)->getFont()->setBold(true);
-                $sheet->getStyle('J' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-                $sheet->setCellValue('J' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
-                $sheet->getStyle('J' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                // TTD Menyetujui (kanan) - di bawah kolom SKALA USAHA (kolom O)
+                $sheet->setCellValue('O' . $ttdRow, 'Surabaya, ' . date('d F Y'));
+                $sheet->getStyle('O' . $ttdRow)->getFont()->setBold(true);
+                $sheet->getStyle('O' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $sheet->setCellValue('O' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
+                $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
                 // Tambahkan baris kosong untuk spacing
-                $sheet->setCellValue('J' . ($ttdRow + 3), 'Ulvia Zulvia, ST');
-                $sheet->getStyle('J' . ($ttdRow + 3))->getFont()->setBold(true);
-                $sheet->getStyle('J' . ($ttdRow + 3))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-                $sheet->setCellValue('J' . ($ttdRow + 4), 'Penata Tk. 1');
-                $sheet->getStyle('J' . ($ttdRow + 4))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-                $sheet->setCellValue('J' . ($ttdRow + 5), 'NIP: 197710132006042012');
-                $sheet->getStyle('J' . ($ttdRow + 5))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                $sheet->setCellValue('O' . ($ttdRow + 3), 'Ulvia Zulvia, ST');
+                $sheet->getStyle('O' . ($ttdRow + 3))->getFont()->setBold(true);
+                $sheet->getStyle('O' . ($ttdRow + 3))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $sheet->setCellValue('O' . ($ttdRow + 4), 'Penata Tk. 1');
+                $sheet->getStyle('O' . ($ttdRow + 4))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $sheet->setCellValue('O' . ($ttdRow + 5), 'NIP: 197710132006042012');
+                $sheet->getStyle('O' . ($ttdRow + 5))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
             },
         ];
     }
@@ -184,7 +184,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         $drawings = [];
         $ttdSettings = TtdSetting::getSettings();
         
-        // Add TTD photos if they exist
+        // Add TTD photos if they exist - positioned under specific columns
         if ($ttdSettings->mengetahui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo))) {
             $drawing = new Drawing();
             $drawing->setName('TTD Mengetahui');
@@ -192,7 +192,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setPath(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo));
             $drawing->setHeight(50);
             $drawing->setWidth(100);
-            $drawing->setCoordinates('A' . ($this->collection()->count() + 5));
+            // Position under TANGGAL PERMOHONAN column (D)
+            $drawing->setCoordinates('D' . ($this->collection()->count() + 8));
             $drawings[] = $drawing;
         }
         
@@ -203,7 +204,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setPath(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo));
             $drawing->setHeight(50);
             $drawing->setWidth(100);
-            $drawing->setCoordinates('J' . ($this->collection()->count() + 5));
+            // Position under SKALA USAHA column (O)
+            $drawing->setCoordinates('O' . ($this->collection()->count() + 8));
             $drawings[] = $drawing;
         }
         
