@@ -143,8 +143,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 // Set text wrapping hanya untuk area tabel (mulai header)
                 $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getAlignment()->setWrapText(true);
                 
-                // Set row height
-                $sheet->getDefaultRowDimension()->setRowHeight(20);
+                // Set row height (lebih tinggi agar teks tidak tertutup)
+                $sheet->getDefaultRowDimension()->setRowHeight(24);
                 
                 // Add borders untuk area tabel saja
                 $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
@@ -153,21 +153,20 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
-                // Styling header tabel (baris 5) dengan background dan bold
+                // Styling header tabel (baris 5) polos dan bold
                 $sheet->getStyle('A' . $headerRow . ':Q' . $headerRow)->applyFromArray([
                     'font' => [
                         'bold' => true,
-                        'color' => ['rgb' => 'FFFFFF'],
+                        'color' => ['rgb' => '000000'],
                     ],
-                    'fill' => [
-                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'startColor' => ['rgb' => '4F46E5'],
-                    ],
+                    // tanpa fill (warna polos)
                     'alignment' => [
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                     ],
                 ]);
+                // Perbesar tinggi baris header
+                $sheet->getRowDimension($headerRow)->setRowHeight(28);
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 $ttdRow = $lastRow + 3;
