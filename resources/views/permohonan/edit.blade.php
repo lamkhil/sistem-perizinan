@@ -247,7 +247,7 @@
                                 <div>
                                     <label for="verifikator" class="block font-medium text-sm text-gray-700">Verifikator</label>
                                     <select name="verifikator" id="verifikator"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp']) ? 'disabled' : '' }}>
                                         <option value="">Pilih Verifikator</option>
                                         @foreach($verifikators as $verifikator)
                                             <option value="{{ $verifikator }}" @selected(old('verifikator', $permohonan->verifikator) == $verifikator)>{{ $verifikator }}</option>
@@ -258,7 +258,7 @@
 
                                 <div>
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp']) ? 'disabled' : '' }}>
                                         <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status', $permohonan->status) == 'Dikembalikan')>Dikembalikan</option>
                                         <option value="Ditolak" @selected(old('status', $permohonan->status) == 'Ditolak')>Ditolak</option>
@@ -270,8 +270,8 @@
                                 <div>
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        {{ $isDisabled(['pd_teknis']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin']) ? 'bg-gray-100' : '' }}"
+                                        {{ $isDisabled(['admin']) ? 'disabled' : '' }}>
                                         <option value="">-- Pilih Status --</option>
                                         @foreach($verificationStatusOptions as $opt)
                                             <option value="{{ $opt }}" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == $opt)>
@@ -301,46 +301,46 @@
                                 <div>
                                     <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
                                     <input id="menghubungi" name="menghubungi" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('menghubungi', $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : '') }}" />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('menghubungi', $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : '') }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }} />
                                     @error('menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
                                     <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('keterangan_menghubungi', $permohonan->keterangan_menghubungi) }}</textarea>
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan_menghubungi', $permohonan->keterangan_menghubungi) }}</textarea>
                                     @error('keterangan_menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="status_menghubungi" class="block font-medium text-sm text-gray-700">Status Menghubungi</label>
                                     <input id="status_menghubungi" name="status_menghubungi" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('status_menghubungi', $permohonan->status_menghubungi) }}" />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('status_menghubungi', $permohonan->status_menghubungi) }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }} />
                                     @error('status_menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Perbaikan</label>
                                     <input id="perbaikan" name="perbaikan" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('perbaikan', $permohonan->perbaikan ? $permohonan->perbaikan->format('Y-m-d') : '') }}" />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('perbaikan', $permohonan->perbaikan ? $permohonan->perbaikan->format('Y-m-d') : '') }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }} />
                                     @error('perbaikan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Perbaikan</label>
                                     <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('keterangan_perbaikan', $permohonan->keterangan_perbaikan) }}</textarea>
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan_perbaikan', $permohonan->keterangan_perbaikan) }}</textarea>
                                     @error('keterangan_perbaikan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
                                     <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}"
-                                        {{ $isDisabled(['dpmptsp']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        {{ $isDisabled(['admin','dpmptsp']) ? 'disabled' : '' }}>
                                         <option value="">-- Pilih Status --</option>
                                         @foreach($verificationStatusOptions as $opt)
                                             <option value="{{ $opt }}" @selected(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == $opt)>
@@ -354,30 +354,30 @@
                                 <div>
                                     <label for="terbit" class="block font-medium text-sm text-gray-700">Tanggal Terbit</label>
                                     <input id="terbit" name="terbit" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('terbit', $permohonan->terbit ? $permohonan->terbit->format('Y-m-d') : '') }}" />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('terbit', $permohonan->terbit ? $permohonan->terbit->format('Y-m-d') : '') }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }} />
                                     @error('terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="keterangan_terbit" class="block font-medium text-sm text-gray-700">Keterangan Terbit</label>
                                     <textarea id="keterangan_terbit" name="keterangan_terbit"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('keterangan_terbit', $permohonan->keterangan_terbit) }}</textarea>
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan_terbit', $permohonan->keterangan_terbit) }}</textarea>
                                     @error('keterangan_terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="pemroses_dan_tgl_surat" class="block font-medium text-sm text-gray-700">Pemroses & Tgl Surat</label>
                                     <input id="pemroses_dan_tgl_surat" name="pemroses_dan_tgl_surat" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('pemroses_dan_tgl_surat', $permohonan->pemroses_dan_tgl_surat) }}" />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('pemroses_dan_tgl_surat', $permohonan->pemroses_dan_tgl_surat) }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }} />
                                     @error('pemroses_dan_tgl_surat')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div>
                                     <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
                                     <textarea id="keterangan" name="keterangan"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('keterangan', $permohonan->keterangan) }}</textarea>
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan', $permohonan->keterangan) }}</textarea>
                                     @error('keterangan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                             </div> {{-- END: KOLOM KANAN --}}
