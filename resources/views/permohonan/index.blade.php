@@ -296,11 +296,7 @@
                                     <span class="text-gray-400 text-xs">-</span>
                                 @endif
                             </div>
-                            @if($permohonan && $permohonan->created_at)
-                            <div class="mt-1 text-[10px] text-gray-500">
-                                Dibuat: {{ $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d/m/Y') }}
-                            </div>
-                            @endif
+                            
                         </td>
                     </tr>
                     @empty
@@ -415,9 +411,7 @@
                                 </svg>
                                 Edit
                             </a>
-                            @if($permohonan->created_at)
-                            <span class="text-[10px] text-gray-500 ml-2">Dibuat: {{ $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d/m/Y') }}</span>
-                            @endif
+                            
                         @endif
                     </div>
                 </div>

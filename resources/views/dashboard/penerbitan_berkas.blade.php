@@ -263,6 +263,9 @@
                                                 Hapus
                                             </button>
                                         </div>
+                                        @if($permohonan->created_at)
+                                        <div class="mt-1 text-[10px] text-gray-500">Dibuat: {{ $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d/m/Y') }}</div>
+                                        @endif
                                         @else
                                         <span class="text-gray-400 text-xs">Tidak ada akses</span>
                                         @endif
