@@ -138,11 +138,14 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER)
                     ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
-                // Hitung ulang lastRow setelah sisip baris
+                // Sisipkan jarak 2 baris kosong antara judul dan tabel
+                $sheet->insertNewRowBefore(5, 2);
+                
+                // Hitung ulang lastRow setelah penyisipan baris
                 $lastRow = $sheet->getHighestRow();
                 
-                // Baris header tabel sekarang ada di baris 5
-                $headerRow = 5;
+                // Baris header tabel sekarang ada di baris 7 (setelah 2 baris jarak)
+                $headerRow = 7;
                 
                 // Set text wrapping hanya untuk area tabel (mulai header)
                 $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getAlignment()->setWrapText(true);
