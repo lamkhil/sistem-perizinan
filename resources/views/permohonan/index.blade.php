@@ -296,6 +296,11 @@
                                     <span class="text-gray-400 text-xs">-</span>
                                 @endif
                             </div>
+                            @if($permohonan && $permohonan->created_at)
+                            <div class="mt-1 text-[10px] text-gray-500">
+                                Dibuat: {{ $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d/m/Y') }}
+                            </div>
+                            @endif
                         </td>
                     </tr>
                     @empty
@@ -393,7 +398,7 @@
                         </div>
                     </div>
                     
-                    <div class="flex space-x-2">
+                    <div class="flex space-x-2 items-center">
                         @if($permohonan)
                             <a href="{{ route('permohonan.show', $permohonan) }}" 
                                class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors">
@@ -410,6 +415,9 @@
                                 </svg>
                                 Edit
                             </a>
+                            @if($permohonan->created_at)
+                            <span class="text-[10px] text-gray-500 ml-2">Dibuat: {{ $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d/m/Y') }}</span>
+                            @endif
                         @endif
                     </div>
                 </div>
