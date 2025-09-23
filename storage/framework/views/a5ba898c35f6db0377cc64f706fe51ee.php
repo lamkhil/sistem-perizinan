@@ -189,7 +189,7 @@ unset($__errorArgs, $__bag); ?>
                         Buat akun baru untuk memulai.
                     </p>
 
-                    <form method="POST" action="<?php echo e(route('register')); ?>" class="space-y-4">
+                    <form method="POST" action="<?php echo e(route('landing.register')); ?>" class="space-y-4">
                         <?php echo csrf_field(); ?>
                         <div>
                             <input
@@ -275,7 +275,6 @@ unset($__errorArgs, $__bag); ?>
                                 required
                             >
                                 <option value="">Pilih Role</option>
-                                <option value="admin" <?php if(old('role') == 'admin'): echo 'selected'; endif; ?>>Admin</option>
                                 <option value="dpmptsp" <?php if(old('role') == 'dpmptsp'): echo 'selected'; endif; ?>>DPMPTSP</option>
                                 <option value="pd_teknis" <?php if(old('role') == 'pd_teknis'): echo 'selected'; endif; ?>>PD Teknis</option>
                                 <option value="penerbitan_berkas" <?php if(old('role') == 'penerbitan_berkas'): echo 'selected'; endif; ?>>Penerbitan Berkas</option>

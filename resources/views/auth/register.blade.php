@@ -96,7 +96,7 @@
                         <select name="role" id="role" class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300">
                             <option value="" disabled selected class="text-gray-400">Select Role</option>
                             <option value="pd_teknis">Staff PD Teknis</option>
-                            <option value="dpmtsp">Staff DPMTSP</option>
+                            <option value="dpmptsp">Staff DPMPTSP</option>
                             <option value="penerbitan_berkas">Staff Penerbitan Berkas</option>
                         </select>
                     </div>

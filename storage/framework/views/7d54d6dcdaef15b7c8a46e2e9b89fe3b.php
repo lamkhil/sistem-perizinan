@@ -312,7 +312,6 @@
 <?php endif; ?>
                                     <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                                         <option value="">Pilih Role</option>
-                                        <option value="admin" <?php if(old('role') == 'admin'): echo 'selected'; endif; ?>>Admin</option>
                                         <option value="pd_teknis" <?php if(old('role') == 'pd_teknis'): echo 'selected'; endif; ?>>PD Teknis</option>
                                         <option value="dpmptsp" <?php if(old('role') == 'dpmptsp'): echo 'selected'; endif; ?>>DPMPTSP</option>
                                         <option value="penerbitan_berkas" <?php if(old('role') == 'penerbitan_berkas'): echo 'selected'; endif; ?>>Penerbitan Berkas</option>
