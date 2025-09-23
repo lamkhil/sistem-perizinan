@@ -82,23 +82,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
 
     public function styles(Worksheet $sheet)
     {
-        return [
-            // Header row styling
-            1 => [
-                'font' => [
-                    'bold' => true,
-                    'color' => ['rgb' => 'FFFFFF'],
-                ],
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => '4F46E5'],
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ],
-            ],
-        ];
+        // Styling header tabel akan diatur di AfterSheet (setelah kita menyisipkan judul di atas)
+        return [];
     }
 
     public function columnWidths(): array
@@ -129,20 +114,60 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         return [
             AfterSheet::class => function(AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
+                
+                // Sisipkan 4 baris di atas untuk judul
+                $sheet->insertNewRowBefore(1, 4);
+                
+                // Tulis judul multi-baris
+                $sheet->setCellValue('A1', 'PERIZINAN BERUSAHA DISETUJUI');
+                $sheet->mergeCells('A1:Q1');
+                $sheet->setCellValue('A2', 'DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU');
+                $sheet->mergeCells('A2:Q2');
+                $sheet->setCellValue('A3', 'KOTA SURABAYA');
+                $sheet->mergeCells('A3:Q3');
+                $sheet->setCellValue('A4', 'TAHUN ' . date('Y'));
+                $sheet->mergeCells('A4:Q4');
+                
+                // Style judul
+                $sheet->getStyle('A1:A4')->getFont()->setBold(true)->setSize(12);
+                $sheet->getStyle('A1:A4')->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER)
+                    ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                
+                // Hitung ulang lastRow setelah sisip baris
                 $lastRow = $sheet->getHighestRow();
                 
-                // Set text wrapping for all cells
-                $sheet->getStyle('A1:Q' . $lastRow)->getAlignment()->setWrapText(true);
+                // Baris header tabel sekarang ada di baris 5
+                $headerRow = 5;
+                
+                // Set text wrapping hanya untuk area tabel (mulai header)
+                $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getAlignment()->setWrapText(true);
                 
                 // Set row height
                 $sheet->getDefaultRowDimension()->setRowHeight(20);
                 
-                // Add borders to all cells
-                $sheet->getStyle('A1:Q' . $lastRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                // Add borders untuk area tabel saja
+                $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
-                // Center align all data
-                $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                // Center align all data di area tabel
+                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+                // Styling header tabel (baris 5) dengan background dan bold
+                $sheet->getStyle('A' . $headerRow . ':Q' . $headerRow)->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                        'color' => ['rgb' => 'FFFFFF'],
+                    ],
+                    'fill' => [
+                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => '4F46E5'],
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ],
+                ]);
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 $ttdRow = $lastRow + 3;
