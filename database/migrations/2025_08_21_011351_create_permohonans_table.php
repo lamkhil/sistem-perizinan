@@ -16,10 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('no_permohonan')->unique()->nullable();
             $table->string('nama_usaha')->nullable();
-            // $table->string('jenis_pelaku_usaha')->nullable(); // Hapus ini
-            // $table->string('jenis_usaha')->nullable(); // Hapus ini
-            $table->string('jenis_perusahaan')->nullable(); // ✅ Ganti dengan ini
-            $table->string('nik')->nullable(); // NIK tetap ada untuk perorangan yang tercover oleh jenis_perusahaan
+            $table->string('jenis_pelaku_usaha')->nullable();
+            $table->string('jenis_perusahaan')->nullable();
+            $table->string('nik')->nullable();
             $table->date('tanggal_permohonan')->nullable();
             $table->string('nib')->nullable();
             $table->text('alamat_perusahaan')->nullable();
