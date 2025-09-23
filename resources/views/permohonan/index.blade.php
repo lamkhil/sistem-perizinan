@@ -73,7 +73,7 @@
             @if(($selectedDateFilter ?? '') == 'custom')
             <div class="flex flex-col md:flex-row gap-4 items-end">
                 <div class="flex-1 md:w-48">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Tanggal</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Tanggal (Custom Range)</label>
                     <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" 
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                 </div>
