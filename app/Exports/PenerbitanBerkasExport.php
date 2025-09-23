@@ -178,17 +178,17 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 $sheet->setCellValue('O' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
                 $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                // Tambahkan 4 baris kosong untuk spacing (ttdRow+2, +3, +4, +5)
-                $sheet->setCellValue('O' . ($ttdRow + 7), 'Ulvia Zulvia, ST');
-                $sheet->getStyle('O' . ($ttdRow + 7))->getFont()->setBold(true);
+                // Tambahkan 3 baris kosong untuk spacing (kurangi 1 baris di sisi kanan)
+                $sheet->setCellValue('O' . ($ttdRow + 6), 'Ulvia Zulvia, ST');
+                $sheet->getStyle('O' . ($ttdRow + 6))->getFont()->setBold(true);
+                $sheet->getStyle('O' . ($ttdRow + 6))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 6))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 7), 'Penata Tk. 1');
                 $sheet->getStyle('O' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('O' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('O' . ($ttdRow + 8), 'Penata Tk. 1');
+                $sheet->setCellValue('O' . ($ttdRow + 8), 'NIP: 197710132006042012');
                 $sheet->getStyle('O' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('O' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('O' . ($ttdRow + 9), 'NIP: 197710132006042012');
-                $sheet->getStyle('O' . ($ttdRow + 9))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('O' . ($ttdRow + 9))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }
@@ -219,7 +219,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setHeight(50);
             $drawing->setWidth(100);
             // Position under SKALA USAHA column (O)
-            $drawing->setCoordinates('O' . ($this->collection()->count() + 9));
+            $drawing->setCoordinates('O' . ($this->collection()->count() + 8));
             $drawings[] = $drawing;
         }
         
