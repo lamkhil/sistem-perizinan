@@ -243,7 +243,7 @@
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking</h3>
 
-                                <div class="field-data-pemohon hide-for-dpmptsp hide-for-pd-teknis">
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
                                     <input id="no_proyek" name="no_proyek" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
