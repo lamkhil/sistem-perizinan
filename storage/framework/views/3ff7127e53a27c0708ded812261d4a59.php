@@ -429,8 +429,8 @@ unset($__errorArgs, $__bag); ?>
                                 <div>
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin']) ? 'bg-gray-100' : ''); ?>"
-                                        value="<?php echo e(old('pengembalian')); ?>" <?php echo e($isReadOnly(['admin']) ? 'readonly' : ''); ?> />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis','dpmptsp','admin']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('pengembalian')); ?>" <?php echo e($isReadOnly(['pd_teknis','dpmptsp','admin']) ? 'readonly' : ''); ?> />
                                     <?php $__errorArgs = ['pengembalian'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
