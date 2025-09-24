@@ -104,8 +104,10 @@ class PermohonanController extends Controller
 
         $permohonans = $permohonans->orderBy('created_at', 'desc')->paginate(10);
         
-        // Ambil daftar sektor unik
-        $sektors = Permohonan::select('sektor')->whereNotNull('sektor')->distinct()->pluck('sektor');
+        // Ambil daftar sektor unik dari database dan gabungkan dengan sektor yang tersedia
+        $sektorsFromDb = Permohonan::select('sektor')->whereNotNull('sektor')->distinct()->pluck('sektor');
+        $availableSektors = ['Perdagangan', 'Disperinaker', 'Dinkes', 'Dkpp', 'Disperinaker', 'Dprkpp', 'Dishub', 'Dinkopdag', 'Disbudpar', 'Dlh'];
+        $sektors = $availableSektors;
 
         return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDate'));
     }
