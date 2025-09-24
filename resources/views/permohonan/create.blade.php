@@ -5,25 +5,6 @@
         </h2>
     </x-slot>
 
-    <style>
-        /* Hide fields based on role */
-        @if($user->role === 'pd_teknis')
-            .field-admin-only,
-            .field-dpmptsp-only,
-            .field-data-pemohon {
-                display: none !important;
-            }
-        @elseif($user->role === 'dpmptsp')
-            .field-admin-only,
-            .field-pd-teknis-only {
-                display: none !important;
-            }
-        @elseif($user->role !== 'admin')
-            .field-admin-only {
-                display: none !important;
-            }
-        @endif
-    </style>
 
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -61,6 +42,26 @@
                                 return !in_array($user->role, (array)$allowedRoles);
                             };
                         @endphp
+
+                        <style>
+                            /* Hide fields based on role */
+                            @if($user->role === 'pd_teknis')
+                                .field-admin-only,
+                                .field-dpmptsp-only,
+                                .field-data-pemohon {
+                                    display: none !important;
+                                }
+                            @elseif($user->role === 'dpmptsp')
+                                .field-admin-only,
+                                .field-pd-teknis-only {
+                                    display: none !important;
+                                }
+                            @elseif($user->role !== 'admin')
+                                .field-admin-only {
+                                    display: none !important;
+                                }
+                            @endif
+                        </style>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             {{-- KOLOM KIRI --}}
