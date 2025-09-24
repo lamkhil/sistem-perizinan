@@ -69,7 +69,7 @@
                                     @error('no_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                <div class="field-data-pemohon">
                                     <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
                                     <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
