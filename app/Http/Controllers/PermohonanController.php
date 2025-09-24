@@ -117,9 +117,13 @@ class PermohonanController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
+        
+        // CSS classes untuk hide field berdasarkan role
+        $cssClasses = $this->getRoleBasedCssClasses($user);
         $jenisUsahas = [
             'Perseroan Terbatas (PT)',
             'Perseroan Terbatas (PT) Perorangan',
@@ -139,7 +143,7 @@ class PermohonanController extends Controller
         $jenisProyeks = ['Utama', 'Pendukung', 'Pendukung UMKU', 'Kantor Cabang Administratif'];
         $verificationStatusOptions = ['Berkas Disetujui', 'Berkas Diperbaiki', 'Pemohon Dihubungi', 'Berkas Diunggah Ulang', 'Pemohon Belum Dihubungi'];
 
-        return view('permohonan.create', compact('verifikators', 'sektors', 'jenisPelakuUsahas', 'jenisUsahas', 'jenisProyeks', 'verificationStatusOptions'));
+        return view('permohonan.create', compact('verifikators', 'sektors', 'jenisPelakuUsahas', 'jenisUsahas', 'jenisProyeks', 'verificationStatusOptions', 'cssClasses'));
     }
 
     /**
@@ -271,9 +275,13 @@ class PermohonanController extends Controller
      */
     public function edit(Permohonan $permohonan)
     {
+        $user = Auth::user();
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
+        
+        // CSS classes untuk hide field berdasarkan role
+        $cssClasses = $this->getRoleBasedCssClasses($user);
         $jenisUsahas = [
             'Perseroan Terbatas (PT)',
             'Perseroan Terbatas (PT) Perorangan',
@@ -293,7 +301,34 @@ class PermohonanController extends Controller
         $jenisProyeks = ['Utama', 'Pendukung', 'Pendukung UMKU', 'Kantor Cabang Administratif'];
         $verificationStatusOptions = ['Berkas Disetujui', 'Berkas Diperbaiki', 'Pemohon Dihubungi', 'Berkas Diunggah Ulang', 'Pemohon Belum Dihubungi'];
 
-        return view('permohonan.edit', compact('permohonan', 'jenisPelakuUsahas', 'jenisUsahas', 'sektors', 'verifikators', 'jenisProyeks', 'verificationStatusOptions'));
+        return view('permohonan.edit', compact('permohonan', 'jenisPelakuUsahas', 'jenisUsahas', 'sektors', 'verifikators', 'jenisProyeks', 'verificationStatusOptions', 'cssClasses'));
+    }
+
+    /**
+     * Get CSS classes for role-based field hiding
+     */
+    private function getRoleBasedCssClasses($user)
+    {
+        $classes = [];
+        
+        if ($user->role === 'pd_teknis') {
+            $classes = [
+                'field-data-pemohon' => 'display: none !important;',
+                'field-admin-only' => 'display: none !important;',
+                'field-dpmptsp-only' => 'display: none !important;'
+            ];
+        } elseif ($user->role === 'dpmptsp') {
+            $classes = [
+                'field-admin-only' => 'display: none !important;',
+                'field-pd-teknis-only' => 'display: none !important;'
+            ];
+        } elseif ($user->role !== 'admin') {
+            $classes = [
+                'field-admin-only' => 'display: none !important;'
+            ];
+        }
+        
+        return $classes;
     }
 
     /**

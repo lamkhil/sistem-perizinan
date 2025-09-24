@@ -43,25 +43,14 @@
                             };
                         @endphp
 
+                        @if(!empty($cssClasses))
                         <style>
                             /* Hide fields based on role */
-                            @if($user->role === 'pd_teknis')
-                                .field-admin-only,
-                                .field-dpmptsp-only,
-                                .field-data-pemohon {
-                                    display: none !important;
-                                }
-                            @elseif($user->role === 'dpmptsp')
-                                .field-admin-only,
-                                .field-pd-teknis-only {
-                                    display: none !important;
-                                }
-                            @elseif($user->role !== 'admin')
-                                .field-admin-only {
-                                    display: none !important;
-                                }
-                            @endif
+                            @foreach($cssClasses as $class => $style)
+                            .{{ $class }} { {{ $style }} }
+                            @endforeach
                         </style>
+                        @endif
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             {{-- KOLOM KIRI --}}

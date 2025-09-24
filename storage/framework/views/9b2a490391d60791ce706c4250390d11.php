@@ -57,25 +57,14 @@
                             };
                         ?>
 
+                        <?php if(!empty($cssClasses)): ?>
                         <style>
                             /* Hide fields based on role */
-                            <?php if($user->role === 'pd_teknis'): ?>
-                                .field-admin-only,
-                                .field-dpmptsp-only,
-                                .field-data-pemohon {
-                                    display: none !important;
-                                }
-                            <?php elseif($user->role === 'dpmptsp'): ?>
-                                .field-admin-only,
-                                .field-pd-teknis-only {
-                                    display: none !important;
-                                }
-                            <?php elseif($user->role !== 'admin'): ?>
-                                .field-admin-only {
-                                    display: none !important;
-                                }
-                            <?php endif; ?>
+                            <?php $__currentLoopData = $cssClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $class => $style): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            .<?php echo e($class); ?> { <?php echo e($style); ?> }
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </style>
+                        <?php endif; ?>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             
