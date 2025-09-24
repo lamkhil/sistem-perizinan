@@ -85,7 +85,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-data-pemohon">
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
                                     <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -402,8 +402,7 @@ unset($__errorArgs, $__bag); ?>
                                 <div class="field-pd-teknis-only">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
-                                        <?php echo e($isDisabled(['admin','dpmptsp']) ? 'disabled' : ''); ?>>
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                                         <option value="">-- Pilih Status --</option>
                                         <?php $__currentLoopData = $verificationStatusOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $opt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($opt); ?>" <?php if(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == $opt): echo 'selected'; endif; ?>>
@@ -426,8 +425,8 @@ unset($__errorArgs, $__bag); ?>
                                 <div>
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin']) ? 'bg-gray-100' : ''); ?>"
-                                        value="<?php echo e(old('pengembalian', $permohonan->pengembalian ? $permohonan->pengembalian->format('Y-m-d') : '')); ?>" <?php echo e($isReadOnly(['admin']) ? 'readonly' : ''); ?> />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis','admin']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('pengembalian', $permohonan->pengembalian ? $permohonan->pengembalian->format('Y-m-d') : '')); ?>" <?php echo e($isReadOnly(['pd_teknis','admin']) ? 'readonly' : ''); ?> />
                                     <?php $__errorArgs = ['pengembalian'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
