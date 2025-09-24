@@ -31,12 +31,15 @@ class PermohonanSeeder extends Seeder
 
         $sektors = [
             'Perdagangan',
-            'Kesehatan',
-            'Perhubungan',
-            'Pertanian',
-            'Perindustrian',
-            'DKKPR',
-            'Ketenagakerjaan'
+            'Disperinaker',
+            'Dinkes',
+            'Dkpp',
+            'Disperinaker',
+            'Dprkpp',
+            'Dishub',
+            'Dinkopdag',
+            'Disbudpar',
+            'Dlh'
         ];
 
         $kbliCodes = ['52101', '46631', '52109', '46900', '47111', '47211', '47301', '47411'];

@@ -116,7 +116,7 @@ class PermohonanController extends Controller
     public function create()
     {
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
-        $sektors = ['Perdagangan', 'Kesehatan', 'Perhubungan', 'Pertanian', 'Perindustrian', 'DKKPR', 'Ketenagakerjaan'];
+        $sektors = ['Perdagangan', 'Disperinaker', 'Dinkes', 'Dkpp', 'Disperinaker', 'Dprkpp', 'Dishub', 'Dinkopdag', 'Disbudpar', 'Dlh'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
         $jenisUsahas = [
             'Perseroan Terbatas (PT)',
@@ -270,7 +270,7 @@ class PermohonanController extends Controller
     public function edit(Permohonan $permohonan)
     {
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
-        $sektors = ['Perdagangan', 'Kesehatan', 'Perhubungan', 'Pertanian', 'Perindustrian', 'DKKPR', 'Ketenagakerjaan'];
+        $sektors = ['Perdagangan', 'Disperinaker', 'Dinkes', 'Dkpp', 'Disperinaker', 'Dprkpp', 'Dishub', 'Dinkopdag', 'Disbudpar', 'Dlh'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
         $jenisUsahas = [
             'Perseroan Terbatas (PT)',
