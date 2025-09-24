@@ -1,3 +1,9 @@
+/* Sembunyikan field tertentu saat role adalah DPMPTSP */
+.role-dpmptsp .hide-for-dpmptsp {
+    display: none !important;
+}
+
+/* Anda bisa tambah aturan serupa untuk role lain bila diperlukan */
 /* Role-based field hiding styles */
 
 /* PD Teknis - Hide data pemohon, admin only, and dpmptsp only fields */
