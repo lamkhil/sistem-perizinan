@@ -17,6 +17,26 @@
         </h2>
      <?php $__env->endSlot(); ?>
 
+    <style>
+        /* Hide fields based on role */
+        <?php if($user->role === 'pd_teknis'): ?>
+            .field-admin-only,
+            .field-dpmptsp-only,
+            .field-data-pemohon {
+                display: none !important;
+            }
+        <?php elseif($user->role === 'dpmptsp'): ?>
+            .field-admin-only,
+            .field-pd-teknis-only {
+                display: none !important;
+            }
+        <?php elseif($user->role !== 'admin'): ?>
+            .field-admin-only {
+                display: none !important;
+            }
+        <?php endif; ?>
+    </style>
+
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -61,7 +81,7 @@
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
 
-                                <div>
+                                <div class="field-data-pemohon">
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
                                     <input id="no_permohonan" name="no_permohonan" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -391,7 +411,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-pd-teknis-only">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin']) ? 'bg-gray-100' : ''); ?>"
@@ -517,7 +537,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
                                     <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
