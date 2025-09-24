@@ -243,7 +243,7 @@
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking</h3>
 
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                <div class="field-data-pemohon hide-for-dpmptsp hide-for-pd-teknis">
                                     <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
                                     <input id="no_proyek" name="no_proyek" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -252,7 +252,7 @@
                                     @error('no_proyek')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 
-                                <div>
+                                <div class="hide-for-pd-teknis">
                                     <label for="verifikator" class="block font-medium text-sm text-gray-700">Verifikator</label>
                                     <select name="verifikator" id="verifikator"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp']) ? 'disabled' : '' }}>
@@ -264,7 +264,7 @@
                                     @error('verifikator')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="hide-for-dpmptsp">
+                                <div class="hide-for-dpmptsp hide-for-pd-teknis">
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
                                     <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : '' }}>
                                         <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
@@ -275,7 +275,7 @@
                                     @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="field-pd-teknis-only">
+                                <div class="field-pd-teknis-only hide-for-pd-teknis">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin']) ? 'bg-gray-100' : '' }}"

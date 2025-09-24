@@ -3,6 +3,11 @@
     display: none !important;
 }
 
+/* Sembunyikan field tertentu saat role adalah PD TEKNIS */
+.role-pd_teknis .hide-for-pd-teknis {
+    display: none !important;
+}
+
 /* Anda bisa tambah aturan serupa untuk role lain bila diperlukan */
 /* Role-based field hiding styles */
 
