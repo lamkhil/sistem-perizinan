@@ -291,7 +291,7 @@
                                 </div>
 
                                 
-                                <div>
+                                <div class="hide-for-pd-teknis">
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
@@ -306,7 +306,7 @@
                                     @error('keterangan_pengembalian')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 
-                                <div>
+                                <div class="hide-for-pd-teknis">
                                     <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
                                     <input id="menghubungi" name="menghubungi" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"

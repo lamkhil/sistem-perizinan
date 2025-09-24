@@ -11,23 +11,18 @@
 /* Anda bisa tambah aturan serupa untuk role lain bila diperlukan */
 /* Role-based field hiding styles */
 
-/* PD Teknis - Hide data pemohon, admin only, and dpmptsp only fields */
-.role-pd-teknis .field-data-pemohon,
-.role-pd-teknis .field-admin-only,
-.role-pd-teknis .field-dpmptsp-only {
-    display: none !important;
-}
+/* PD Teknis - gunakan class granular */
+.role-pd-teknis .hide-for-pd-teknis { display: none !important; }
+.role-pd-teknis .field-admin-only { display: none !important; }
+.role-pd-teknis .field-dpmptsp-only { display: none !important; }
 
-/* DPMPTSP - Hide admin only and pd teknis only fields */
-.role-dpmptsp .field-admin-only,
-.role-dpmptsp .field-pd-teknis-only {
-    display: none !important;
-}
+/* DPMPTSP */
+.role-dpmptsp .hide-for-dpmptsp { display: none !important; }
+.role-dpmptsp .field-admin-only { display: none !important; }
+.role-dpmptsp .field-pd-teknis-only { display: none !important; }
 
-/* Non-admin roles - Hide admin only fields */
-.role-non-admin .field-admin-only {
-    display: none !important;
-}
+/* Non-admin roles */
+.role-non-admin .field-admin-only { display: none !important; }
 
 /* Default: Show all fields for admin */
 .role-admin .field-data-pemohon,

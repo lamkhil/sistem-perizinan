@@ -117,7 +117,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
+                                <div class="field-data-pemohon hide-for-dpmptsp hide-for-pd-teknis" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
                                     <label for="nik" class="block font-medium text-sm text-gray-700">Nomor Induk Kependudukan (NIK)</label>
                                     <input id="nik" name="nik" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -132,7 +132,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Badan Usaha'">
+                                <div class="field-data-pemohon hide-for-dpmptsp hide-for-pd-teknis" x-show="jenisPelakuUsaha === 'Badan Usaha'">
                                     <label for="jenis_badan_usaha" class="block font-medium text-sm text-gray-700">Jenis Badan Usaha</label>
                                     <select name="jenis_badan_usaha" id="jenis_badan_usaha"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -366,9 +366,9 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="hide-for-dpmptsp hide-for-pd-teknis">
+                                <div class="hide-for-dpmptsp">
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : ''); ?> required>
+                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin','dpmptsp']) ? 'disabled' : ''); ?> required>
                                         <option value="Diterima" <?php if(old('status') == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
                                         <option value="Dikembalikan" <?php if(old('status') == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
                                         <option value="Ditolak" <?php if(old('status') == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
@@ -384,7 +384,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-pd-teknis-only hide-for-pd-teknis">
+                                <div class="field-pd-teknis-only">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin']) ? 'disabled' : ''); ?>>
@@ -407,7 +407,7 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 
-                                <div class="field-dpmptsp-only">
+                                <div>
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
@@ -436,7 +436,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
                                 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
                                     <input id="menghubungi" name="menghubungi" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -451,7 +451,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
                                     <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan_menghubungi')); ?></textarea>
@@ -465,7 +465,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="status_menghubungi" class="block font-medium text-sm text-gray-700">Status Menghubungi</label>
                                     <input id="status_menghubungi" name="status_menghubungi" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -480,7 +480,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Perbaikan</label>
                                     <input id="perbaikan" name="perbaikan" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -495,7 +495,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Perbaikan</label>
                                     <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan_perbaikan')); ?></textarea>
@@ -531,7 +531,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="terbit" class="block font-medium text-sm text-gray-700">Tanggal Terbit</label>
                                     <input id="terbit" name="terbit" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -546,7 +546,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="keterangan_terbit" class="block font-medium text-sm text-gray-700">Keterangan Terbit</label>
                                     <textarea id="keterangan_terbit" name="keterangan_terbit"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan_terbit')); ?></textarea>
@@ -560,7 +560,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-admin-only">
+                                <div class="field-admin-only hide-for-pd-teknis">
                                     <label for="pemroses_dan_tgl_surat" class="block font-medium text-sm text-gray-700">Pemroses & Tgl Surat</label>
                                     <input id="pemroses_dan_tgl_surat" name="pemroses_dan_tgl_surat" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -575,7 +575,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
                                     <textarea id="keterangan" name="keterangan"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan')); ?></textarea>
