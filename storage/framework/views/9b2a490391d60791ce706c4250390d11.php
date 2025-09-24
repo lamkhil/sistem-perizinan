@@ -56,10 +56,202 @@
                             };
                         ?>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <?php if($user->role === 'admin'): ?>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                
+                                <div class="space-y-6">
+                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                        <?php elseif($user->role === 'pd_teknis'): ?>
                             
                             <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking PD Teknis</h3>
+                                
+                                <div>
+                                    <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
+                                    <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="Berkas Disetujui" <?php if(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Berkas Disetujui'): echo 'selected'; endif; ?>>Berkas Disetujui</option>
+                                        <option value="Berkas Diperbaiki" <?php if(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Berkas Diperbaiki'): echo 'selected'; endif; ?>>Berkas Diperbaiki</option>
+                                        <option value="Pemohon Dihubungi" <?php if(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Pemohon Dihubungi'): echo 'selected'; endif; ?>>Pemohon Dihubungi</option>
+                                        <option value="Berkas Diunggah Ulang" <?php if(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Berkas Diunggah Ulang'): echo 'selected'; endif; ?>>Berkas Diunggah Ulang</option>
+                                        <option value="Pemohon Belum Dihubungi" <?php if(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Pemohon Belum Dihubungi'): echo 'selected'; endif; ?>>Pemohon Belum Dihubungi</option>
+                                    </select>
+                                    <?php $__errorArgs = ['verifikasi_pd_teknis'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="tanggal_verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Tanggal Verifikasi PD Teknis</label>
+                                    <input id="tanggal_verifikasi_pd_teknis" name="tanggal_verifikasi_pd_teknis" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('tanggal_verifikasi_pd_teknis', $permohonan->tanggal_verifikasi_pd_teknis)); ?>" />
+                                    <?php $__errorArgs = ['tanggal_verifikasi_pd_teknis'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
+                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                        <option value="Diterima" <?php if(old('status', $permohonan->status) == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
+                                        <option value="Dikembalikan" <?php if(old('status', $permohonan->status) == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
+                                        <option value="Ditolak" <?php if(old('status', $permohonan->status) == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
+                                        <option value="Menunggu" <?php if(old('status', $permohonan->status) == 'Menunggu'): echo 'selected'; endif; ?>>Menunggu</option>
+                                    </select>
+                                    <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                                
+                                
+                                <div class="flex items-center justify-end mt-8 pt-6 border-t">
+                                    <a href="<?php echo e(route('dashboard')); ?>"
+                                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <?php echo e(__('Simpan')); ?>
+
+                                    </button>
+                                </div>
+                            </div>
+                        <?php elseif($user->role === 'dpmptsp'): ?>
+                            
+                            <div class="space-y-6">
+                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon & Tracking DPMPTSP</h3>
+                                
+                                <div>
+                                    <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
+                                    <input id="no_permohonan" name="no_permohonan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('no_permohonan', $permohonan->no_permohonan)); ?>" required />
+                                    <?php $__errorArgs = ['no_permohonan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
+                                    <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('tanggal_permohonan', $permohonan->tanggal_permohonan)); ?>" required />
+                                    <?php $__errorArgs = ['tanggal_permohonan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
+                                    <input id="nama_usaha" name="nama_usaha" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('nama_usaha', $permohonan->nama_usaha)); ?>" required />
+                                    <?php $__errorArgs = ['nama_usaha'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi DPMPTSP</label>
+                                    <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="Berkas Disetujui" <?php if(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Berkas Disetujui'): echo 'selected'; endif; ?>>Berkas Disetujui</option>
+                                        <option value="Berkas Diperbaiki" <?php if(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Berkas Diperbaiki'): echo 'selected'; endif; ?>>Berkas Diperbaiki</option>
+                                        <option value="Pemohon Dihubungi" <?php if(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Pemohon Dihubungi'): echo 'selected'; endif; ?>>Pemohon Dihubungi</option>
+                                        <option value="Berkas Diunggah Ulang" <?php if(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Berkas Diunggah Ulang'): echo 'selected'; endif; ?>>Berkas Diunggah Ulang</option>
+                                        <option value="Pemohon Belum Dihubungi" <?php if(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Pemohon Belum Dihubungi'): echo 'selected'; endif; ?>>Pemohon Belum Dihubungi</option>
+                                    </select>
+                                    <?php $__errorArgs = ['verifikasi_dpmptsp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="tanggal_verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Tanggal Verifikasi DPMPTSP</label>
+                                    <input id="tanggal_verifikasi_dpmptsp" name="tanggal_verifikasi_dpmptsp" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('tanggal_verifikasi_dpmptsp', $permohonan->tanggal_verifikasi_dpmptsp)); ?>" />
+                                    <?php $__errorArgs = ['tanggal_verifikasi_dpmptsp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
+                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                        <option value="Diterima" <?php if(old('status', $permohonan->status) == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
+                                        <option value="Dikembalikan" <?php if(old('status', $permohonan->status) == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
+                                        <option value="Ditolak" <?php if(old('status', $permohonan->status) == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
+                                        <option value="Menunggu" <?php if(old('status', $permohonan->status) == 'Menunggu'): echo 'selected'; endif; ?>>Menunggu</option>
+                                    </select>
+                                    <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                                
+                                
+                                <div class="flex items-center justify-end mt-8 pt-6 border-t">
+                                    <a href="<?php echo e(route('dashboard')); ?>"
+                                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <?php echo e(__('Simpan')); ?>
+
+                                    </button>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                
+                                <div class="space-y-6">
+                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                        <?php endif; ?>
 
                                 <div>
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
@@ -609,6 +801,7 @@ unset($__errorArgs, $__bag); ?>
 
                             </button>
                         </div>
+                        <?php endif; ?>
                     </form>
                     
                 </div> 
