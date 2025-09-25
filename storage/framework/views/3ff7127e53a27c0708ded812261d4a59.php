@@ -358,6 +358,92 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
+
+                                <?php if(in_array($user->role, ['admin', 'dpmptsp'])): ?>
+                                <div>
+                                    <label for="nama_perizinan" class="block font-medium text-sm text-gray-700">Nama Perizinan</label>
+                                    <input id="nama_perizinan" name="nama_perizinan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('nama_perizinan')); ?>" placeholder="Masukkan nama perizinan" />
+                                    <?php $__errorArgs = ['nama_perizinan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="skala_usaha" class="block font-medium text-sm text-gray-700">Skala Usaha</label>
+                                    <select name="skala_usaha" id="skala_usaha"
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">Pilih Skala Usaha</option>
+                                        <option value="Mikro" <?php if(old('skala_usaha') == 'Mikro'): echo 'selected'; endif; ?>>Mikro</option>
+                                        <option value="Kecil" <?php if(old('skala_usaha') == 'Kecil'): echo 'selected'; endif; ?>>Kecil</option>
+                                        <option value="Menengah" <?php if(old('skala_usaha') == 'Menengah'): echo 'selected'; endif; ?>>Menengah</option>
+                                        <option value="Besar" <?php if(old('skala_usaha') == 'Besar'): echo 'selected'; endif; ?>>Besar</option>
+                                    </select>
+                                    <?php $__errorArgs = ['skala_usaha'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="risiko" class="block font-medium text-sm text-gray-700">Risiko</label>
+                                    <select name="risiko" id="risiko"
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">Pilih Risiko</option>
+                                        <option value="Rendah" <?php if(old('risiko') == 'Rendah'): echo 'selected'; endif; ?>>Rendah</option>
+                                        <option value="Sedang" <?php if(old('risiko') == 'Sedang'): echo 'selected'; endif; ?>>Sedang</option>
+                                        <option value="Tinggi" <?php if(old('risiko') == 'Tinggi'): echo 'selected'; endif; ?>>Tinggi</option>
+                                    </select>
+                                    <?php $__errorArgs = ['risiko'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
+                                    <input id="jangka_waktu" name="jangka_waktu" type="number"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('jangka_waktu')); ?>" placeholder="Masukkan jangka waktu dalam hari kerja" />
+                                    <?php $__errorArgs = ['jangka_waktu'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div>
+                                    <label for="no_telephone" class="block font-medium text-sm text-gray-700">No. Telephone</label>
+                                    <input id="no_telephone" name="no_telephone" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('no_telephone')); ?>" placeholder="Masukkan nomor telephone" />
+                                    <?php $__errorArgs = ['no_telephone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                                <?php endif; ?>
                             </div> 
 
                             

@@ -193,6 +193,51 @@
                                         <span class="text-gray-900">{{ $permohonan->verifikator ?? '-' }}</span>
                                     </div>
                                 </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Nama Perizinan</label>
+                                    <p class="text-gray-900">{{ $permohonan->nama_perizinan ?? '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Skala Usaha</label>
+                                    @if($permohonan->skala_usaha)
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                            {{ $permohonan->skala_usaha }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-500">-</span>
+                                    @endif
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Risiko</label>
+                                    @if($permohonan->risiko)
+                                        @php
+                                            $risikoClass = match($permohonan->risiko) {
+                                                'Rendah' => 'bg-green-100 text-green-800',
+                                                'Sedang' => 'bg-yellow-100 text-yellow-800',
+                                                'Tinggi' => 'bg-red-100 text-red-800',
+                                                default => 'bg-gray-100 text-gray-600'
+                                            };
+                                        @endphp
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $risikoClass }}">
+                                            {{ $permohonan->risiko }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-500">-</span>
+                                    @endif
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Jangka Waktu (Hari Kerja)</label>
+                                    <p class="text-gray-900">{{ $permohonan->jangka_waktu ? $permohonan->jangka_waktu . ' hari' : '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">No. Telephone</label>
+                                    <p class="text-gray-900 font-mono">{{ $permohonan->no_telephone ?? '-' }}</p>
+                                </div>
                             </div>
                             
                             <!-- Right Column - PD Teknis -->
