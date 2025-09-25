@@ -28,32 +28,37 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function headings(): array
     {
         return [
-            'SEKTOR',
+            'SEKSI',
             'WAKTU',
             'NO. PERMOHONAN (PD TEKNIS)',
             'NO. PROYEK (PD TEKNIS)',
             'TANGGAL PERMOHONAN (PD TEKNIS)',
             'NIB (PD TEKNIS)',
-            'KBU (PD TEKNIS)',
+            'KBLI (PD TEKNIS)',
             'KEGIATAN (PD TEKNIS)',
-            'JENIS PERUSAHAAN (PD TEKNIS)',
+            'JENIS USAHA (PD TEKNIS)',
             'NAMA PERUSAHAAN (PD TEKNIS)',
             'NAMA USAHA (DPM)',
             'ALAMAT PERUSAHAAN (DPM)',
             'MODAL USAHA (DPM)',
             'JENIS PROYEK (DPM)',
+            'NAMA PERIZINAN (DPM)',
+            'SKALA USAHA (DPM)',
+            'RISIKO (DPM)',
+            'JANGKA WAKTU (HARI KERJA) (DPM)',
+            'NO TELPHONE (DPM)',
             'VERIFIKASI OLEH PD TEKNIS',
             'VERIFIKASI OLEH DPMPTSP',
             'PENGEMBALIAN (TANGGAL)',
             'KETERANGAN',
-            'MENGHUBUNGI (TANGGAL)',
+            'MENGHADAP NO (TANGGAL)',
             'KETERANGAN',
             'APPROVED (TANGGAL)',
+            'KETERANGAN',
             'TERBIT (TANGGAL)',
             'KETERANGAN',
-            'PEMROSES DAN TGL E SURAT DAN TGL PERTEK',
-            'VERIFIKATOR',
-            'KETERANGAN'
+            'PEMROSES DAN TGL E-SURAT DAN TGL PERTEK',
+            'VERIFIKATOR'
         ];
     }
 
@@ -64,10 +69,10 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function map($permohonan): array
     {
         return [
-            // SEKTOR
+            // SEKSI (sektor)
             $permohonan->sektor ?? '',
-            // WAKTU (created_at)
-            $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->setTimezone('Asia/Jakarta')->format('d/m/Y H:i') : '',
+            // WAKTU (tahun)
+            $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('Y') : '',
             // NO. PERMOHONAN (PD TEKNIS)
             $permohonan->no_permohonan ?? '',
             // NO. PROYEK (PD TEKNIS)
@@ -76,46 +81,56 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '',
             // NIB (PD TEKNIS)
             $permohonan->nib ?? '',
-            // KBU (PD TEKNIS) - menggunakan kbli
+            // KBLI (PD TEKNIS)
             $permohonan->kbli ?? '',
-            // KEGIATAN (PD TEKNIS) - menggunakan inputan_teks
+            // KEGIATAN (PD TEKNIS)
             $permohonan->inputan_teks ?? '',
-            // JENIS PERUSAHAAN (PD TEKNIS)
-            $permohonan->jenis_perusahaan ?? '',
-            // NAMA PERUSAHAAN (PD TEKNIS) - menggunakan nama_usaha
-            $permohonan->nama_usaha ?? '',
-            // NAMA USAHA (DPM) - menggunakan nama_usaha
+            // JENIS USAHA (PD TEKNIS)
+            $permohonan->jenis_pelaku_usaha ?? '',
+            // NAMA PERUSAHAAN (PD TEKNIS)
+            $permohonan->nama_perusahaan ?? '',
+            // NAMA USAHA (DPM)
             $permohonan->nama_usaha ?? '',
             // ALAMAT PERUSAHAAN (DPM)
             $permohonan->alamat_perusahaan ?? '',
             // MODAL USAHA (DPM)
-            $permohonan->modal_usaha ? 'Rp ' . number_format($permohonan->modal_usaha, 0, ',', '.') : '',
+            $permohonan->modal_usaha ? number_format($permohonan->modal_usaha, 0, ',', '.') : '',
             // JENIS PROYEK (DPM)
             $permohonan->jenis_proyek ?? '',
-            // VERIFIKASI OLEH PD TEKNIS
-            $permohonan->verifikasi_pd_teknis ?? '',
-            // VERIFIKASI OLEH DPMPTSP
+            // NAMA PERIZINAN (DPM) - menggunakan verifikator
+            $permohonan->verifikator ?? '',
+            // SKALA USAHA (DPM) - menggunakan verifikasi_dpmptsp
             $permohonan->verifikasi_dpmptsp ?? '',
+            // RISIKO (DPM) - kosong
+            '',
+            // JANGKA WAKTU (HARI KERJA) (DPM) - kosong
+            '',
+            // NO TELPHONE (DPM) - kosong
+            '',
+            // VERIFIKASI OLEH PD TEKNIS
+            $permohonan->verifikasi_pd_teknis ? \Carbon\Carbon::parse($permohonan->verifikasi_pd_teknis)->format('Y-m-d') : '',
+            // VERIFIKASI OLEH DPMPTSP
+            $permohonan->verifikasi_dpmptsp ? \Carbon\Carbon::parse($permohonan->verifikasi_dpmptsp)->format('Y-m-d') : '',
             // PENGEMBALIAN (TANGGAL)
-            $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->format('d/m/Y') : '',
+            $permohonan->tanggal_pengembalian ? \Carbon\Carbon::parse($permohonan->tanggal_pengembalian)->format('d/m/Y') : '',
             // KETERANGAN (pengembalian)
             $permohonan->keterangan_pengembalian ?? '',
-            // MENGHUBUNGI (TANGGAL)
-            $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->format('d/m/Y') : '',
+            // MENGHADAP NO (TANGGAL)
+            $permohonan->tanggal_menghubungi ? \Carbon\Carbon::parse($permohonan->tanggal_menghubungi)->format('d/m/Y') : '',
             // KETERANGAN (menghubungi)
             $permohonan->keterangan_menghubungi ?? '',
-            // APPROVED (TANGGAL) - menggunakan perbaikan
-            $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->format('d/m/Y') : '',
+            // APPROVED (TANGGAL)
+            $permohonan->tanggal_perbaikan ? \Carbon\Carbon::parse($permohonan->tanggal_perbaikan)->format('d/m/Y') : '',
+            // KETERANGAN (perbaikan)
+            $permohonan->keterangan_perbaikan ?? '',
             // TERBIT (TANGGAL)
-            $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->format('d/m/Y') : '',
+            $permohonan->tanggal_terbit ? \Carbon\Carbon::parse($permohonan->tanggal_terbit)->format('d/m/Y') : '',
             // KETERANGAN (terbit)
             $permohonan->keterangan_terbit ?? '',
-            // PEMROSES DAN TGL E SURAT DAN TGL PERTEK
-            $permohonan->pemroses_dan_tgl_surat ?? '',
+            // PEMROSES DAN TGL E-SURAT DAN TGL PERTEK
+            $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('d/m/Y') : '',
             // VERIFIKATOR
-            $permohonan->verifikator ?? '',
-            // KETERANGAN (umum) - menggunakan status
-            $permohonan->status ?? ''
+            $permohonan->verifikator ?? ''
         ];
     }
 
@@ -147,32 +162,37 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 12,  // SEKTOR
-            'B' => 15,  // WAKTU
+            'A' => 12,  // SEKSI
+            'B' => 8,   // WAKTU
             'C' => 25,  // NO. PERMOHONAN
             'D' => 20,  // NO. PROYEK
             'E' => 15,  // TANGGAL PERMOHONAN
             'F' => 15,  // NIB
-            'G' => 8,   // KBU
+            'G' => 8,   // KBLI
             'H' => 20,  // KEGIATAN
-            'I' => 20,  // JENIS PERUSAHAAN
+            'I' => 15,  // JENIS USAHA
             'J' => 25,  // NAMA PERUSAHAAN
             'K' => 25,  // NAMA USAHA
             'L' => 35,  // ALAMAT PERUSAHAAN
             'M' => 15,  // MODAL USAHA
             'N' => 15,  // JENIS PROYEK
-            'O' => 20,  // VERIFIKASI PD TEKNIS
-            'P' => 20,  // VERIFIKASI DPMPTSP
-            'Q' => 15,  // PENGEMBALIAN
-            'R' => 20,  // KETERANGAN
-            'S' => 15,  // MENGHUBUNGI
-            'T' => 20,  // KETERANGAN
-            'U' => 15,  // APPROVED
-            'V' => 15,  // TERBIT
+            'O' => 20,  // NAMA PERIZINAN
+            'P' => 15,  // SKALA USAHA
+            'Q' => 10,  // RISIKO
+            'R' => 15,  // JANGKA WAKTU
+            'S' => 15,  // NO TELPHONE
+            'T' => 20,  // VERIFIKASI PD TEKNIS
+            'U' => 20,  // VERIFIKASI DPMPTSP
+            'V' => 15,  // PENGEMBALIAN
             'W' => 20,  // KETERANGAN
-            'X' => 30,  // PEMROSES
-            'Y' => 15,  // VERIFIKATOR
-            'Z' => 15,  // KETERANGAN
+            'X' => 15,  // MENGHADAP NO
+            'Y' => 20,  // KETERANGAN
+            'Z' => 15,  // APPROVED
+            'AA' => 20, // KETERANGAN
+            'AB' => 15, // TERBIT
+            'AC' => 20, // KETERANGAN
+            'AD' => 30, // PEMROSES
+            'AE' => 15, // VERIFIKATOR
         ];
     }
 
@@ -186,17 +206,17 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet = $event->sheet->getDelegate();
                 
                 // Set all cells to wrap text
-                $sheet->getStyle('A:Z')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A:AE')->getAlignment()->setWrapText(true);
                 
                 // Set row height for header
                 $sheet->getRowDimension(1)->setRowHeight(25);
                 
                 // Set borders for all data
-                $sheet->getStyle('A1:Z' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
+                $sheet->getStyle('A1:AE' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
                     ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
                 // Auto-fit columns
-                foreach (range('A', 'Z') as $column) {
+                foreach (range('A', 'AE') as $column) {
                     $sheet->getColumnDimension($column)->setAutoSize(false);
                 }
             },
