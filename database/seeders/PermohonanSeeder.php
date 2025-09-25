@@ -52,6 +52,14 @@ class PermohonanSeeder extends Seeder
             $noPermohonan = '1-' . $tanggal->format('YmdHis') . str_pad($i, 6, '0', STR_PAD_LEFT);
             $noProyek = $tanggal->format('Ym') . '-' . str_pad(rand(1000, 9999), 4, '0', STR_PAD_LEFT) . '-' . str_pad(rand(1000, 9999), 4, '0', STR_PAD_LEFT) . '-' . str_pad(rand(1000, 9999), 4, '0', STR_PAD_LEFT) . '-' . str_pad(rand(100, 999), 3, '0', STR_PAD_LEFT);
             
+            // Pastikan distribusi sektor yang merata
+            $sektorIndex = ($i - 1) % count($sektors);
+            $selectedSektor = $sektors[$sektorIndex];
+            
+            // Pastikan distribusi status yang merata
+            $statusIndex = ($i - 1) % count($statuses);
+            $selectedStatus = $statuses[$statusIndex];
+            
             $dataPermohonan[] = [
                 'no_permohonan' => $noPermohonan,
                 'no_proyek' => $noProyek,
@@ -64,10 +72,10 @@ class PermohonanSeeder extends Seeder
                 'alamat_perusahaan' => 'Jl. ' . ['Raya', 'Maju', 'Sukses', 'Jaya', 'Mandiri'][array_rand(['Raya', 'Maju', 'Sukses', 'Jaya', 'Mandiri'])] . ' No. ' . rand(1, 999),
                 'modal_usaha' => rand(10000000, 2000000000),
                 'jenis_proyek' => $jenisProyek[array_rand($jenisProyek)],
-                'verifikasi_pd_teknis' => 'Tanda Daftar Gudang',
+                'verifikasi_pd_teknis' => 'Tanda Daftar Gudang ' . ['Besar', 'Menengah', 'Kecil'][array_rand(['Besar', 'Menengah', 'Kecil'])],
                 'verifikasi_dpmptsp' => $verifikasiStatus[array_rand($verifikasiStatus)],
-                'status' => $statuses[array_rand($statuses)],
-                'sektor' => $sektors[array_rand($sektors)],
+                'status' => $selectedStatus,
+                'sektor' => $selectedSektor,
                 'inputan_teks' => 'Kegiatan ' . $i,
                 'created_at' => $tanggal,
             ];
