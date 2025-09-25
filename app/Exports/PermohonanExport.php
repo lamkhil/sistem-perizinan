@@ -146,7 +146,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
         return [
             // Style the first row as bold text.
             1    => [
-                'font' => ['bold' => true, 'size' => 12],
+                'font' => ['bold' => true, 'size' => 14],
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'E3F2FD']
@@ -165,38 +165,38 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 12,  // SEKSI
-            'B' => 8,   // WAKTU
-            'C' => 25,  // NO. PERMOHONAN
-            'D' => 20,  // NO. PROYEK
-            'E' => 15,  // TANGGAL PERMOHONAN
-            'F' => 15,  // NIB
-            'G' => 8,   // KBLI
-            'H' => 20,  // KEGIATAN
-            'I' => 15,  // JENIS USAHA
-            'J' => 25,  // NAMA PERUSAHAAN
-            'K' => 25,  // NAMA USAHA
-            'L' => 35,  // ALAMAT PERUSAHAAN
-            'M' => 15,  // MODAL USAHA
-            'N' => 15,  // JENIS PROYEK
-            'O' => 20,  // NAMA PERIZINAN
-            'P' => 15,  // SKALA USAHA
-            'Q' => 10,  // RISIKO
-            'R' => 15,  // JANGKA WAKTU
-            'S' => 15,  // NO TELPHONE
-            'T' => 20,  // VERIFIKASI PD TEKNIS
-            'U' => 20,  // VERIFIKASI DPMPTSP
-            'V' => 15,  // PENGEMBALIAN
-            'W' => 20,  // KETERANGAN
-            'X' => 15,  // MENGHADAP NO
-            'Y' => 20,  // KETERANGAN
-            'Z' => 15,  // APPROVED
-            'AA' => 20, // KETERANGAN
-            'AB' => 15, // TERBIT
-            'AC' => 20, // KETERANGAN
-            'AD' => 30, // PEMROSES
-            'AE' => 15, // VERIFIKATOR
-            'AF' => 15, // STATUS
+            'A' => 15,  // SEKSI
+            'B' => 10,  // WAKTU
+            'C' => 30,  // NO. PERMOHONAN
+            'D' => 25,  // NO. PROYEK
+            'E' => 18,  // TANGGAL PERMOHONAN
+            'F' => 18,  // NIB
+            'G' => 12,  // KBLI
+            'H' => 25,  // KEGIATAN
+            'I' => 18,  // JENIS USAHA
+            'J' => 30,  // NAMA PERUSAHAAN
+            'K' => 30,  // NAMA USAHA
+            'L' => 40,  // ALAMAT PERUSAHAAN
+            'M' => 18,  // MODAL USAHA
+            'N' => 18,  // JENIS PROYEK
+            'O' => 25,  // NAMA PERIZINAN
+            'P' => 18,  // SKALA USAHA
+            'Q' => 12,  // RISIKO
+            'R' => 20,  // JANGKA WAKTU
+            'S' => 18,  // NO TELPHONE
+            'T' => 25,  // VERIFIKASI PD TEKNIS
+            'U' => 25,  // VERIFIKASI DPMPTSP
+            'V' => 18,  // PENGEMBALIAN
+            'W' => 25,  // KETERANGAN
+            'X' => 18,  // MENGHADAP NO
+            'Y' => 25,  // KETERANGAN
+            'Z' => 18,  // APPROVED
+            'AA' => 25, // KETERANGAN
+            'AB' => 18, // TERBIT
+            'AC' => 25, // KETERANGAN
+            'AD' => 35, // PEMROSES
+            'AE' => 18, // VERIFIKATOR
+            'AF' => 18, // STATUS
         ];
     }
 
@@ -213,7 +213,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet->getStyle('A:AF')->getAlignment()->setWrapText(true);
                 
                 // Set row height for header
-                $sheet->getRowDimension(1)->setRowHeight(25);
+                $sheet->getRowDimension(1)->setRowHeight(35);
                 
                 // Set borders for all data
                 $sheet->getStyle('A1:AF' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
