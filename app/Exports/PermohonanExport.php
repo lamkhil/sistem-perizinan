@@ -58,7 +58,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'TERBIT (TANGGAL)',
             'KETERANGAN',
             'PEMROSES DAN TGL E-SURAT DAN TGL PERTEK',
-            'VERIFIKATOR'
+            'VERIFIKATOR',
+            'STATUS'
         ];
     }
 
@@ -97,16 +98,16 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->modal_usaha ? number_format($permohonan->modal_usaha, 0, ',', '.') : '',
             // JENIS PROYEK (DPM)
             $permohonan->jenis_proyek ?? '',
-            // NAMA PERIZINAN (DPM) - menggunakan verifikator
-            $permohonan->verifikator ?? '',
-            // SKALA USAHA (DPM) - menggunakan verifikasi_dpmptsp
-            $permohonan->verifikasi_dpmptsp ?? '',
-            // RISIKO (DPM) - kosong
-            '',
-            // JANGKA WAKTU (HARI KERJA) (DPM) - kosong
-            '',
-            // NO TELPHONE (DPM) - kosong
-            '',
+            // NAMA PERIZINAN (DPM)
+            $permohonan->nama_perizinan ?? '',
+            // SKALA USAHA (DPM)
+            $permohonan->skala_usaha ?? '',
+            // RISIKO (DPM)
+            $permohonan->risiko ?? '',
+            // JANGKA WAKTU (HARI KERJA) (DPM)
+            $permohonan->jangka_waktu ?? '',
+            // NO TELPHONE (DPM)
+            $permohonan->no_telephone ?? '',
             // VERIFIKASI OLEH PD TEKNIS
             $permohonan->verifikasi_pd_teknis ?? '',
             // VERIFIKASI OLEH DPMPTSP
@@ -130,7 +131,9 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             // PEMROSES DAN TGL E-SURAT DAN TGL PERTEK
             $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('d/m/Y') : '',
             // VERIFIKATOR
-            $permohonan->verifikator ?? ''
+            $permohonan->verifikator ?? '',
+            // STATUS
+            $permohonan->status ?? ''
         ];
     }
 
@@ -193,6 +196,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'AC' => 20, // KETERANGAN
             'AD' => 30, // PEMROSES
             'AE' => 15, // VERIFIKATOR
+            'AF' => 15, // STATUS
         ];
     }
 
@@ -206,17 +210,17 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet = $event->sheet->getDelegate();
                 
                 // Set all cells to wrap text
-                $sheet->getStyle('A:AE')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A:AF')->getAlignment()->setWrapText(true);
                 
                 // Set row height for header
                 $sheet->getRowDimension(1)->setRowHeight(25);
                 
                 // Set borders for all data
-                $sheet->getStyle('A1:AE' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
+                $sheet->getStyle('A1:AF' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
                     ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
                 // Auto-fit columns
-                foreach (range('A', 'AE') as $column) {
+                foreach (range('A', 'AF') as $column) {
                     $sheet->getColumnDimension($column)->setAutoSize(false);
                 }
             },
