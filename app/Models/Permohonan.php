@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int $user_id
  * @property string|null $no_permohonan
  * @property string|null $nama_usaha
+ * @property string|null $nama_perusahaan
  * @property string|null $pemilik
  * @property string|null $jenis_perusahaan
  * @property string|null $jenis_pelaku_usaha
@@ -28,16 +29,26 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $nama_perizinan
  * @property string|null $skala_usaha
  * @property string|null $risiko
+ * @property int|null $jangka_waktu
+ * @property string|null $no_telephone
+ * @property \Carbon\CarbonInterface|null $deadline
  * @property string|null $verifikator
  * @property string|null $verifikasi_dpmptsp
  * @property string|null $verifikasi_pd_teknis
  * @property string|null $status
+ * @property \Carbon\CarbonInterface|null $pengembalian
  * @property string|null $keterangan_pengembalian
+ * @property \Carbon\CarbonInterface|null $menghubungi
  * @property string|null $keterangan_menghubungi
+ * @property string|null $status_menghubungi
+ * @property \Carbon\CarbonInterface|null $perbaikan
  * @property string|null $keterangan_perbaikan
+ * @property \Carbon\CarbonInterface|null $terbit
  * @property string|null $keterangan_terbit
  * @property string|null $pemroses_dan_tgl_surat
+ * @property string|null $keterangan
  * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LogPermohonan[] $logs
  */
 class Permohonan extends Model
 {
