@@ -27,7 +27,7 @@ class RealisticPermohonanSeeder extends Seeder
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $skalaUsaha = ['Mikro', 'Kecil', 'Menengah', 'Besar'];
         $risiko = ['Rendah', 'Sedang', 'Tinggi'];
-        $status = ['Menunggu', 'Diterima', 'Ditolak', 'Dikembalikan'];
+        $status = ['Menunggu', 'Diterima', 'Ditolak', 'Dikembalikan', 'Terlambat'];
         $verifikasiStatus = ['Berkas Disetujui', 'Berkas Diperbaiki', 'Pemohon Dihubungi', 'Berkas Diunggah Ulang', 'Pemohon Belum Dihubungi'];
         $jenisProyek = ['Utama', 'Pendukung', 'Pendukung UMKU', 'Kantor Cabang'];
         $jenisPelakuUsaha = ['Orang Perseorangan', 'Badan Usaha'];
@@ -63,7 +63,7 @@ class RealisticPermohonanSeeder extends Seeder
                 'tanggal_permohonan' => $tanggalPermohonan->format('Y-m-d'),
                 'verifikasi_pd_teknis' => 'Tanda Daftar Gudang ' . ['Besar', 'Menengah', 'Kecil'][array_rand(['Besar', 'Menengah', 'Kecil'])],
                 'verifikasi_dpmptsp' => $verifikasiStatus[array_rand($verifikasiStatus)],
-                'status' => $status[array_rand($status)],
+                'status' => 'Terlambat', // Data terlambat otomatis berstatus Terlambat
                 'verifikator' => 'Verifikator Terlambat ' . $i,
                 'keterangan_pengembalian' => $i <= 2 ? 'Dokumen tidak lengkap' : null,
                 'pengembalian' => $i <= 2 ? $deadline->copy()->addDays(rand(1, 5))->format('Y-m-d') : null,
@@ -100,7 +100,7 @@ class RealisticPermohonanSeeder extends Seeder
                 'tanggal_permohonan' => $tanggalPermohonan->format('Y-m-d'),
                 'verifikasi_pd_teknis' => 'Tanda Daftar Gudang ' . ['Besar', 'Menengah', 'Kecil'][array_rand(['Besar', 'Menengah', 'Kecil'])],
                 'verifikasi_dpmptsp' => 'Berkas Disetujui',
-                'status' => 'Diterima',
+                'status' => 'Diterima', // Data selesai berstatus Diterima
                 'verifikator' => 'Verifikator Selesai ' . $i,
                 'terbit' => $tanggalTerbit->format('Y-m-d'),
                 'keterangan_terbit' => 'Izin telah diterbitkan sesuai ketentuan',
@@ -136,14 +136,49 @@ class RealisticPermohonanSeeder extends Seeder
                 'tanggal_permohonan' => $tanggalPermohonan->format('Y-m-d'),
                 'verifikasi_pd_teknis' => 'Tanda Daftar Gudang ' . ['Besar', 'Menengah', 'Kecil'][array_rand(['Besar', 'Menengah', 'Kecil'])],
                 'verifikasi_dpmptsp' => $verifikasiStatus[array_rand($verifikasiStatus)],
-                'status' => ['Menunggu', 'Dikembalikan'][array_rand(['Menunggu', 'Dikembalikan'])],
+                'status' => ['Menunggu', 'Dikembalikan'][array_rand(['Menunggu', 'Dikembalikan'])], // Data berjalan bisa Menunggu atau Dikembalikan
                 'verifikator' => 'Verifikator Berjalan ' . $i,
                 'keterangan_pengembalian' => $i <= 3 ? 'Perlu perbaikan dokumen' : null,
                 'pengembalian' => $i <= 3 ? Carbon::now()->subDays(rand(1, 5))->format('Y-m-d') : null,
             ]);
         }
 
-        // 4. DATA KHUSUS - Deadline hari ini dan besok
+        // 4. DATA DITOLAK (2 data) - Status Ditolak
+        $this->command->info('Creating rejected data...');
+        for ($i = 1; $i <= 2; $i++) {
+            $deadline = Carbon::now()->addDays(rand(5, 15)); // Deadline di masa depan
+            $tanggalPermohonan = Carbon::now()->subDays(rand(5, 15)); // Permohonan dibuat beberapa hari lalu
+            
+            Permohonan::create([
+                'user_id' => $users->random()->id,
+                'no_permohonan' => 'REJECTED-' . str_pad($i, 3, '0', STR_PAD_LEFT) . '-' . $tanggalPermohonan->format('Ymd'),
+                'nama_usaha' => 'Usaha Ditolak ' . $i,
+                'nama_perusahaan' => 'PT. Ditolak ' . $i,
+                'jenis_pelaku_usaha' => $jenisPelakuUsaha[array_rand($jenisPelakuUsaha)],
+                'nib' => '999888777' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'alamat_perusahaan' => 'Jl. Ditolak No. ' . $i . ', Malang',
+                'sektor' => $sektors[array_rand($sektors)],
+                'kbli' => '99999',
+                'inputan_teks' => 'Kegiatan Ditolak ' . $i,
+                'modal_usaha' => rand(100000000, 1000000000),
+                'jenis_proyek' => $jenisProyek[array_rand($jenisProyek)],
+                'no_proyek' => 'PROJ-REJECTED-' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'nama_perizinan' => 'Izin Usaha Ditolak ' . $i,
+                'skala_usaha' => $skalaUsaha[array_rand($skalaUsaha)],
+                'risiko' => $risiko[array_rand($risiko)],
+                'jangka_waktu' => rand(5, 20),
+                'no_telephone' => '08' . rand(400000000, 699999999),
+                'deadline' => $deadline->format('Y-m-d'),
+                'tanggal_permohonan' => $tanggalPermohonan->format('Y-m-d'),
+                'verifikasi_pd_teknis' => 'Tanda Daftar Gudang ' . ['Besar', 'Menengah', 'Kecil'][array_rand(['Besar', 'Menengah', 'Kecil'])],
+                'verifikasi_dpmptsp' => 'Berkas Ditolak',
+                'status' => 'Ditolak', // Data ditolak berstatus Ditolak
+                'verifikator' => 'Verifikator Ditolak ' . $i,
+                'keterangan_terbit' => 'Permohonan ditolak karena tidak memenuhi syarat',
+            ]);
+        }
+
+        // 5. DATA KHUSUS - Deadline hari ini dan besok
         $this->command->info('Creating special deadline data...');
         
         // Deadline hari ini
@@ -204,9 +239,11 @@ class RealisticPermohonanSeeder extends Seeder
 
         $this->command->info('Realistic permohonan data created successfully!');
         $this->command->info('Total permohonan created: ' . Permohonan::count());
-        $this->command->info('Overdue: ' . Permohonan::where('deadline', '<', now())->count());
-        $this->command->info('Completed: ' . Permohonan::where('status', 'Diterima')->count());
-        $this->command->info('Ongoing: ' . Permohonan::where('deadline', '>', now())->where('status', '!=', 'Diterima')->count());
+        $this->command->info('Diterima: ' . Permohonan::where('status', 'Diterima')->count());
+        $this->command->info('Dikembalikan: ' . Permohonan::where('status', 'Dikembalikan')->count());
+        $this->command->info('Ditolak: ' . Permohonan::where('status', 'Ditolak')->count());
+        $this->command->info('Terlambat: ' . Permohonan::where('status', 'Terlambat')->count());
+        $this->command->info('Menunggu: ' . Permohonan::where('status', 'Menunggu')->count());
         $this->command->info('Due today: ' . Permohonan::whereDate('deadline', now())->count());
         $this->command->info('Due tomorrow: ' . Permohonan::whereDate('deadline', now()->addDay())->count());
     }
