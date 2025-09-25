@@ -47,6 +47,8 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $keterangan_terbit
  * @property string|null $pemroses_dan_tgl_surat
  * @property string|null $keterangan
+ * @property \Carbon\CarbonInterface|null $created_at
+ * @property \Carbon\CarbonInterface|null $updated_at
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LogPermohonan[] $logs
  */
