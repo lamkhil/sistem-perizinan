@@ -41,30 +41,28 @@ class DashboardController extends Controller
             $permohonans = Permohonan::with('user')->get();
         }
         
-        // Hitung statistik dengan 4 kategori status
+        // Hitung statistik dengan 4 kategori status (tanpa Menunggu)
         $stats = [
             'totalPermohonan' => $permohonans->count(),
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
-            'terlambat' => $permohonans->filter(function($permohonan) {
-                // Data yang terlambat (deadline sudah lewat dan status bukan Diterima/Ditolak)
-                return $permohonan->deadline && 
-                       $permohonan->deadline < now() && 
-                       !in_array($permohonan->status, ['Diterima', 'Ditolak']);
-            })->count(),
+            'terlambat' => $permohonans->where('status', 'Terlambat')->count(),
         ];
+        
+        // Ambil data terlambat untuk tampilan khusus
+        $terlambatData = $permohonans->where('status', 'Terlambat');
 
         // Return view berdasarkan role
         switch ($user->role) {
             case 'admin':
-                return view('dashboard.admin', compact('permohonans', 'stats'));
+                return view('dashboard.admin', compact('permohonans', 'stats', 'terlambatData'));
             case 'dpmptsp':
-                return view('dashboard.dpmptsp', compact('permohonans', 'stats'));
+                return view('dashboard.dpmptsp', compact('permohonans', 'stats', 'terlambatData'));
             case 'pd_teknis':
-                return view('dashboard.pd_teknis', compact('permohonans', 'stats'));
+                return view('dashboard.pd_teknis', compact('permohonans', 'stats', 'terlambatData'));
             case 'penerbitan_berkas':
-                return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats'));
+                return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'terlambatData'));
             default:
                 $request->session()->regenerateToken();
                 return redirect('/login')->with('error', 'Peran tidak valid, hubungi admin.');
