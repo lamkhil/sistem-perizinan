@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sistem Analisa & Tracking Perizinan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
         }
         
         .gradient-bg {
-            background-image: linear-gradient(to right, #6D28D9, #4C1D95);
+            background-image: linear-gradient(to right, #0E2A66, #153476, #283593);
             position: relative;
         }
 
@@ -116,7 +116,7 @@
                         <div>
                             <input
                                 id="email"
-                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="email"
                                 name="email"
                                 placeholder="Email"
@@ -131,7 +131,7 @@
                         <div>
                             <input
                                 id="password"
-                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="password"
                                 name="password"
                                 placeholder="Password"
@@ -147,19 +147,19 @@
                                 <input
                                     id="remember_me"
                                     type="checkbox"
-                                    class="rounded-md text-purple-600 focus:ring-purple-600 border-gray-300"
+                                    class="rounded-md text-primary-600 focus:ring-primary-600 border-gray-300"
                                     name="remember"
                                 />
                                 <span class="ml-2 font-medium">Remember me</span>
                             </label>
 
-                            <a href="{{ route('password.request') }}" class="text-purple-600 hover:text-purple-800 font-medium transition-colors">
+                            <a href="{{ route('password.request') }}" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">
                                 Lupa password?
                             </a>
                         </div>
 
                         <div>
-                            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+                            <button type="submit" class="w-full py-3 px-6 bg-gradient-primary text-white font-bold rounded-xl shadow-lg hover:opacity-95 transition-all duration-300 transform hover:scale-105">
                                 MASUK
                             </button>
                         </div>
@@ -180,7 +180,7 @@
                         <div>
                             <input
                                 id="reg_name"
-                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="text"
                                 name="name"
                                 placeholder="Nama Lengkap"
@@ -195,7 +195,7 @@
                         <div>
                             <input
                                 id="reg_email"
-                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="email"
                                 name="email"
                                 placeholder="Email"
@@ -210,7 +210,7 @@
                         <div>
                             <input
                                 id="reg_password"
-                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="password"
                                 name="password"
                                 placeholder="Password"
@@ -224,7 +224,7 @@
                         <div>
                             <input
                                 id="reg_password_confirmation"
-                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="password"
                                 name="password_confirmation"
                                 placeholder="Konfirmasi Password"
@@ -250,7 +250,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+                            <button type="submit" class="w-full py-3 px-6 bg-gradient-primary text-white font-bold rounded-xl shadow-lg hover:opacity-95 transition-all duration-300 transform hover:scale-105">
                                 DAFTAR
                             </button>
                         </div>
@@ -262,8 +262,8 @@
                     <p class="text-gray-600 text-sm">
                         <span id="loginFooter">Belum punya akun? </span>
                         <span id="registerFooter" class="hidden">Sudah punya akun? </span>
-                        <button id="switchToRegister" class="text-purple-600 hover:text-purple-800 font-bold">Daftar sekarang</button>
-                        <button id="switchToLogin" class="text-purple-600 hover:text-purple-800 font-bold hidden">Masuk sekarang</button>
+                        <button id="switchToRegister" class="text-primary-600 hover:text-primary-700 font-bold">Daftar sekarang</button>
+                        <button id="switchToLogin" class="text-primary-600 hover:text-primary-700 font-bold hidden">Masuk sekarang</button>
                     </p>
                 </div>
             </div>

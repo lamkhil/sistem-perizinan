@@ -67,7 +67,7 @@
     </style>
 </head>
 <body class="antialiased">
-    <div class="relative min-h-screen bg-gradient-to-r from-purple-800 to-indigo-900 selection:bg-purple-500 selection:text-white gradient-with-pattern">
+    <div class="relative min-h-screen bg-gradient-sidebar selection:bg-primary-500 selection:text-white gradient-with-pattern">
         @if (Route::has('login'))
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-end z-20">
                 @auth
@@ -91,7 +91,7 @@
                     Lacak dan kelola setiap tahap permohonan izin dengan mudah, cepat, dan transparan.
                 </p>
                 <div class="mt-10">
-                    <a href="{{ route('login') }}" class="inline-flex items-center px-10 py-4 bg-white text-purple-600 font-bold uppercase tracking-wider rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transition ease-in-out duration-150 transform hover:scale-105">
+                    <a href="{{ route('login') }}" class="inline-flex items-center px-10 py-4 bg-white text-primary-600 font-bold uppercase tracking-wider rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transition ease-in-out duration-150 transform hover:scale-105">
                         Get Started
                     </a>
                 </div>
