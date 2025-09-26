@@ -328,7 +328,7 @@
                                         <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status', $permohonan->status) == 'Dikembalikan')>Dikembalikan</option>
                                         <option value="Ditolak" @selected(old('status', $permohonan->status) == 'Ditolak')>Ditolak</option>
-                                        <option value="Menunggu" @selected(old('status', $permohonan->status) == 'Menunggu')>Menunggu</option>
+                                        <option value="Terlambat" @selected(old('status', $permohonan->status) == 'Terlambat')>Terlambat</option>
                                     </select>
                                     @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>

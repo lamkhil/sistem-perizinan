@@ -177,8 +177,8 @@ class Permohonan extends Model
         if ($this->isOverdue()) {
             $this->logs()->create([
                 'user_id' => Auth::id() ?? 1,
-                'status_sebelum' => $this->status ?? 'Menunggu',
-                'status_sesudah' => $this->status ?? 'Menunggu',
+                'status_sebelum' => $this->status ?? 'Diterima',
+                'status_sesudah' => $this->status ?? 'Diterima',
                 'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->getAttribute('deadline')->format('d/m/Y')})",
                 'action' => 'deadline_overdue',
                 'old_data' => null,

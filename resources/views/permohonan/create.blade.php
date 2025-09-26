@@ -325,7 +325,7 @@
                                         <option value="Diterima" @selected(old('status') == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status') == 'Dikembalikan')>Dikembalikan</option>
                                         <option value="Ditolak" @selected(old('status') == 'Ditolak')>Ditolak</option>
-                                        <option value="Menunggu" @selected(old('status', 'Menunggu') == 'Menunggu')>Menunggu</option>
+                                        <option value="Terlambat" @selected(old('status') == 'Terlambat')>Terlambat</option>
                                     </select>
                                     @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>

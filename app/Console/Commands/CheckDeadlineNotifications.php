@@ -51,8 +51,8 @@ class CheckDeadlineNotifications extends Command
                         LogPermohonan::create([
                             'permohonan_id' => $permohonan->id,
                             'user_id' => 1, // System user
-                            'status_sebelum' => $permohonan->status ?? 'Menunggu',
-                            'status_sesudah' => $permohonan->status ?? 'Menunggu',
+                            'status_sebelum' => $permohonan->status ?? 'Diterima',
+                            'status_sesudah' => $permohonan->status ?? 'Diterima',
                             'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$permohonan->deadline->format('d/m/Y')})",
                             'action' => 'deadline_overdue',
                             'old_data' => null,
@@ -73,8 +73,8 @@ class CheckDeadlineNotifications extends Command
                         LogPermohonan::create([
                             'permohonan_id' => $permohonan->id,
                             'user_id' => 1, // System user
-                            'status_sebelum' => $permohonan->status ?? 'Menunggu',
-                            'status_sesudah' => $permohonan->status ?? 'Menunggu',
+                            'status_sebelum' => $permohonan->status ?? 'Diterima',
+                            'status_sesudah' => $permohonan->status ?? 'Diterima',
                             'keterangan' => "⏰ PERINGATAN: Permohonan deadline hari ini ({$permohonan->deadline->format('d/m/Y')})",
                             'action' => 'deadline_due_today',
                             'old_data' => null,
@@ -96,8 +96,8 @@ class CheckDeadlineNotifications extends Command
                         LogPermohonan::create([
                             'permohonan_id' => $permohonan->id,
                             'user_id' => 1, // System user
-                            'status_sebelum' => $permohonan->status ?? 'Menunggu',
-                            'status_sesudah' => $permohonan->status ?? 'Menunggu',
+                            'status_sebelum' => $permohonan->status ?? 'Diterima',
+                            'status_sesudah' => $permohonan->status ?? 'Diterima',
                             'keterangan' => "⏳ PERINGATAN: Permohonan deadline dalam {$daysLeft} hari ({$permohonan->deadline->format('d/m/Y')})",
                             'action' => 'deadline_due_soon',
                             'old_data' => null,

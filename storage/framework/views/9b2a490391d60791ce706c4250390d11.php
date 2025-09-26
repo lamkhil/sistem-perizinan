@@ -487,7 +487,7 @@ unset($__errorArgs, $__bag); ?>
                                         <option value="Diterima" <?php if(old('status', $permohonan->status) == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
                                         <option value="Dikembalikan" <?php if(old('status', $permohonan->status) == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
                                         <option value="Ditolak" <?php if(old('status', $permohonan->status) == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
-                                        <option value="Menunggu" <?php if(old('status', $permohonan->status) == 'Menunggu'): echo 'selected'; endif; ?>>Menunggu</option>
+                                        <option value="Terlambat" <?php if(old('status', $permohonan->status) == 'Terlambat'): echo 'selected'; endif; ?>>Terlambat</option>
                                     </select>
                                     <?php $__errorArgs = ['status'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

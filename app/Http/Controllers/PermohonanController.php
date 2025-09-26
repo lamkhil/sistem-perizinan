@@ -177,7 +177,7 @@ class PermohonanController extends Controller
             'no_telephone' => 'nullable|string|max:20',
             'deadline' => 'nullable|date|after_or_equal:today', // CREATE: deadline harus >= hari ini
             'verifikator' => 'nullable|string',
-            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat',
             'verifikasi_pd_teknis' => 'nullable|string',
             'verifikasi_dpmptsp' => 'nullable|string',
             'pengembalian' => 'nullable|date',
@@ -201,7 +201,7 @@ class PermohonanController extends Controller
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
             $rules['nib'] = 'required|string|max:20';
             $rules['verifikator'] = 'required|string';
-            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu';
+            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
             $rules['nama_usaha'] = 'required|string';
@@ -210,19 +210,19 @@ class PermohonanController extends Controller
             $rules['modal_usaha'] = 'required|numeric';
             $rules['jenis_proyek'] = 'required|string';
             $rules['verifikator'] = 'required|string';
-            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu';
+            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
         } else {
             // Admin wajib isi semua field utama
             $rules['no_permohonan'] = 'required|string|unique:permohonans,no_permohonan';
             $rules['tanggal_permohonan'] = 'required|date';
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
             $rules['verifikator'] = 'required|string';
-            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu';
+            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
         }
         
         // Semua role wajib isi verifikator dan status
         $rules['verifikator'] = 'required|string';
-        $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu';
+        $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
 
         $validated = $request->validate($rules);
         
@@ -360,7 +360,7 @@ class PermohonanController extends Controller
             'no_telephone' => 'nullable|string|max:20',
             'deadline' => 'nullable|date', // UPDATE: deadline boleh apa saja (termasuk yang sudah terlewat)
             'verifikator' => 'nullable|string',
-            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat',
             'verifikasi_pd_teknis' => 'nullable|string',
             'verifikasi_dpmptsp' => 'nullable|string',
             'pengembalian' => 'nullable|date',
