@@ -17,7 +17,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <!-- Left: Search dan Filter -->
             <div class="flex-1">
-                <form method="GET" action="<?php echo e(route('permohonan.index')); ?>" class="space-y-4">
+                <form method="GET" action="<?php echo e(route('permohonan.index')); ?>" class="space-y-4" id="filterForm">
                     <!-- Search Bar -->
                     <div class="flex gap-3">
                         <div class="flex-1">
@@ -69,11 +69,39 @@
                     
                     <!-- Custom Date Range -->
                     <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-                    <div class="flex gap-2 items-center">
-                        <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
-                               class="h-10 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
-                        <button type="submit" class="h-10 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors">Filter</button>
-                        <a href="<?php echo e(route('permohonan.index')); ?>" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors">Reset</a>
+                    <div class="bg-primary-50 border border-primary-200 rounded-lg p-4 mt-3">
+                        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                            <div class="flex items-center gap-2">
+                                <label class="text-sm font-medium text-primary-700 flex items-center">
+                                    <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Pilih Tanggal:
+                                </label>
+                                <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
+                                       class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" class="h-10 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors flex items-center shadow-sm">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                    </svg>
+                                    Terapkan Filter
+                                </button>
+                                <a href="<?php echo e(route('permohonan.index')); ?>" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors flex items-center shadow-sm">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    </svg>
+                                    Reset
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-xs text-primary-600 mt-2 flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Pilih tanggal untuk memfilter data permohonan berdasarkan tanggal tersebut
+                        </p>
                     </div>
                     <?php endif; ?>
                 </form>
@@ -438,6 +466,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Handle date filter dropdown change
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateFilterSelect = document.querySelector('select[name="date_filter"]');
+            const customDateSection = document.querySelector('div:has(input[name="custom_date"])');
+            
+            if (dateFilterSelect) {
+                dateFilterSelect.addEventListener('change', function() {
+                    if (this.value === 'custom') {
+                        // Show custom date section with animation
+                        const customSection = document.querySelector('div:has(input[name="custom_date"])');
+                        if (customSection) {
+                            customSection.style.display = 'block';
+                            customSection.style.opacity = '0';
+                            customSection.style.transform = 'translateY(-10px)';
+                            
+                            setTimeout(() => {
+                                customSection.style.transition = 'all 0.3s ease';
+                                customSection.style.opacity = '1';
+                                customSection.style.transform = 'translateY(0)';
+                            }, 10);
+                        }
+                    } else {
+                        // Hide custom date section
+                        const customSection = document.querySelector('div:has(input[name="custom_date"])');
+                        if (customSection) {
+                            customSection.style.transition = 'all 0.3s ease';
+                            customSection.style.opacity = '0';
+                            customSection.style.transform = 'translateY(-10px)';
+                            
+                            setTimeout(() => {
+                                customSection.style.display = 'none';
+                            }, 300);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
