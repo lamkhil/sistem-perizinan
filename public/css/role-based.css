@@ -28,6 +28,9 @@
 .role-admin .field-data-pemohon,
 .role-admin .field-pd-teknis-only,
 .role-admin .field-dpmptsp-only,
-.role-admin .field-admin-only {
-    display: block;
+.role-admin .field-admin-only,
+.role-admin .hide-for-dpmptsp,
+.role-admin .hide-for-pd-teknis,
+.role-admin .hide-for-dpmptsp.hide-for-pd-teknis {
+    display: block !important;
 }
