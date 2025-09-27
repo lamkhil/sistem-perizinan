@@ -165,38 +165,38 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 25,  // SEKTOR
-            'B' => 15,  // WAKTU
-            'C' => 40,  // NO. PERMOHONAN
-            'D' => 35,  // NO. PROYEK
+            'A' => 18,  // SEKTOR
+            'B' => 12,  // WAKTU
+            'C' => 25,  // NO. PERMOHONAN
+            'D' => 22,  // NO. PROYEK
             'E' => 15,  // TANGGAL PERMOHONAN
             'F' => 15,  // NIB
-            'G' => 15,  // KBLI
-            'H' => 35,  // KEGIATAN
-            'I' => 25,  // JENIS USAHA
-            'J' => 40,  // NAMA PERUSAHAAN
-            'K' => 40,  // NAMA USAHA
-            'L' => 50,  // ALAMAT PERUSAHAAN
-            'M' => 25,  // MODAL USAHA
-            'N' => 25,  // JENIS PROYEK
-            'O' => 35,  // NAMA PERIZINAN
-            'P' => 25,  // SKALA USAHA
-            'Q' => 15,  // RISIKO
-            'R' => 30,  // JANGKA WAKTU
-            'S' => 25,  // NO TELPHONE
-            'T' => 35,  // VERIFIKASI PD TEKNIS
-            'U' => 35,  // VERIFIKASI ANALISA
+            'G' => 12,  // KBLI
+            'H' => 25,  // KEGIATAN
+            'I' => 18,  // JENIS USAHA
+            'J' => 25,  // NAMA PERUSAHAAN
+            'K' => 25,  // NAMA USAHA
+            'L' => 30,  // ALAMAT PERUSAHAAN
+            'M' => 18,  // MODAL USAHA
+            'N' => 18,  // JENIS PROYEK
+            'O' => 25,  // NAMA PERIZINAN
+            'P' => 18,  // SKALA USAHA
+            'Q' => 12,  // RISIKO
+            'R' => 20,  // JANGKA WAKTU
+            'S' => 18,  // NO TELPHONE
+            'T' => 25,  // VERIFIKASI PD TEKNIS
+            'U' => 25,  // VERIFIKASI ANALISA
             'V' => 15,  // TANGGAL PENGEMBALIAN
-            'W' => 35,  // KETERANGAN PENGEMBALIAN
+            'W' => 25,  // KETERANGAN PENGEMBALIAN
             'X' => 15,  // TANGGAL MENGHUBUNGI
-            'Y' => 35,  // KETERANGAN MENGHUBUNGI
+            'Y' => 25,  // KETERANGAN MENGHUBUNGI
             'Z' => 15,  // TANGGAL DISETUJUI
-            'AA' => 35, // KETERANGAN DISETUJUI
+            'AA' => 25, // KETERANGAN DISETUJUI
             'AB' => 15, // TANGGAL TERBIT
-            'AC' => 35, // KETERANGAN TERBIT
-            'AD' => 45, // PEMROSES
+            'AC' => 25, // KETERANGAN TERBIT
+            'AD' => 30, // PEMROSES
             'AE' => 15, // VERIFIKATOR
-            'AF' => 15, // STATUS
+            'AF' => 12, // STATUS
         ];
     }
 
