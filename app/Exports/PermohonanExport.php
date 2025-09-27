@@ -165,38 +165,38 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 15,  // SEKSI
-            'B' => 10,  // WAKTU
-            'C' => 30,  // NO. PERMOHONAN
-            'D' => 25,  // NO. PROYEK
-            'E' => 18,  // TANGGAL PERMOHONAN
-            'F' => 18,  // NIB
-            'G' => 12,  // KBLI
-            'H' => 25,  // KEGIATAN
-            'I' => 18,  // JENIS USAHA
-            'J' => 30,  // NAMA PERUSAHAAN
-            'K' => 30,  // NAMA USAHA
-            'L' => 40,  // ALAMAT PERUSAHAAN
-            'M' => 18,  // MODAL USAHA
-            'N' => 18,  // JENIS PROYEK
-            'O' => 25,  // NAMA PERIZINAN
-            'P' => 18,  // SKALA USAHA
-            'Q' => 12,  // RISIKO
-            'R' => 20,  // JANGKA WAKTU
-            'S' => 18,  // NO TELPHONE
-            'T' => 25,  // VERIFIKASI PD TEKNIS
-            'U' => 25,  // VERIFIKASI DPMPTSP
-            'V' => 18,  // PENGEMBALIAN
-            'W' => 25,  // KETERANGAN
-            'X' => 18,  // MENGHADAP NO
-            'Y' => 25,  // KETERANGAN
-            'Z' => 18,  // APPROVED
-            'AA' => 25, // KETERANGAN
-            'AB' => 18, // TERBIT
-            'AC' => 25, // KETERANGAN
-            'AD' => 35, // PEMROSES
-            'AE' => 18, // VERIFIKATOR
-            'AF' => 18, // STATUS
+            'A' => 20,  // SEKTOR
+            'B' => 12,  // WAKTU
+            'C' => 35,  // NO. PERMOHONAN
+            'D' => 30,  // NO. PROYEK
+            'E' => 22,  // TANGGAL PERMOHONAN
+            'F' => 22,  // NIB
+            'G' => 15,  // KBLI
+            'H' => 30,  // KEGIATAN
+            'I' => 22,  // JENIS USAHA
+            'J' => 35,  // NAMA PERUSAHAAN
+            'K' => 35,  // NAMA USAHA
+            'L' => 45,  // ALAMAT PERUSAHAAN
+            'M' => 22,  // MODAL USAHA
+            'N' => 22,  // JENIS PROYEK
+            'O' => 30,  // NAMA PERIZINAN
+            'P' => 22,  // SKALA USAHA
+            'Q' => 15,  // RISIKO
+            'R' => 25,  // JANGKA WAKTU
+            'S' => 22,  // NO TELPHONE
+            'T' => 30,  // VERIFIKASI PD TEKNIS
+            'U' => 30,  // VERIFIKASI ANALISA
+            'V' => 22,  // TANGGAL PENGEMBALIAN
+            'W' => 30,  // KETERANGAN PENGEMBALIAN
+            'X' => 22,  // TANGGAL MENGHUBUNGI
+            'Y' => 30,  // KETERANGAN MENGHUBUNGI
+            'Z' => 22,  // TANGGAL DISETUJUI
+            'AA' => 30, // KETERANGAN DISETUJUI
+            'AB' => 22, // TANGGAL TERBIT
+            'AC' => 30, // KETERANGAN TERBIT
+            'AD' => 40, // PEMROSES
+            'AE' => 22, // VERIFIKATOR
+            'AF' => 22, // STATUS
         ];
     }
 
