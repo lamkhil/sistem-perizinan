@@ -28,7 +28,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function headings(): array
     {
         return [
-            'SEKSI',
+            'SEKTOR',
             'WAKTU',
             'NO. PERMOHONAN (PD TEKNIS)',
             'NO. PROYEK (PD TEKNIS)',
