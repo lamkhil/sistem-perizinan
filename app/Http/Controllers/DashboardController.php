@@ -42,16 +42,23 @@ class DashboardController extends Controller
         }
         
         // Hitung statistik dengan 4 kategori status (tanpa Menunggu)
+        // Termasuk data yang terlambat berdasarkan deadline atau tanggal permohonan
+        $terlambatCount = $permohonans->filter(function($permohonan) {
+            return $permohonan->isOverdue();
+        })->count();
+        
         $stats = [
             'totalPermohonan' => $permohonans->count(),
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
-            'terlambat' => $permohonans->where('status', 'Terlambat')->count(),
+            'terlambat' => $terlambatCount, // Menggunakan isOverdue() method
         ];
         
-        // Ambil data terlambat untuk tampilan khusus
-        $terlambatData = $permohonans->where('status', 'Terlambat');
+        // Ambil data terlambat untuk tampilan khusus (berdasarkan isOverdue())
+        $terlambatData = $permohonans->filter(function($permohonan) {
+            return $permohonan->isOverdue();
+        });
 
         // Return view berdasarkan role
         switch ($user->role) {
@@ -142,13 +149,17 @@ class DashboardController extends Controller
         // Ambil data permohonan
         $permohonans = $permohonans->get();
         
-        // Hitung statistik untuk chart
+        // Hitung statistik untuk chart (termasuk data terlambat berdasarkan isOverdue())
+        $terlambatCount = $permohonans->filter(function($permohonan) {
+            return $permohonan->isOverdue();
+        })->count();
+        
         $stats = [
             'totalPermohonan' => $permohonans->count(),
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
-            'terlambat' => $permohonans->where('status', 'Terlambat')->count(),
+            'terlambat' => $terlambatCount, // Menggunakan isOverdue() method
         ];
 
         return view('statistik', compact('stats', 'selectedDateFilter', 'customDate'));

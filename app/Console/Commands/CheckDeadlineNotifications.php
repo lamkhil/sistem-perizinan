@@ -29,8 +29,8 @@ class CheckDeadlineNotifications extends Command
     {
         $this->info('Checking for overdue permohonan deadlines...');
 
-        // Ambil semua permohonan yang memiliki deadline
-        $permohonans = Permohonan::whereNotNull('deadline')->get();
+        // Ambil semua permohonan (termasuk yang belum ada deadline)
+        $permohonans = Permohonan::all();
 
         $overdueCount = 0;
         $dueTodayCount = 0;
@@ -48,15 +48,19 @@ class CheckDeadlineNotifications extends Command
                         ->first();
 
                     if (!$existingNotification) {
+                        $keterangan = $permohonan->deadline 
+                            ? "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$permohonan->deadline->format('d/m/Y')})"
+                            : "⚠️ PERINGATAN: Permohonan belum memiliki deadline lebih dari 30 hari sejak tanggal permohonan";
+                            
                         LogPermohonan::create([
                             'permohonan_id' => $permohonan->id,
                             'user_id' => 1, // System user
                             'status_sebelum' => $permohonan->status ?? 'Diterima',
                             'status_sesudah' => $permohonan->status ?? 'Diterima',
-                            'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$permohonan->deadline->format('d/m/Y')})",
+                            'keterangan' => $keterangan,
                             'action' => 'deadline_overdue',
                             'old_data' => null,
-                            'new_data' => json_encode(['deadline' => $permohonan->deadline->toDateString()])
+                            'new_data' => json_encode(['deadline' => $permohonan->deadline ? $permohonan->deadline->toDateString() : null])
                         ]);
                         $overdueCount++;
                     }
