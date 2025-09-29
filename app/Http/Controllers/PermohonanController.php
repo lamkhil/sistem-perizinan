@@ -201,9 +201,8 @@ class PermohonanController extends Controller
             $rules['nib'] = 'required|string|max:20';
             $rules['verifikator'] = 'required|string';
             $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
-            // PD Teknis TIDAK wajib isi deadline - akan diisi DPMPTSP nanti
         } elseif ($user->role === 'dpmptsp') {
-            // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status, deadline
+            // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
             $rules['nama_usaha'] = 'required|string';
             $rules['nama_perusahaan'] = 'nullable|string';
             $rules['alamat_perusahaan'] = 'required|string';
@@ -211,15 +210,13 @@ class PermohonanController extends Controller
             $rules['jenis_proyek'] = 'required|string';
             $rules['verifikator'] = 'required|string';
             $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
-            $rules['deadline'] = 'required|date|after_or_equal:today'; // DPMPTSP WAJIB isi deadline
         } else {
-            // Admin wajib isi semua field utama termasuk deadline
+            // Admin wajib isi semua field utama
             $rules['no_permohonan'] = 'required|string|unique:permohonans,no_permohonan';
             $rules['tanggal_permohonan'] = 'required|date';
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
             $rules['verifikator'] = 'required|string';
             $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
-            $rules['deadline'] = 'required|date|after_or_equal:today'; // Admin WAJIB isi deadline
         }
         
         // Semua role wajib isi verifikator dan status

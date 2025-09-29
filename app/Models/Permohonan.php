@@ -142,12 +142,6 @@ class Permohonan extends Model
     public function isOverdue()
     {
         if (!$this->getAttribute('deadline')) {
-            // Jika belum ada deadline, cek apakah sudah lebih dari 30 hari dari tanggal permohonan
-            if ($this->tanggal_permohonan) {
-                $tanggalPermohonan = \Carbon\Carbon::parse($this->tanggal_permohonan);
-                $hariSejakPermohonan = now()->diffInDays($tanggalPermohonan);
-                return $hariSejakPermohonan > 30; // Lebih dari 30 hari tanpa deadline = terlambat
-            }
             return false;
         }
         
@@ -158,19 +152,6 @@ class Permohonan extends Model
     public function getDeadlineStatus()
     {
         if (!$this->getAttribute('deadline')) {
-            // Jika belum ada deadline, cek berdasarkan tanggal permohonan
-            if ($this->tanggal_permohonan) {
-                $tanggalPermohonan = \Carbon\Carbon::parse($this->tanggal_permohonan);
-                $hariSejakPermohonan = now()->diffInDays($tanggalPermohonan);
-                
-                if ($hariSejakPermohonan > 30) {
-                    return 'overdue'; // Lebih dari 30 hari tanpa deadline = terlambat
-                } elseif ($hariSejakPermohonan >= 25) {
-                    return 'due_soon'; // 25-30 hari tanpa deadline = akan terlambat
-                } else {
-                    return 'no_deadline'; // Masih dalam batas wajar
-                }
-            }
             return 'no_deadline';
         }
 
