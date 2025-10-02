@@ -10,9 +10,9 @@
 
     <!-- Header dengan Action Buttons -->
     <div class="mb-6 bg-white rounded-xl shadow-sm p-6">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
             <!-- Left: Search dan Filter -->
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
                 <form method="GET" action="{{ route('permohonan.index') }}" class="space-y-4" id="filterForm">
                     <!-- Search Bar -->
                     <div class="flex gap-3">
@@ -132,25 +132,25 @@
             </div>
             
             <!-- Right: Action Buttons -->
-            <div class="flex flex-col xl:flex-row gap-3 min-w-0">
+            <div class="flex flex-col gap-3 w-full xl:w-auto xl:min-w-0">
                 <!-- Export Buttons -->
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-col sm:flex-row gap-2">
                     <a href="{{ route('permohonan.export.excel') }}" 
-                       class="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium transition-colors whitespace-nowrap">
+                       class="inline-flex items-center justify-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium transition-colors whitespace-nowrap">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                         Excel
                     </a>
                     <a href="{{ route('permohonan.export.pdf') }}" 
-                       class="inline-flex items-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium transition-colors whitespace-nowrap">
+                       class="inline-flex items-center justify-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium transition-colors whitespace-nowrap">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                         PDF Lengkap
                     </a>
                     <a href="{{ route('permohonan.export.pdf-compact') }}" 
-                       class="inline-flex items-center px-3 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 text-sm font-medium transition-colors whitespace-nowrap">
+                       class="inline-flex items-center justify-center px-3 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 text-sm font-medium transition-colors whitespace-nowrap">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
@@ -160,7 +160,7 @@
                 
                 <!-- Add Button -->
                 <a href="{{ route('permohonan.create') }}" 
-                   class="inline-flex items-center px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0">
+                   class="inline-flex items-center justify-center px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors whitespace-nowrap">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
