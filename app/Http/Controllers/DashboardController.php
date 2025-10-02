@@ -7,6 +7,7 @@ use App\Models\PenerbitanBerkas;
 use App\Models\TtdSetting;
 use App\Exports\PenerbitanBerkasExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -269,6 +270,23 @@ class DashboardController extends Controller
     public function exportPenerbitanBerkasExcel()
     {
         return Excel::download(new PenerbitanBerkasExport, 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
+    }
+
+    public function exportPenerbitanBerkasPdf()
+    {
+        $user = Auth::user();
+        
+        // Batasi akses hanya admin dan penerbitan_berkas
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
+        }
+
+        $penerbitanBerkas = PenerbitanBerkas::with('user')->get();
+        
+        $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download('data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
     public function storePenerbitanBerkas(Request $request)
