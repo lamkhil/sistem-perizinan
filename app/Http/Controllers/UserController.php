@@ -16,9 +16,9 @@ class UserController extends Controller
     {
         // Admin bisa melihat semua user, role lain hanya melihat user non-admin
         if (Auth::user()->role === 'admin') {
-            $users = User::latest()->paginate(10);
+            $users = User::latest()->get();
         } else {
-            $users = User::where('role', '!=', 'admin')->latest()->paginate(10);
+            $users = User::where('role', '!=', 'admin')->latest()->get();
         }
         return view('users.index', compact('users'));
     }
