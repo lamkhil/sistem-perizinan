@@ -76,7 +76,22 @@
                                 </div>
                             </div>
                             
-                            <?php if(($searchQuery || $selectedSektor || $selectedDateFilter) && ($selectedDateFilter ?? '') != 'custom'): ?>
+                            <div class="relative custom-dropdown">
+                                <select name="status" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
+                                    <option value="">Semua Status</option>
+                                    <option value="Diterima" <?php echo e(($selectedStatus ?? '') == 'Diterima' ? 'selected' : ''); ?>>Diterima</option>
+                                    <option value="Dikembalikan" <?php echo e(($selectedStatus ?? '') == 'Dikembalikan' ? 'selected' : ''); ?>>Dikembalikan</option>
+                                    <option value="Ditolak" <?php echo e(($selectedStatus ?? '') == 'Ditolak' ? 'selected' : ''); ?>>Ditolak</option>
+                                    <option value="Terlambat" <?php echo e(($selectedStatus ?? '') == 'Terlambat' ? 'selected' : ''); ?>>Terlambat</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <?php if(($searchQuery || $selectedSektor || $selectedDateFilter || $selectedStatus) && ($selectedDateFilter ?? '') != 'custom'): ?>
                             <a href="<?php echo e(route('permohonan.index')); ?>" class="h-11 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center text-sm font-medium transition-colors">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
