@@ -248,7 +248,11 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($permohonans as $permohonan)
-                    <tr class="hover:bg-primary-50 transition-colors duration-200">
+                    @php
+                        $isOverdue = $permohonan && $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
+                        $rowClass = $isOverdue ? 'bg-red-50 hover:bg-red-100 border-l-4 border-red-500' : 'hover:bg-primary-50';
+                    @endphp
+                    <tr class="{{ $rowClass }} transition-colors duration-200">
                         <!-- No. Permohonan -->
                         <td class="px-4 py-4 text-sm font-medium text-gray-900">
                             <div class="flex items-center">
@@ -381,7 +385,11 @@
         <div class="lg:hidden">
             <div class="p-4 space-y-4">
                 @forelse($permohonans as $permohonan)
-                <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                @php
+                    $isOverdue = $permohonan && $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
+                    $cardClass = $isOverdue ? 'bg-red-50 border-red-200 border-l-4 border-l-red-500' : 'bg-white border-gray-200';
+                @endphp
+                <div class="{{ $cardClass }} rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex-1">
                             <h4 class="font-semibold text-gray-900 text-sm">{{ $permohonan?->nama_usaha ?? '-' }}</h4>

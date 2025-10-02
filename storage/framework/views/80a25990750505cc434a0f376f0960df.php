@@ -262,7 +262,11 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <?php $__empty_1 = true; $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <tr class="hover:bg-primary-50 transition-colors duration-200">
+                    <?php
+                        $isOverdue = $permohonan && $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
+                        $rowClass = $isOverdue ? 'bg-red-50 hover:bg-red-100 border-l-4 border-red-500' : 'hover:bg-primary-50';
+                    ?>
+                    <tr class="<?php echo e($rowClass); ?> transition-colors duration-200">
                         <!-- No. Permohonan -->
                         <td class="px-4 py-4 text-sm font-medium text-gray-900">
                             <div class="flex items-center">
@@ -397,7 +401,11 @@
         <div class="lg:hidden">
             <div class="p-4 space-y-4">
                 <?php $__empty_1 = true; $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                <?php
+                    $isOverdue = $permohonan && $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
+                    $cardClass = $isOverdue ? 'bg-red-50 border-red-200 border-l-4 border-l-red-500' : 'bg-white border-gray-200';
+                ?>
+                <div class="<?php echo e($cardClass); ?> rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex-1">
                             <h4 class="font-semibold text-gray-900 text-sm"><?php echo e($permohonan?->nama_usaha ?? '-'); ?></h4>
