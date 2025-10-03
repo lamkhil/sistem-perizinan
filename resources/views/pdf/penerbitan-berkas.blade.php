@@ -165,7 +165,6 @@
         <h1>PERIZINAN BERUSAHA DISETUJUI</h1>
         <h2>DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</h2>
         <h2>KOTA SURABAYA TAHUN {{ date('Y') }}</h2>
-        <p>Data Penerbitan Berkas - {{ date('d F Y') }}</p>
     </div>
 
     <table>
