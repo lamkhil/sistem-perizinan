@@ -66,13 +66,6 @@
             position: relative;
         }
         
-        /* Tanggal di kanan atas */
-        .ttd-date-top {
-            text-align: right;
-            margin-bottom: 40px;
-            font-size: 10px;
-        }
-        
         /* Container TTD kiri dan kanan - Sejajar horizontal */
         .ttd-content {
             display: flex;
@@ -82,7 +75,7 @@
             min-height: 120px;
         }
         
-        /* TTD Kiri Bawah */
+        /* TTD Kiri - di bawah SKALA USAHA */
         .ttd-left {
             width: 45%;
             text-align: left;
@@ -120,7 +113,7 @@
             margin-bottom: 0;
         }
         
-        /* TTD Kanan Bawah */
+        /* TTD Kanan - di bawah TANGGAL PERMOHONAN */
         .ttd-right {
             width: 45%;
             text-align: right;
@@ -131,6 +124,11 @@
         .ttd-right-content {
             position: relative;
             width: 100%;
+        }
+        
+        .ttd-right-date {
+            font-size: 10px;
+            margin-bottom: 0;
         }
         
         .ttd-right-spacing {
@@ -230,14 +228,9 @@
 
     <!-- TTD Section -->
     <div class="ttd-section">
-        <!-- Tanggal di kanan atas -->
-        <div class="ttd-date-top">
-            <strong>Surabaya, {{ date('d F Y') }}</strong>
-        </div>
-        
         <!-- TTD Kiri dan Kanan - Sejajar horizontal -->
         <div class="ttd-content">
-            <!-- TTD Kiri Bawah -->
+            <!-- TTD Kiri - di bawah SKALA USAHA -->
             <div class="ttd-left">
                 <div class="ttd-left-content">
                     <div class="ttd-left-title"><strong>Mengetahui</strong></div>
@@ -249,9 +242,10 @@
                 </div>
             </div>
             
-            <!-- TTD Kanan Bawah -->
+            <!-- TTD Kanan - di bawah TANGGAL PERMOHONAN -->
             <div class="ttd-right">
                 <div class="ttd-right-content">
+                    <div class="ttd-right-date"><strong>Surabaya, {{ date('d F Y') }}</strong></div>
                     <div class="ttd-right-spacing"></div>
                     <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
                     <div class="ttd-right-spacing"></div>
