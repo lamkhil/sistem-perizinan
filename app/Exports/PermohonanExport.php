@@ -82,8 +82,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->no_proyek ?? '',
             // TANGGAL PERMOHONAN (PD TEKNIS)
             $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '',
-            // NIB (PD TEKNIS)
-            $permohonan->nib ?? '',
+            // NIB (PD TEKNIS) - Force as text to prevent scientific notation
+            "'" . ($permohonan->nib ?? ''),
             // KBLI (PD TEKNIS)
             $permohonan->kbli ?? '',
             // KEGIATAN (PD TEKNIS)

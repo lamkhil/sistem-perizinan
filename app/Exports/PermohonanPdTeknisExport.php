@@ -30,7 +30,7 @@ class PermohonanPdTeknisExport implements FromCollection, WithHeadings, WithStyl
                 'No. Permohonan' => $p->no_permohonan,
                 'No. Proyek' => $p->no_proyek,
                 'Tgl. Permohonan' => $p->tanggal_permohonan,
-                'NIB' => $p->nib,
+                'NIB' => "'" . $p->nib,
                 'Verifikasi PD Teknis' => $p->verifikasi_pd_teknis,
                 'Status' => $p->status,
             ];
