@@ -259,7 +259,7 @@
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left"><div style="height:50px"></div></td>
                 <td colspan="8"></td>
-                <td colspan="5" class="ttd-right"><div style="height:50px"></div></td>
+                <td colspan="5" class="ttd-right"><div style="height:10px"></div></td>
             </tr>
 
             <!-- Baris 3: jabatan kanan dan nama kiri -->
@@ -282,7 +282,7 @@
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
+                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
                 </td>
             </tr>
 
@@ -294,7 +294,7 @@
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-position">Penata Tk. 1</div>
+                    <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
                 </td>
             </tr>
 
@@ -303,7 +303,7 @@
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left"><div class="ttd-left-nip">NIP: 198502182010011008</div></td>
                 <td colspan="8"></td>
-                <td colspan="5" class="ttd-right"><div class="ttd-right-nip">NIP: 197710132006042012</div></td>
+                <td colspan="5" class="ttd-right"><div class="ttd-right-position">Penata Tk. 1</div></td>
             </tr>
         </table>
     </div>
