@@ -82,8 +82,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->no_proyek ?? '',
             // TANGGAL PERMOHONAN (PD TEKNIS)
             $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '',
-            // NIB (PD TEKNIS) - Force as text to prevent scientific notation
-            "'" . ($permohonan->nib ?? ''),
+            // NIB (PD TEKNIS)
+            $permohonan->nib ?? '',
             // KBLI (PD TEKNIS)
             $permohonan->kbli ?? '',
             // KEGIATAN (PD TEKNIS)
@@ -224,6 +224,9 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 
                 // Set row height for header (wider)
                 $sheet->getRowDimension(1)->setRowHeight(50);
+                
+                // Set NIB column (F) as text format to prevent scientific notation
+                $sheet->getStyle('F2:F' . $highestRow)->getNumberFormat()->setFormatCode('@');
                 
                 // Set borders for all data
                 $sheet->getStyle('A1:AF' . $highestRow)->getBorders()->getAllBorders()

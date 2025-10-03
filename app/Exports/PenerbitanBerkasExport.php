@@ -70,7 +70,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $row->no_permohonan ?? '-',
             $row->no_proyek ?? '-',
             $tanggalPermohonan,
-            "'" . ($row->nib ?? '-'),
+            $row->nib ?? '-',
             $row->kbli ?? '-',
             $row->nama_usaha ?? '-',
             $row->inputan_teks ?? '-',
@@ -176,6 +176,9 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 ]);
                 // Perbesar tinggi baris header
                 $sheet->getRowDimension($headerRow)->setRowHeight(28);
+                
+                // Set NIB column (E) as text format to prevent scientific notation
+                $sheet->getStyle('E' . ($headerRow + 1) . ':E' . $lastRow)->getNumberFormat()->setFormatCode('@');
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 $ttdRow = $lastRow + 3;
