@@ -68,7 +68,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $row->no_permohonan ?? '-',
             $row->no_proyek ?? '-',
             $tanggalPermohonan,
-            "'" . ($row->nib ?? '-'),
+            $row->nib ?? '-',
             $row->kbli ?? '-',
             $row->nama_usaha ?? '-',
             $row->inputan_teks ?? '-',
