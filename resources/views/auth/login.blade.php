@@ -40,8 +40,8 @@
         .form-input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: #1e3a8a;
+            border: 1px solid #3b82f6;
             border-radius: 8px;
             color: white;
             font-size: 1rem;
@@ -52,7 +52,7 @@
         .form-input:focus {
             outline: none;
             border-color: #fbbf24;
-            background: rgba(255, 255, 255, 0.15);
+            background: #1e40af;
         }
         .checkbox-container {
             display: flex;
