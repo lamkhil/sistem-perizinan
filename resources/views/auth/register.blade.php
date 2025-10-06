@@ -193,6 +193,21 @@
                     Daftar
                 </button>
             </form>
+
+            <!-- Links -->
+            <div class="text-center mt-6">
+                <p class="text-white text-sm">
+                    Sudah punya akun? 
+                    <a href="{{ route('login') }}" class="text-yellow-300 hover:text-yellow-200 underline">
+                        Masuk sekarang
+                    </a>
+                </p>
+                <p class="text-white text-sm mt-2">
+                    <a href="{{ route('landing') }}" class="text-yellow-300 hover:text-yellow-200 underline">
+                        Kembali ke halaman utama
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 </body>

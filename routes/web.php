@@ -10,7 +10,12 @@ use App\Http\Controllers\TtdSettingController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LandingController::class, 'index'])->name('landing');
+// Redirect root to login page
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 Route::post('/landing-register', [LandingController::class, 'register'])->name('landing.register');
 
 // Dashboard (invokable controller)
