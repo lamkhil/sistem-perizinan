@@ -9,10 +9,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #0E2A66 0%, #12357e 40%, #1f3f95 70%, #2a4db5 85%, #3b82f6 100%);
+            background: linear-gradient(135deg, #0E2A66 0%, #092767 71%, #283593 100%);
             min-height: 100vh;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
         }
         .logo-container {
             display: flex;
