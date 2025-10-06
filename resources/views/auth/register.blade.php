@@ -19,21 +19,9 @@
             margin-bottom: 2rem;
         }
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin-bottom: 1rem;
-        }
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fbbf24;
-            margin-bottom: 0.5rem;
-        }
-        .org-text {
-            color: white;
-            text-align: center;
-            line-height: 1.4;
             margin-bottom: 2rem;
         }
         .input-container {
@@ -109,15 +97,9 @@
 <body>
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md">
-            <!-- Logo and Organization Info -->
+            <!-- Logo -->
             <div class="logo-container">
                 <img src="{{ asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
-                <div class="logo-text">dpmptsp</div>
-                <div class="org-text">
-                    Dinas Penanaman Modal dan<br>
-                    Pelayanan Terpadu Satu Pintu<br>
-                    Kota Surabaya
-                </div>
             </div>
 
             <!-- Sign Up Form -->
