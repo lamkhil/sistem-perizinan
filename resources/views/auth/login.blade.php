@@ -19,7 +19,7 @@
             margin-bottom: 2rem;
         }
         .logo {
-            width: 840px;
+            width: 320px;
             height: 320px;
             border-radius: 12px;
             object-fit: contain;
