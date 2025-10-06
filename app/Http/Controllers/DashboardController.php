@@ -53,15 +53,11 @@ class DashboardController extends Controller
         
         // Hitung statistik dengan logika yang benar
         // Total = hanya status final (Diterima, Dikembalikan, Ditolak)
-        // Catatan: Menunggu dan Terlambat dianggap proses, tidak masuk total
         $totalPermohonan = $permohonans->whereIn('status', ['Diterima', 'Dikembalikan', 'Ditolak'])->count();
         
-        // Terlambat = status proses (bukan final) yang melewati deadline atau sudah bertanda 'Terlambat'
+        // Terlambat = hanya dari status Dikembalikan yang deadline lewat
         $terlambatCount = $permohonans->filter(function($permohonan) {
-            if (in_array($permohonan->status, ['Diterima','Ditolak'])) {
-                return false; // final tidak dihitung terlambat
-            }
-            return $permohonan->status === 'Terlambat' || $permohonan->isOverdue();
+            return $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
         })->count();
         
         $stats = [
@@ -69,15 +65,12 @@ class DashboardController extends Controller
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
-            'terlambat' => $terlambatCount,
+            'terlambat' => $terlambatCount, // Hanya dari Dikembalikan yang terlambat
         ];
         
-        // Ambil data terlambat untuk tampilan khusus (semua yang proses dan melewati deadline)
+        // Ambil data terlambat untuk tampilan khusus (hanya Dikembalikan yang terlambat)
         $terlambatData = $permohonans->filter(function($permohonan) {
-            if (in_array($permohonan->status, ['Diterima','Ditolak'])) {
-                return false;
-            }
-            return $permohonan->status === 'Terlambat' || $permohonan->isOverdue();
+            return $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
         });
 
         // Return view berdasarkan role

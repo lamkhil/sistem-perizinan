@@ -70,7 +70,6 @@
                                     <option value="">Semua Status</option>
                                     <option value="Diterima" {{ ($selectedStatus ?? '') == 'Diterima' ? 'selected' : '' }}>Diterima</option>
                                     <option value="Dikembalikan" {{ ($selectedStatus ?? '') == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
-                                    <option value="Menunggu" {{ ($selectedStatus ?? '') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
                                     <option value="Ditolak" {{ ($selectedStatus ?? '') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
                                     <option value="Terlambat" {{ ($selectedStatus ?? '') == 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
                                 </select>
