@@ -19,9 +19,10 @@
             margin-bottom: 2rem;
         }
         .logo {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
+            width: 420px;
+            height: 160px;
+            border-radius: 12px;
+            object-fit: contain;
             margin-bottom: 2rem;
         }
         .input-container {
