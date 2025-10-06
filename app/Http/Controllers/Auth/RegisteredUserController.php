@@ -29,12 +29,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string', 'in:dpmptsp,pd_teknis,penerbitan_berkas'],
-        ]);
+        ];
+
+        // Jika role adalah pd_teknis, sektor wajib diisi
+        if ($request->role === 'pd_teknis') {
+            $rules['sektor'] = ['required', 'in:Dinkopdag,Disbudpar,Dinkes,Dishub,Dprkpp,Dkpp,Dlh,Disperinaker'];
+        }
+
+        $request->validate($rules);
 
         // Cek apakah sudah ada admin
         $adminExists = User::where('role', 'admin')->exists();
@@ -44,12 +51,19 @@ class RegisteredUserController extends Controller
             return back()->withErrors(['role' => 'Role admin sudah ada dan tidak dapat dibuat lagi.']);
         }
 
-        $user = User::create([
+        $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-        ]);
+        ];
+
+        // Tambahkan sektor jika role adalah pd_teknis
+        if ($request->role === 'pd_teknis' && $request->sektor) {
+            $userData['sektor'] = $request->sektor;
+        }
+
+        $user = User::create($userData);
 
         event(new Registered($user));
 

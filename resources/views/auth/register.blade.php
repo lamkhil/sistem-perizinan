@@ -174,11 +174,29 @@
                     <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
                     </svg>
-                    <select name="role" class="form-select" required>
+                    <select name="role" id="role" class="form-select" required onchange="toggleSektorField()">
                         <option value="" disabled selected>Role</option>
                         <option value="pd_teknis">Staff PD Teknis</option>
                         <option value="dpmptsp">Staff DPMPTSP</option>
                         <option value="penerbitan_berkas">Staff Penerbitan Berkas</option>
+                    </select>
+                </div>
+
+                <!-- Sektor Field (Hidden by default) -->
+                <div class="input-container" id="sektor-container" style="display: none;">
+                    <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <select name="sektor" id="sektor" class="form-select">
+                        <option value="" disabled selected>Sektor</option>
+                        <option value="Dinkopdag">Dinkopdag</option>
+                        <option value="Disbudpar">Disbudpar</option>
+                        <option value="Dinkes">Dinkes</option>
+                        <option value="Dishub">Dishub</option>
+                        <option value="Dprkpp">Dprkpp</option>
+                        <option value="Dkpp">Dkpp</option>
+                        <option value="Dlh">Dlh</option>
+                        <option value="Disperinaker">Disperinaker</option>
                     </select>
                 </div>
 
@@ -204,5 +222,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleSektorField() {
+            const roleSelect = document.getElementById('role');
+            const sektorContainer = document.getElementById('sektor-container');
+            const sektorSelect = document.getElementById('sektor');
+            
+            if (roleSelect.value === 'pd_teknis') {
+                sektorContainer.style.display = 'block';
+                sektorSelect.required = true;
+            } else {
+                sektorContainer.style.display = 'none';
+                sektorSelect.required = false;
+                sektorSelect.value = '';
+            }
+        }
+    </script>
 </body>
 </html>
