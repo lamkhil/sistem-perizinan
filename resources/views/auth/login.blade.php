@@ -158,11 +158,6 @@
                         Daftar sekarang
                     </a>
                 </p>
-                <p class="text-white text-sm mt-2">
-                    <a href="{{ route('landing') }}" class="text-yellow-300 hover:text-yellow-200 underline">
-                        Kembali ke halaman utama
-                    </a>
-                </p>
             </div>
         </div>
     </div>

@@ -3,97 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
-    <!-- App CSS & JS -->
+    <title>Login - DPMPTSP</title>
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
+            background: linear-gradient(135deg, #0E2A66 0%, #092767 71%, #283593 100%);
+            min-height: 100vh;
+        }
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .logo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin-bottom: 2rem;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fbbf24;
+            width: 20px;
+            height: 20px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .checkbox {
+            margin-right: 0.5rem;
+            accent-color: #fbbf24;
+        }
+        .forgot-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .forgot-link:hover {
+            color: #fbbf24;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #283593;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .login-btn:hover {
+            background: #092767;
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="antialiased">
-    <div class="min-h-screen flex items-center justify-center p-4 lg:p-12">
-        <div class="flex flex-col lg:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <!-- Left Panel (Login Form) -->
-            <div class="w-full lg:w-1/2 p-8 lg:p-16 flex items-center justify-center">
-                <div class="w-full max-w-sm">
-                    <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 text-center lg:text-left">
-                        Sign In
-                    </h2>
-                    <p class="text-gray-500 text-center lg:text-left mb-8">
-                        Welcome back! Please enter your details.
-                    </p>
-
-                    <!-- Login Form -->
-                    <form action="<?php echo e(route('login')); ?>" method="POST" class="space-y-6">
-                        <?php echo csrf_field(); ?>
-                        <!-- Email Address -->
-                        <div>
-                            <input 
-                                id="email" 
-                                class="w-full px-5 py-3 bg-gray-100 border-2 border-transparent rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300" 
-                                type="email" 
-                                name="email" 
-                                placeholder="Email"
-                                required 
-                            />
-                        </div>
-
-                        <!-- Password -->
-                        <div>
-                            <input 
-                                id="password" 
-                                class="w-full px-5 py-3 bg-gray-100 border-2 border-transparent rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                required 
-                            />
-                        </div>
-
-                        <!-- Remember Me & Forgot Password -->
-                        <div class="flex items-center justify-between text-sm">
-                            <label for="remember_me" class="flex items-center text-gray-600 hover:text-gray-800 transition-colors cursor-pointer">
-                                <input 
-                                    id="remember_me" 
-                                    type="checkbox" 
-                                    class="rounded-md text-primary-600 focus:ring-primary-600 border-gray-300" 
-                                    name="remember"
-                                >
-                                <span class="ml-2 font-medium">Remember me</span>
-                            </label>
-
-                            <a href="#" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">
-                                Forgot password?
-                            </a>
-                        </div>
-
-                        <!-- Sign In Button -->
-                        <div>
-                            <button type="submit" class="w-full py-3 px-6 bg-gradient-primary text-white font-bold rounded-xl shadow-lg hover:opacity-95 transition-all duration-300 transform hover:scale-105">
-                                SIGN IN
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="<?php echo e(asset('images/dpmptsp-removebg.png')); ?>" alt="DPMPTSP Logo" class="logo">
             </div>
 
-            <!-- Right Panel (Greeting) -->
-            <div class="hidden lg:flex lg:w-1/2 p-8 lg:p-16 items-center justify-center text-center bg-gradient-sidebar rounded-r-3xl relative">
-                <div class="z-10 text-white">
-                    <h2 class="text-4xl lg:text-5xl font-extrabold mb-4">Hello, Friend!</h2>
-                    <p class="text-lg mb-8 opacity-90">
-                        Enter your personal details to start your journey with us.
-                    </p>
-                    
-                    <!-- Sign Up Button -->
-                    <a href="<?php echo e(route('register')); ?>" class="inline-block px-12 py-3 border-2 border-white rounded-full font-bold text-white hover:bg-white hover:text-primary-700 transition-all duration-300 transform hover:scale-105 shadow-md">
-                        SIGN UP
-                    </a>
+            <!-- Login Form -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Login</h1>
+                <p class="text-white text-lg">Masukkan Detail Pribadimu!</p>
+            </div>
+
+            <form action="<?php echo e(route('login')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                
+                <!-- Email Field -->
+                <div class="input-container">
+                    <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="Email"
+                        required
+                    >
                 </div>
+
+                <!-- Password Field -->
+                <div class="input-container">
+                    <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Password"
+                        required
+                    >
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between mb-6">
+                    <label class="checkbox-container text-white">
+                        <input type="checkbox" name="remember" class="checkbox">
+                        <span>Ingat Saya</span>
+                    </label>
+                    <a href="#" class="forgot-link">Lupa Password?</a>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="login-btn">
+                    Masuk
+                </button>
+            </form>
+
+            <!-- Links -->
+            <div class="text-center mt-6">
+                <p class="text-white text-sm">
+                    Belum punya akun? 
+                    <a href="<?php echo e(route('register')); ?>" class="text-yellow-300 hover:text-yellow-200 underline">
+                        Daftar sekarang
+                    </a>
+                </p>
+                <p class="text-white text-sm mt-2">
+                    <a href="<?php echo e(route('landing')); ?>" class="text-yellow-300 hover:text-yellow-200 underline">
+                        Kembali ke halaman utama
+                    </a>
+                </p>
             </div>
         </div>
     </div>

@@ -7,16 +7,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\JenisUsahaController; // ✅ Tambahkan ini
 use App\Http\Controllers\TtdSettingController;
-use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 // Redirect root to login page
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
-Route::get('/landing', [LandingController::class, 'index'])->name('landing');
-Route::post('/landing-register', [LandingController::class, 'register'])->name('landing.register');
 
 // Dashboard (invokable controller)
 Route::get('/dashboard', DashboardController::class)

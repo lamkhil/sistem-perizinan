@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - DPMPTSP</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
@@ -100,7 +100,7 @@
         <div class="w-full max-w-md">
             <!-- Logo -->
             <div class="logo-container">
-                <img src="{{ asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
+                <img src="<?php echo e(asset('images/dpmptsp-removebg.png')); ?>" alt="DPMPTSP Logo" class="logo">
             </div>
 
             <!-- Sign Up Form -->
@@ -109,8 +109,8 @@
                 <p class="text-white text-lg">Daftarkan Detail Pribadimu!</p>
             </div>
 
-            <form action="{{ route('register') }}" method="POST">
-                @csrf
+            <form action="<?php echo e(route('register')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 
                 <!-- Username Field -->
                 <div class="input-container">
@@ -210,8 +210,13 @@
             <div class="text-center mt-6">
                 <p class="text-white text-sm">
                     Sudah punya akun? 
-                    <a href="{{ route('login') }}" class="text-yellow-300 hover:text-yellow-200 underline">
+                    <a href="<?php echo e(route('login')); ?>" class="text-yellow-300 hover:text-yellow-200 underline">
                         Masuk sekarang
+                    </a>
+                </p>
+                <p class="text-white text-sm mt-2">
+                    <a href="<?php echo e(route('landing')); ?>" class="text-yellow-300 hover:text-yellow-200 underline">
+                        Kembali ke halaman utama
                     </a>
                 </p>
             </div>
@@ -235,4 +240,4 @@
         }
     </script>
 </body>
-</html>
+</html><?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/auth/register.blade.php ENDPATH**/ ?>
