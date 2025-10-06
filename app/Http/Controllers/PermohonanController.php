@@ -106,8 +106,8 @@ class PermohonanController extends Controller
         // Terapkan filter status
         if ($selectedStatus) {
             if ($selectedStatus === 'Terlambat') {
-                // Terlambat = hanya dari status Dikembalikan yang deadline lewat
-                $permohonans->where('status', 'Dikembalikan')
+                // Terlambat = status proses (Dikembalikan atau Menunggu) yang melewati deadline
+                $permohonans->whereIn('status', ['Dikembalikan', 'Menunggu'])
                            ->whereNotNull('deadline')
                            ->where('deadline', '<', now());
             } else {
@@ -198,7 +198,7 @@ class PermohonanController extends Controller
             'no_telephone' => 'nullable|string|max:20',
             'deadline' => 'nullable|date|after_or_equal:today', // CREATE: deadline harus >= hari ini
             'verifikator' => 'nullable|string',
-            'status' => 'required|in:Dikembalikan,Diterima,Ditolak',
+            'status' => 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak',
             'verifikasi_pd_teknis' => 'nullable|string',
             'verifikasi_dpmptsp' => 'nullable|string',
             'pengembalian' => 'nullable|date',
@@ -221,7 +221,7 @@ class PermohonanController extends Controller
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
             $rules['nib'] = 'required|string|max:20';
             $rules['verifikator'] = 'required|string';
-            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
+            $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
             $rules['nama_usaha'] = 'required|string';
@@ -230,14 +230,14 @@ class PermohonanController extends Controller
             $rules['modal_usaha'] = 'required|numeric';
             $rules['jenis_proyek'] = 'required|string';
             $rules['verifikator'] = 'required|string';
-            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
+            $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         } else {
             // Admin wajib isi semua field utama
             $rules['no_permohonan'] = 'required|string|unique:permohonans,no_permohonan';
             $rules['tanggal_permohonan'] = 'required|date';
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
             $rules['verifikator'] = 'required|string';
-            $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
+            $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         }
         
         // Semua role wajib isi verifikator dan status
