@@ -117,7 +117,7 @@
         <div class="w-full max-w-md">
             <!-- Logo -->
             <div class="logo-container">
-                <img src="{{ asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
+                <img src="{{ asset('images/dpmptsp-baru.png') }}" alt="DPMPTSP Logo" class="logo">
             </div>
 
             <!-- Sign Up Form -->
