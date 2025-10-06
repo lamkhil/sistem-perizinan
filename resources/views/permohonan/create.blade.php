@@ -332,6 +332,7 @@
                                     <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : '' }} required>
                                         <option value="Diterima" @selected(old('status') == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status') == 'Dikembalikan')>Dikembalikan</option>
+                                        <option value="Menunggu" @selected(old('status') == 'Menunggu')>Menunggu</option>
                                         <option value="Ditolak" @selected(old('status') == 'Ditolak')>Ditolak</option>
                                         {{-- Status "Terlambat" dihapus - akan otomatis terdeteksi berdasarkan deadline --}}
                                     </select>

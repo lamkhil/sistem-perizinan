@@ -190,7 +190,8 @@ class Permohonan extends Model
     // Method untuk auto-update status berdasarkan deadline
     public function updateStatusBasedOnDeadline()
     {
-        if ($this->isOverdue() && $this->status !== 'Terlambat') {
+        // Hanya ubah otomatis ke "Terlambat" bila masih dalam proses (bukan final)
+        if ($this->isOverdue() && !in_array($this->status, ['Diterima','Ditolak','Terlambat'])) {
             $statusSebelum = $this->status;
             $this->update(['status' => 'Terlambat']);
             
