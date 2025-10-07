@@ -68,10 +68,10 @@
                             <div class="relative custom-dropdown">
                                 <select name="status" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
                                     <option value="">Semua Status</option>
-                                    <option value="Menunggu" {{ ($selectedStatus ?? '') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
                                     <option value="Diterima" {{ ($selectedStatus ?? '') == 'Diterima' ? 'selected' : '' }}>Diterima</option>
                                     <option value="Dikembalikan" {{ ($selectedStatus ?? '') == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
                                     <option value="Ditolak" {{ ($selectedStatus ?? '') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                    <option value="Menunggu" {{ ($selectedStatus ?? '') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
                                     <option value="Terlambat" {{ ($selectedStatus ?? '') == 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">

@@ -355,10 +355,10 @@
                                 <div>
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
                                     <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : '' }}>
-                                        <option value="Menunggu" @selected(old('status', $permohonan->status) == 'Menunggu')>Menunggu</option>
                                         <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status', $permohonan->status) == 'Dikembalikan')>Dikembalikan</option>
                                         <option value="Ditolak" @selected(old('status', $permohonan->status) == 'Ditolak')>Ditolak</option>
+                                        <option value="Menunggu" @selected(old('status', $permohonan->status) == 'Menunggu')>Menunggu</option>
                                         {{-- Status "Terlambat" dihapus - akan otomatis terdeteksi berdasarkan deadline --}}
                                     </select>
                                     @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
