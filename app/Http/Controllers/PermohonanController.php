@@ -394,6 +394,16 @@ class PermohonanController extends Controller
             'pemroses_dan_tgl_surat' => 'nullable|string',
         ]);
         
+        // Role-based validation untuk update
+        $user = Auth::user();
+        if ($user->role === 'pd_teknis') {
+            // PD Teknis tidak boleh mengubah nama_usaha
+            $validated['nama_usaha'] = $permohonan->nama_usaha; // Keep original value
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak boleh mengubah nama_perusahaan
+            $validated['nama_perusahaan'] = $permohonan->nama_perusahaan; // Keep original value
+        }
+        
         // PENTING: Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', pastikan nama_usaha dan jenis_badan_usaha di-null-kan
         if ($request->input('jenis_pelaku_usaha') === 'Orang Perseorangan') {
             $validated['nama_usaha'] = null;
