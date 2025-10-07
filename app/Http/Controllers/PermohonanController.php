@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Exports\PermohonanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Validation\Rule;
 
 class PermohonanController extends Controller
 {
@@ -364,7 +365,11 @@ class PermohonanController extends Controller
         $user = Auth::user();
 
         $validated = $request->validate([
-            'no_permohonan' => 'nullable|string',
+            'no_permohonan' => [
+                'nullable',
+                'string',
+                Rule::unique('permohonans', 'no_permohonan')->ignore($permohonan->id),
+            ],
             'tanggal_permohonan' => 'nullable|date',
             'jenis_pelaku_usaha' => 'nullable|string|in:Orang Perseorangan,Badan Usaha',
             'nik' => 'nullable|string|max:16',
