@@ -201,7 +201,8 @@
                                 </div>
 
                                 <!-- 10. NAMA USAHA (untuk Admin & DPMPTSP) -->
-                                <div class="field-data-pemohon field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div class="field-data-pemohon">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
                                     <input id="nama_usaha" name="nama_usaha" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -209,6 +210,7 @@
                                         {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
                                     @error('nama_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 {{-- PD Teknis mengisi Nama Perusahaan --}}
                                 <div class="field-data-pemohon field-admin-pd-teknis-only">
@@ -220,15 +222,18 @@
                                 </div>
 
 
-                                <div class="field-data-pemohon field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div class="field-data-pemohon">
                                     <label for="alamat_perusahaan" class="block font-medium text-sm text-gray-700">Alamat Perusahaan</label>
                                     <textarea id="alamat_perusahaan" name="alamat_perusahaan"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
                                         {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }}>{{ old('alamat_perusahaan', $permohonan->alamat_perusahaan) }}</textarea>
                                     @error('alamat_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                <div class="field-data-pemohon field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div class="field-data-pemohon">
                                     <label for="sektor" class="block font-medium text-sm text-gray-700">Sektor</label>
                                     <select name="sektor" id="sektor"
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp','admin']) ? 'bg-gray-100' : '' }}"
@@ -242,9 +247,11 @@
                                     </select>
                                     @error('sektor')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
 
-                                <div class="field-data-pemohon field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div class="field-data-pemohon">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
                                     <input id="modal_usaha" name="modal_usaha" type="number"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
@@ -252,8 +259,10 @@
                                         {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
                                     @error('modal_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                <div class="field-data-pemohon field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div class="field-data-pemohon">
                                     <label for="jenis_proyek" class="block font-medium text-sm text-gray-700">Jenis Proyek</label>
                                     <select name="jenis_proyek" id="jenis_proyek"
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}"
@@ -267,6 +276,7 @@
                                     </select>
                                     @error('jenis_proyek')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 @if(in_array($user->role, ['admin', 'dpmptsp']))
                                 <div>
@@ -331,7 +341,8 @@
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking</h3>
                                 
-                                <div class="field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
                                     <label for="verifikator" class="block font-medium text-sm text-gray-700">Verifikator</label>
                                     <select name="verifikator" id="verifikator"
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['dpmptsp']) ? 'disabled' : '' }}>
@@ -342,6 +353,7 @@
                                     </select>
                                     @error('verifikator')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <div>
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
@@ -387,37 +399,46 @@
                                 </div>
                                 
                                 <!-- Field untuk DPMPTSP dan ADMIN -->
-                                <div class="field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
                                     <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
                                     <input id="menghubungi" name="menghubungi" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
                                         value="{{ old('menghubungi', $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : '') }}" />
                                     @error('menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                <div class="field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
                                     <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
                                     <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">{{ old('keterangan_menghubungi', $permohonan->keterangan_menghubungi) }}</textarea>
                                     @error('keterangan_menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                <div class="field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
                                     <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Disetujui</label>
                                     <input id="perbaikan" name="perbaikan" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
                                         value="{{ old('perbaikan', $permohonan->perbaikan ? $permohonan->perbaikan->format('Y-m-d') : '') }}" />
                                     @error('perbaikan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                <div class="field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
                                     <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Disetujui</label>
                                     <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">{{ old('keterangan_perbaikan', $permohonan->keterangan_perbaikan) }}</textarea>
                                     @error('keterangan_perbaikan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                <div class="field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
                                     <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}"
@@ -431,21 +452,26 @@
                                     </select>
                                     @error('verifikasi_dpmptsp')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
-                                    <div class="field-admin-dpmptsp-only">
+                                    @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                    <div>
                                         <label for="terbit" class="block font-medium text-sm text-gray-700">Tanggal Terbit</label>
                                         <input id="terbit" name="terbit" type="date"
                                             class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
                                             value="{{ old('terbit', $permohonan->terbit ? $permohonan->terbit->format('Y-m-d') : '') }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
                                         @error('terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                     </div>
+                                    @endif
 
-                                    <div class="field-admin-dpmptsp-only">
+                                    @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                    <div>
                                         <label for="keterangan_terbit" class="block font-medium text-sm text-gray-700">Keterangan Terbit</label>
                                         <textarea id="keterangan_terbit" name="keterangan_terbit"
                                             class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan_terbit', $permohonan->keterangan_terbit) }}</textarea>
                                         @error('keterangan_terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                     </div>
+                                    @endif
 
                                 </div>
                             </div> {{-- END: KOLOM KANAN --}}
