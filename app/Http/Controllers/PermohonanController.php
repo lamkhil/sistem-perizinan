@@ -215,12 +215,12 @@ class PermohonanController extends Controller
 
         // Validasi kondisional berdasarkan role
         if ($user->role === 'pd_teknis') {
-            // PD Teknis wajib isi: no_permohonan, tanggal_permohonan, jenis_pelaku_usaha, nib, verifikator, status
+            // PD Teknis wajib isi: no_permohonan, tanggal_permohonan, jenis_pelaku_usaha, nib, status
             $rules['no_permohonan'] = 'required|string|unique:permohonans,no_permohonan';
             $rules['tanggal_permohonan'] = 'required|date';
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
             $rules['nib'] = 'required|string|max:20';
-            $rules['verifikator'] = 'required|string';
+            $rules['verifikator'] = 'nullable|string';
             $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
@@ -239,8 +239,7 @@ class PermohonanController extends Controller
             $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         }
         
-        // Semua role wajib isi verifikator dan status
-        $rules['verifikator'] = 'required|string';
+        // Status perlu tetap tervalidasi; verifikator tidak wajib untuk PD Teknis
         $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
 
         $validated = $request->validate(
@@ -258,6 +257,8 @@ class PermohonanController extends Controller
         if ($user->role === 'pd_teknis') {
             // PD Teknis tidak boleh mengisi nama_usaha
             $validated['nama_usaha'] = null;
+            // PD Teknis tidak mengatur verifikator
+            $validated['verifikator'] = null;
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP tidak boleh mengisi nama_perusahaan
             $validated['nama_perusahaan'] = null;
@@ -397,7 +398,8 @@ class PermohonanController extends Controller
             'jangka_waktu' => 'nullable|integer|min:1',
             'no_telephone' => 'nullable|string|max:100',
             'deadline' => 'nullable|date', // UPDATE: deadline boleh apa saja (termasuk yang sudah terlewat)
-            'verifikator' => 'nullable|string',
+            // verifikator tidak wajib pada update (khususnya untuk PD Teknis)
+            'verifikator' => 'sometimes|nullable|string',
             'status' => 'required|in:Diterima,Dikembalikan,Ditolak,Menunggu',
             'verifikasi_pd_teknis' => 'nullable|string',
             'verifikasi_dpmptsp' => 'nullable|string',
