@@ -204,9 +204,9 @@
                                 <div class="field-data-pemohon hide-for-pd-teknis field-admin-dpmptsp-only">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
                                     <input id="nama_usaha" name="nama_usaha" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
                                         value="{{ old('nama_usaha', $permohonan->nama_usaha) }}"
-                                        {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
+                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
                                     @error('nama_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
@@ -214,8 +214,8 @@
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
                                     <input id="nama_perusahaan" name="nama_perusahaan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('nama_perusahaan', $permohonan->nama_perusahaan) }}" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('nama_perusahaan', $permohonan->nama_perusahaan) }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
                                     @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
