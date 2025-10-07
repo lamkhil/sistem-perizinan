@@ -67,7 +67,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold">{{ $permohonan->nama_usaha ?? 'Nama Usaha' }}</h2>
+                            <h2 class="text-2xl font-bold">{{ $permohonan->nama_usaha ?? $permohonan->nama_perusahaan ?? 'Nama Usaha' }}</h2>
                             <p class="text-blue-100 font-mono text-sm">{{ $permohonan->no_permohonan ?? 'No. Permohonan' }}</p>
                         </div>
                     </div>
@@ -113,10 +113,6 @@
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Nama Perusahaan</label>
                                     <p class="text-gray-900">{{ $permohonan->nama_perusahaan ?? '-' }}</p>
-                                </div>
-                                <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">Nama Usaha</label>
-                                    <p class="text-gray-900 font-medium">{{ $permohonan->nama_usaha ?? '-' }}</p>
                                 </div>
                                 
                                 <div class="group">
@@ -280,6 +276,11 @@
                             
                             <!-- Right Column - PD Teknis -->
                             <div class="space-y-6">
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Nama Usaha</label>
+                                    <p class="text-gray-900 font-medium">{{ $permohonan->nama_usaha ?? '-' }}</p>
+                                </div>
+
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">No. Permohonan</label>
                                     <div class="flex items-center space-x-3">
