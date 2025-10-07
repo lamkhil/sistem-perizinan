@@ -221,30 +221,30 @@
 
     <!-- Tabel Permohonan -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
+        <div class="px-6 py-4 border-b border-gray-200" style="background-color: #F8FAFC;">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg class="w-5 h-5 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-gray-700 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                     Daftar Permohonan
                 </h3>
-                <span class="bg-primary-100 text-primary-800 text-sm font-medium px-3 py-1 rounded-full">{{ $permohonans->count() }} Data</span>
+                <span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: #E0E7FF; color: #3B82F6;">{{ $permohonans->count() }} Data</span>
             </div>
         </div>
         
         <!-- Desktop Table View -->
         <div class="hidden lg:block overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead style="background-color: #253B7E;">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">No. Permohonan</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nama Usaha</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Sektor</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Verifikasi</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tanggal</th>
-                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Permohonan</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Sektor</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Status</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Verifikasi</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Tanggal</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
