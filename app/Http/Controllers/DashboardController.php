@@ -363,7 +363,7 @@ class DashboardController extends Controller
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
         }
         
-        $permohonan = Permohonan::findOrFail($id);
+        $permohonan = PenerbitanBerkas::findOrFail($id);
         
         $rules = [
             'no_permohonan' => 'nullable|string|unique:penerbitan_berkas,no_permohonan,' . $id,
