@@ -53,7 +53,10 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             {{-- KOLOM KIRI --}}
                             <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                                <div class="bg-gray-50 border-l-4 border-[#253B7E] rounded-md px-4 py-3">
+                                    <h3 class="text-base font-semibold text-gray-800">Data Pemohon</h3>
+                                    <p class="text-xs text-gray-500 mt-1">Lengkapi informasi dasar pemohon sesuai role Anda.</p>
+                                </div>
 
                                 <!-- 1. NO. PERMOHONAN -->
                                 @if(in_array($user->role, ['admin', 'pd_teknis']))
@@ -314,19 +317,21 @@
                                     @error('risiko')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                        <div>
-                            <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
-                            <input id="jangka_waktu" name="jangka_waktu" type="number"
-                                class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                value="{{ old('jangka_waktu') }}" placeholder="Masukkan jangka waktu dalam hari kerja" />
-                            @error('jangka_waktu')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                        </div>
-                        <div>
-                            <label for="deadline" class="block font-medium text-sm text-gray-700">Deadline (Hari Kerja)</label>
-                            <input id="deadline" name="deadline" type="date"
-                                class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                value="{{ old('deadline') }}" />
-                            @error('deadline')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
+                                <input id="jangka_waktu" name="jangka_waktu" type="number"
+                                    class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                    value="{{ old('jangka_waktu') }}" placeholder="Contoh: 2" />
+                                @error('jangka_waktu')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                            </div>
+                            <div>
+                                <label for="deadline" class="block font-medium text-sm text-gray-700">Deadline</label>
+                                <input id="deadline" name="deadline" type="date"
+                                    class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                    value="{{ old('deadline') }}" />
+                                @error('deadline')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                            </div>
                         </div>
 
                                 <div>
@@ -341,7 +346,10 @@
 
                             {{-- START: KOLOM KANAN: Verifikasi & Tracking --}}
                             <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking</h3>
+                                <div class="bg-gray-50 border-l-4 border-[#253B7E] rounded-md px-4 py-3">
+                                    <h3 class="text-base font-semibold text-gray-800">Verifikasi & Tracking</h3>
+                                    <p class="text-xs text-gray-500 mt-1">Atur status, tanggal, dan catatan proses.</p>
+                                </div>
 
                                 
                                 
