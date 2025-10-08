@@ -231,9 +231,13 @@
                                         @endif
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                            Menengah Tinggi
-                                        </span>
+                                        @if($permohonan->risiko)
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $permohonan->getRisikoBadgeClass() }}">
+                                                {{ $permohonan->risiko }}
+                                            </span>
+                                        @else
+                                            <span class="text-gray-400 text-xs">-</span>
+                                        @endif
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="text-xs">
