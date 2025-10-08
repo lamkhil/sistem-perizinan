@@ -279,8 +279,9 @@ class DashboardController extends Controller
         }
 
         $penerbitanBerkas = PenerbitanBerkas::with('user')->get();
+        $ttdSettings = TtdSetting::getSettings();
         
-        $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas'));
+        $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));
         $pdf->setPaper('A4', 'landscape');
         
         return $pdf->download('data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.pdf');
