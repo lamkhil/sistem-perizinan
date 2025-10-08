@@ -248,7 +248,7 @@ class DashboardController extends Controller
             });
         }
 
-        $permohonans = $query->orderBy('created_at', 'desc')->get();
+        $permohonans = $query->orderBy('created_at', 'asc')->get();
         
         // Hitung statistik
         $stats = [
