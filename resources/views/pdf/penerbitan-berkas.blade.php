@@ -54,7 +54,7 @@
         tfoot { display: table-row-group; }
         
         th {
-            background-color: #f0f0f0;
+            background-color: transparent;
             font-weight: bold;
             font-size: 7px;
         }
@@ -250,11 +250,11 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-title"><strong>Mengetahui</strong></div>
+                    <div class="ttd-left-title">Mengetahui</div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-date"><strong>{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</strong></div>
+                    <div class="ttd-right-date">{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</div>
                 </td>
             </tr>
 
@@ -307,11 +307,11 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-name"><strong>{{ $ttdSettings->mengetahui_nama ?? 'Yohanes Franklin, S.H.' }}</strong></div>
+                    <div class="ttd-left-name" style="text-decoration: underline;">{{ $ttdSettings->mengetahui_nama ?? 'Yohanes Franklin, S.H.' }}</div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-name"><strong>{{ $ttdSettings->menyetujui_nama ?? 'Ulvia Zulvia, ST' }}</strong></div>
+                    <div class="ttd-right-name" style="text-decoration: underline;">{{ $ttdSettings->menyetujui_nama ?? 'Ulvia Zulvia, ST' }}</div>
                 </td>
             </tr>
 
