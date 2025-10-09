@@ -6,6 +6,7 @@ use App\Models\TtdSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class TtdSettingController extends Controller
 {
@@ -67,9 +68,9 @@ class TtdSettingController extends Controller
             $path = $file->storeAs('public/ttd_photos', $filename);
             if ($path) {
                 $data['mengetahui_photo'] = $filename;
-                \Log::info('TTD Mengetahui uploaded successfully: ' . $filename);
+                Log::info('TTD Mengetahui uploaded successfully: ' . $filename);
             } else {
-                \Log::error('TTD Mengetahui upload failed');
+                Log::error('TTD Mengetahui upload failed');
             }
         }
         
@@ -87,9 +88,9 @@ class TtdSettingController extends Controller
             $path = $file->storeAs('public/ttd_photos', $filename);
             if ($path) {
                 $data['menyetujui_photo'] = $filename;
-                \Log::info('TTD Menyetujui uploaded successfully: ' . $filename);
+                Log::info('TTD Menyetujui uploaded successfully: ' . $filename);
             } else {
-                \Log::error('TTD Menyetujui upload failed');
+                Log::error('TTD Menyetujui upload failed');
             }
         }
         
