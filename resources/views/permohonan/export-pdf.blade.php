@@ -76,7 +76,7 @@
 <body>
     <div class="header">
         <h1>DATA PERMOHONAN PERIZINAN</h1>
-        <p>Dicetak pada: {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i') }}</p>
+        <p>Dicetak pada: {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d/m/Y H:i') }}</p>
         <p>Total Data: {{ $permohonans->count() }} permohonan</p>
     </div>
 
@@ -117,27 +117,27 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $permohonan->sektor ?? '-' }}</td>
-                <td>{{ $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->setTimezone('Asia/Jakarta')->format('d/m/Y H:i') : '-' }}</td>
+                <td>{{ $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d/m/Y H:i') : '-' }}</td>
                 <td>{{ $permohonan->no_permohonan ?? '-' }}</td>
                 <td>{{ $permohonan->no_proyek ?? '-' }}</td>
-                <td>{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ $permohonan->nib ?? '-' }}</td>
                 <td>{{ $permohonan->kbli ?? '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->inputan_teks ?? '', 15) }}</td>
-                <td>{{ $permohonan->jenis_perusahaan ?? '-' }}</td>
-                <td>{{ \Illuminate\Support\Str::limit($permohonan->nama_usaha ?? '', 15) }}</td>
+                <td>{{ $permohonan->jenis_perusahaan_display }}</td>
+                <td>{{ \Illuminate\Support\Str::limit($permohonan->nama_perusahaan ?? '', 15) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->nama_usaha ?? '', 15) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->alamat_perusahaan ?? '', 20) }}</td>
                 <td>{{ $permohonan->modal_usaha ? 'Rp ' . number_format($permohonan->modal_usaha, 0, ',', '.') : '-' }}</td>
                 <td>{{ $permohonan->jenis_proyek ?? '-' }}</td>
                 <td>{{ $permohonan->verifikasi_pd_teknis ?? '-' }}</td>
                 <td>{{ $permohonan->verifikasi_dpmptsp ?? '-' }}</td>
-                <td>{{ $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->keterangan_pengembalian ?? '', 15) }}</td>
-                <td>{{ $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->keterangan_menghubungi ?? '', 15) }}</td>
-                <td>{{ $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->format('d/m/Y') : '-' }}</td>
-                <td>{{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->keterangan_terbit ?? '', 15) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->pemroses_dan_tgl_surat ?? '', 15) }}</td>
                 <td>{{ $permohonan->verifikator ?? '-' }}</td>

@@ -6,7 +6,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div class="flex-1">
                 <div class="flex items-center space-x-3 mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
@@ -56,7 +56,7 @@
     <!-- Main Content -->
     <div class="space-y-8">
         <!-- Status Banner -->
-        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-8 text-white">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 p-8 text-white">
             <div class="absolute inset-0 bg-black/10"></div>
             <div class="relative z-10">
                 <div class="flex items-center justify-between">
@@ -150,7 +150,7 @@
                                             'Berkas Diperbaiki' => 'bg-yellow-100 text-yellow-800',
                                             'Pemohon Dihubungi' => 'bg-orange-100 text-orange-800',
                                             'Berkas Diunggah Ulang' => 'bg-red-100 text-red-800',
-                                            'Pemohon Belum Dihubungi' => 'bg-purple-100 text-purple-800',
+                                            'Pemohon Belum Dihubungi' => 'bg-blue-100 text-blue-800',
                                             default => 'bg-gray-100 text-gray-600'
                                         };
                                     @endphp
@@ -183,8 +183,8 @@
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Verifikator</label>
                                     <div class="flex items-center space-x-2">
-                                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                            <span class="text-purple-600 font-semibold text-sm">{{ substr($permohonan->verifikator ?? 'V', 0, 1) }}</span>
+                                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <span class="text-blue-600 font-semibold text-sm">{{ substr($permohonan->verifikator ?? 'V', 0, 1) }}</span>
                                         </div>
                                         <span class="text-gray-900">{{ $permohonan->verifikator ?? '-' }}</span>
                                     </div>
@@ -254,7 +254,7 @@
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $deadlineIcon }}"></path>
                                             </svg>
-                                            <span class="font-medium">{{ $permohonan->deadline->format('d/m/Y') }}</span>
+                                            <span class="font-medium">{{ $permohonan->deadline->locale('id')->translatedFormat('d/m/Y') }}</span>
                                             @if($deadlineStatus == 'overdue')
                                                 <span class="ml-2 text-xs font-bold">TERLAMBAT!</span>
                                             @elseif($deadlineStatus == 'due_today')
@@ -296,12 +296,12 @@
 
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Tanggal Permohonan</label>
-                                    <p class="text-gray-900">{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-' }}</p>
+                                    <p class="text-gray-900">{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d/m/Y') : '-' }}</p>
                                 </div>
 
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Jenis Perusahaan</label>
-                                    <p class="text-gray-900">{{ $permohonan->jenis_pelaku_usaha ?? $permohonan->jenis_perusahaan ?? '-' }}</p>
+                                    <p class="text-gray-900">{{ $permohonan->jenis_perusahaan_display }}</p>
                                 </div>
 
                                 <div class="group">
@@ -364,9 +364,9 @@
 
                 <!-- Riwayat Perubahan Status -->
                 <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 px-8 py-6 border-b border-gray-200">
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 border-b border-gray-200">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
+                            <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
@@ -426,12 +426,12 @@
                                                         @endforeach
                                                     </div>
                                                 @else
-                                        {{ $log->keterangan }}
+                                        {!! $log->keterangan !!}
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="text-xs text-gray-500 mt-1 px-2">
-                                            {{ $log->created_at->setTimezone('Asia/Jakarta')->format('H:i') }} • {{ $log->created_at->setTimezone('Asia/Jakarta')->format('d M Y') }}
+                                            {{ $log->created_at->setTimezone('Asia/Jakarta')->format('H:i') }} • {{ $log->created_at->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') }}
                                         </div>
                                     </div>
                                     
@@ -489,7 +489,7 @@
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm text-gray-600">Tanggal:</span>
                                         <span class="text-sm font-medium {{ $permohonan->pengembalian ? 'text-orange-600' : 'text-gray-400' }}">
-                                            {{ $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->setTimezone('Asia/Jakarta')->format('d M Y') : 'Belum ada' }}
+                                            {{ $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : 'Belum ada' }}
                                         </span>
                                     </div>
                                     <div class="bg-gray-50 rounded-lg p-3">
@@ -512,7 +512,7 @@
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm text-gray-600">Tanggal:</span>
                                         <span class="text-sm font-medium {{ $permohonan->menghubungi ? 'text-blue-600' : 'text-gray-400' }}">
-                                            {{ $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->setTimezone('Asia/Jakarta')->format('d M Y') : 'Belum ada' }}
+                                            {{ $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : 'Belum ada' }}
                                         </span>
                                     </div>
                                     <div class="bg-gray-50 rounded-lg p-3">
@@ -535,7 +535,7 @@
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm text-gray-600">Tanggal:</span>
                                         <span class="text-sm font-medium {{ $permohonan->perbaikan ? 'text-yellow-600' : 'text-gray-400' }}">
-                                            {{ $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->setTimezone('Asia/Jakarta')->format('d M Y') : 'Belum ada' }}
+                                            {{ $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : 'Belum ada' }}
                                         </span>
                                     </div>
                                     <div class="bg-gray-50 rounded-lg p-3">
@@ -558,7 +558,7 @@
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm text-gray-600">Tanggal:</span>
                                         <span class="text-sm font-medium {{ $permohonan->terbit ? 'text-green-600' : 'text-gray-400' }}">
-                                            {{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->setTimezone('Asia/Jakarta')->format('d M Y') : 'Belum ada' }}
+                                            {{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : 'Belum ada' }}
                                         </span>
                                     </div>
                                     <div class="bg-gray-50 rounded-lg p-3">

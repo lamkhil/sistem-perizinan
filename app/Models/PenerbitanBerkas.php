@@ -99,6 +99,18 @@ class PenerbitanBerkas extends Model
                 return 'bg-gray-100 text-gray-800';
         }
     }
+
+    // Method untuk mendapatkan jenis perusahaan yang ditampilkan di tabel
+    public function getJenisPerusahaanDisplayAttribute()
+    {
+        if ($this->jenis_pelaku_usaha === 'Orang Perseorangan') {
+            return 'Orang Perseorangan';
+        } elseif ($this->jenis_pelaku_usaha === 'Badan Usaha' && $this->jenis_badan_usaha) {
+            return $this->jenis_badan_usaha;
+        }
+        
+        return $this->jenis_pelaku_usaha ?? '-';
+    }
 }
 
 

@@ -39,7 +39,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'NIB (PD TEKNIS)',
             'KBLI (PD TEKNIS)',
             'KEGIATAN (PD TEKNIS)',
-            'JENIS USAHA (PD TEKNIS)',
+            'JENIS PERUSAHAAN (PD TEKNIS)',
             'NAMA PERUSAHAAN (PD TEKNIS)',
             'NAMA USAHA (DPM)',
             'ALAMAT PERUSAHAAN (DPM)',
@@ -82,15 +82,15 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             // NO. PROYEK (PD TEKNIS)
             $permohonan->no_proyek ?? '',
             // TANGGAL PERMOHONAN (PD TEKNIS)
-            $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '',
+            $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d/m/Y') : '',
             // NIB (PD TEKNIS)
             $permohonan->nib ?? '',
             // KBLI (PD TEKNIS)
             $permohonan->kbli ?? '',
             // KEGIATAN (PD TEKNIS)
             $permohonan->inputan_teks ?? '',
-            // JENIS USAHA (PD TEKNIS)
-            $permohonan->jenis_pelaku_usaha ?? '',
+            // JENIS PERUSAHAAN (PD TEKNIS)
+            $permohonan->jenis_perusahaan_display,
             // NAMA PERUSAHAAN (PD TEKNIS)
             $permohonan->nama_perusahaan ?? '',
             // NAMA USAHA (DPM)
@@ -116,23 +116,23 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             // VERIFIKASI OLEH DPMPTSP
             $permohonan->verifikasi_dpmptsp ?? '',
             // PENGEMBALIAN (TANGGAL)
-            $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->format('d/m/Y') : '',
+            $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->locale('id')->translatedFormat('d/m/Y') : '',
             // KETERANGAN (pengembalian)
             $permohonan->keterangan_pengembalian ?? '',
             // MENGHADAP NO (TANGGAL)
-            $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->format('d/m/Y') : '',
+            $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->locale('id')->translatedFormat('d/m/Y') : '',
             // KETERANGAN (menghubungi)
             $permohonan->keterangan_menghubungi ?? '',
             // APPROVED (TANGGAL)
-            $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->format('d/m/Y') : '',
+            $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->locale('id')->translatedFormat('d/m/Y') : '',
             // KETERANGAN (perbaikan)
             $permohonan->keterangan_perbaikan ?? '',
             // TERBIT (TANGGAL)
-            $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->format('d/m/Y') : '',
+            $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->locale('id')->translatedFormat('d/m/Y') : '',
             // KETERANGAN (terbit)
             $permohonan->keterangan_terbit ?? '',
             // PEMROSES DAN TGL E-SURAT DAN TGL PERTEK
-            $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('d/m/Y') : '',
+            $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->locale('id')->translatedFormat('d/m/Y') : '',
             // VERIFIKATOR
             $permohonan->verifikator ?? '',
             // STATUS

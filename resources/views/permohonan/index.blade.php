@@ -250,7 +250,8 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($permohonans as $permohonan)
                     @php
-                        $isOverdue = $permohonan && $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
+                        // Tandai baris merah untuk semua data yang terlambat, tidak hanya saat status Dikembalikan
+                        $isOverdue = $permohonan && $permohonan->isOverdue();
                         $rowClass = $isOverdue ? 'bg-red-50 hover:bg-red-100 border-l-4 border-red-500' : 'hover:bg-primary-50';
                     @endphp
                     <tr class="{{ $rowClass }} transition-colors duration-200">
@@ -289,8 +290,8 @@
                                 ];
                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                                 
-                                // Jika status Dikembalikan dan terlambat, ubah ke warna merah penuh
-                                if ($status === 'Dikembalikan' && $permohonan->isOverdue()) {
+                                // Jika terlambat, ubah badge menjadi merah penuh apapun statusnya
+                                if ($permohonan->isOverdue()) {
                                     $statusColor = 'bg-red-500 text-white';
                                 }
                             @endphp
@@ -337,7 +338,7 @@
                         <!-- Tanggal -->
                         <td class="px-4 py-4 text-sm text-gray-500">
                             <div class="flex flex-col">
-                                <span class="text-xs">{{ ($permohonan && $permohonan->created_at) ? $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d M Y') : '-' }}</span>
+                                <span class="text-xs">{{ ($permohonan && $permohonan->created_at) ? $permohonan->created_at->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : '-' }}</span>
                             </div>
                         </td>
                         <!-- Aksi -->
@@ -387,7 +388,7 @@
             <div class="p-4 space-y-4">
                 @forelse($permohonans as $permohonan)
                 @php
-                    $isOverdue = $permohonan && $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
+                    $isOverdue = $permohonan && $permohonan->isOverdue();
                     $cardClass = $isOverdue ? 'bg-red-50 border-red-200 border-l-4 border-l-red-500' : 'bg-white border-gray-200';
                 @endphp
                 <div class="{{ $cardClass }} rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
@@ -406,8 +407,8 @@
                             ];
                             $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                             
-                            // Jika status Dikembalikan dan terlambat, ubah ke warna merah penuh
-                            if ($status === 'Dikembalikan' && $permohonan->isOverdue()) {
+                            // Jika terlambat, ubah badge menjadi merah penuh
+                            if ($permohonan->isOverdue()) {
                                 $statusColor = 'bg-red-500 text-white';
                             }
                         @endphp
@@ -429,7 +430,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-500 mb-1">Tanggal</p>
-                            <p class="text-xs text-gray-900">{{ ($permohonan && $permohonan->created_at) ? $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d M Y') : '-' }}</p>
+                            <p class="text-xs text-gray-900">{{ ($permohonan && $permohonan->created_at) ? $permohonan->created_at->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : '-' }}</p>
                         </div>
                     </div>
                     

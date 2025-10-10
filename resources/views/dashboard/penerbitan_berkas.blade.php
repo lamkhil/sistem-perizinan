@@ -946,7 +946,7 @@
         // Global functions for edit and delete (only for authorized users)
         const userRole = '{{ auth()->user()->role }}';
         if (['admin', 'penerbitan_berkas'].includes(userRole)) {
-        function editPermohonan(id) {
+            function editPermohonan(id) {
             // Fetch data via AJAX
             fetch(`/penerbitan-berkas/${id}/edit`)
                 .then(response => response.json())
@@ -1065,20 +1065,20 @@
             };
         }
 
-        function toggleEditJenisBadanUsaha() {
-            const editJenisPelakuUsaha = document.getElementById('edit_jenis_pelaku_usaha');
-            const editJenisBadanUsahaContainer = document.getElementById('edit_jenis_badan_usaha_container');
-            const editJenisBadanUsaha = document.getElementById('edit_jenis_badan_usaha');
+            function toggleEditJenisBadanUsaha() {
+                const editJenisPelakuUsaha = document.getElementById('edit_jenis_pelaku_usaha');
+                const editJenisBadanUsahaContainer = document.getElementById('edit_jenis_badan_usaha_container');
+                const editJenisBadanUsaha = document.getElementById('edit_jenis_badan_usaha');
 
-            if (editJenisPelakuUsaha.value === 'Badan Usaha') {
-                editJenisBadanUsahaContainer.style.display = 'block';
-                editJenisBadanUsaha.required = true;
-            } else {
-                editJenisBadanUsahaContainer.style.display = 'none';
-                editJenisBadanUsaha.required = false;
-                editJenisBadanUsaha.value = '';
+                if (editJenisPelakuUsaha.value === 'Badan Usaha') {
+                    editJenisBadanUsahaContainer.style.display = 'block';
+                    editJenisBadanUsaha.required = true;
+                } else {
+                    editJenisBadanUsahaContainer.style.display = 'none';
+                    editJenisBadanUsaha.required = false;
+                    editJenisBadanUsaha.value = '';
+                }
             }
-        }
         }
     </script>
 </x-sidebar-layout>

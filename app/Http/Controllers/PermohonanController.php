@@ -107,9 +107,10 @@ class PermohonanController extends Controller
         // Terapkan filter status
         if ($selectedStatus) {
             if ($selectedStatus === 'Terlambat') {
-                // Terlambat = semua status yang melewati deadline
+                // Terlambat = semua status yang melewati deadline (bandingkan berdasarkan tanggal lokal)
+                $today = now()->toDateString();
                 $permohonans->whereNotNull('deadline')
-                           ->where('deadline', '<', now());
+                           ->whereDate('deadline', '<', $today);
             } else {
                 $permohonans->where('status', $selectedStatus);
             }
@@ -219,6 +220,7 @@ class PermohonanController extends Controller
             $rules['no_permohonan'] = 'required|string|unique:permohonans,no_permohonan';
             $rules['tanggal_permohonan'] = 'required|date';
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
+            $rules['jenis_badan_usaha'] = 'nullable|string';
             $rules['nib'] = 'required|string|max:20';
             $rules['verifikator'] = 'nullable|string';
             $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
@@ -235,6 +237,7 @@ class PermohonanController extends Controller
             $rules['no_permohonan'] = 'required|string|unique:permohonans,no_permohonan';
             $rules['tanggal_permohonan'] = 'required|date';
             $rules['jenis_pelaku_usaha'] = 'required|in:Orang Perseorangan,Badan Usaha';
+            $rules['jenis_badan_usaha'] = 'nullable|string';
             $rules['verifikator'] = 'required|string';
             $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         }
@@ -288,12 +291,13 @@ class PermohonanController extends Controller
         $permohonan = Permohonan::create($validated);
 
         // Buat log
+        $tanggalBuat = now()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y');
         LogPermohonan::create([
             'permohonan_id' => $permohonan->id,
             'user_id' => Auth::id(),
             'status_sebelum' => 'Draft',
             'status_sesudah' => $permohonan->status,
-            'keterangan' => 'Permohonan baru dibuat',
+            'keterangan' => 'Permohonan baru dibuat pada <strong>' . $tanggalBuat . '</strong>',
         ]);
 
         // Cek dan buat notifikasi deadline jika ada
@@ -452,7 +456,7 @@ class PermohonanController extends Controller
                 $nilaiLama = $dataSebelum[$field] ?? 'Kosong';
                 if (in_array($field, ['tanggal_permohonan', 'pengembalian', 'menghubungi', 'perbaikan', 'terbit']) && $nilaiLama && $nilaiLama !== 'Kosong') {
                     try {
-                        $nilaiLama = Carbon::parse($nilaiLama)->format('d-m-Y');
+                        $nilaiLama = Carbon::parse($nilaiLama)->locale('id')->translatedFormat('d-m-Y');
                     } catch (\Exception $e) {
                         // Keep original value if parsing fails
                     }
@@ -460,7 +464,7 @@ class PermohonanController extends Controller
                 
                 if (in_array($field, ['tanggal_permohonan', 'pengembalian', 'menghubungi', 'perbaikan', 'terbit']) && $nilaiBaru && $nilaiBaru !== 'Kosong') {
                     try {
-                        $nilaiBaru = Carbon::parse($nilaiBaru)->format('d-m-Y');
+                        $nilaiBaru = Carbon::parse($nilaiBaru)->locale('id')->translatedFormat('d-m-Y');
                     } catch (\Exception $e) {
                         // Keep original value if parsing fails
                     }

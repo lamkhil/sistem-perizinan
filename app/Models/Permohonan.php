@@ -145,8 +145,13 @@ class Permohonan extends Model
             return false;
         }
         
-        // Logika baru: Semua status bisa terlambat
-        // Terlambat jika tanggal sekarang > deadline
+        // Jika status sudah final (Diterima, Ditolak), tidak dianggap terlambat
+        // karena alur sudah selesai sebelum deadline
+        if (in_array($this->status, ['Diterima', 'Ditolak'])) {
+            return false;
+        }
+        
+        // Untuk status Menunggu dan Dikembalikan, cek apakah melewati deadline
         return now()->toDateString() > $this->getAttribute('deadline')->toDateString();
     }
 
@@ -181,12 +186,24 @@ class Permohonan extends Model
                 'user_id' => Auth::id() ?? 1,
                 'status_sebelum' => $this->status ?? 'Diterima',
                 'status_sesudah' => $this->status ?? 'Diterima',
-                'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->getAttribute('deadline')->format('d/m/Y')})",
+                'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->getAttribute('deadline')->locale('id')->translatedFormat('d/m/Y')})",
                 'action' => 'deadline_overdue',
                 'old_data' => null,
                 'new_data' => json_encode(['deadline' => $this->getAttribute('deadline')->toDateString()])
             ]);
         }
+    }
+
+    // Method untuk mendapatkan jenis perusahaan yang ditampilkan di tabel
+    public function getJenisPerusahaanDisplayAttribute()
+    {
+        if ($this->jenis_pelaku_usaha === 'Orang Perseorangan') {
+            return 'Orang Perseorangan';
+        } elseif ($this->jenis_pelaku_usaha === 'Badan Usaha' && $this->jenis_badan_usaha) {
+            return $this->jenis_badan_usaha;
+        }
+        
+        return $this->jenis_pelaku_usaha ?? '-';
     }
 
     // Method untuk auto-update status berdasarkan deadline
@@ -200,7 +217,7 @@ class Permohonan extends Model
                 'user_id' => 1, // System user
                 'status_sebelum' => $statusSebelum ?? 'Diterima',
                 'status_sesudah' => 'Terlambat',
-                'keterangan' => "🔄 Status otomatis diubah ke Terlambat karena melewati deadline ({$this->getAttribute('deadline')->format('d/m/Y')})",
+                'keterangan' => "🔄 Status otomatis diubah ke Terlambat karena melewati deadline ({$this->getAttribute('deadline')->locale('id')->translatedFormat('d/m/Y')})",
                 'action' => 'auto_status_update',
                 'old_data' => json_encode(['status' => $statusSebelum]),
                 'new_data' => json_encode(['status' => 'Terlambat'])

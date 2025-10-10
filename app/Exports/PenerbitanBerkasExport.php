@@ -75,7 +75,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $row->kbli ?? '-',
             $row->nama_usaha ?? '-',
             $row->inputan_teks ?? '-',
-            $row->jenis_pelaku_usaha ?? '-',
+            $row->jenis_perusahaan_display,
             $row->pemilik ?? '-',
             $modalUsaha,
             $row->alamat_perusahaan ?? '-',

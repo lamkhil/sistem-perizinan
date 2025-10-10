@@ -152,16 +152,7 @@
                                 @endif
 
 
-                                @if(in_array($user->role, ['admin', 'pd_teknis']))
-                                <div class="field-data-pemohon" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
-                                    <label for="nik" class="block font-medium text-sm text-gray-700">Nomor Induk Kependudukan (NIK)</label>
-                                    <input id="nik" name="nik" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('nik', $permohonan->nik) }}" placeholder="Masukkan 16 digit NIK" maxlength="16"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
-                                    @error('nik')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-                                @endif
+                                {{-- NIK input dihapus untuk Orang Perseorangan sesuai permintaan --}}
 
                                 <!-- 9. JENIS BADAN USAHA -->
                                 @if(in_array($user->role, ['admin', 'pd_teknis']))

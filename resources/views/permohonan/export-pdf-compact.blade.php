@@ -72,7 +72,7 @@
 <body>
     <div class="header">
         <h1>DATA PERMOHONAN PERIZINAN - RINGKASAN</h1>
-        <p>Dicetak pada: {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i') }}</p>
+        <p>Dicetak pada: {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d/m/Y H:i') }}</p>
         <p>Total Data: {{ $permohonans->count() }} permohonan</p>
     </div>
 
@@ -101,7 +101,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->no_permohonan ?? '', 15) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->no_proyek ?? '', 15) }}</td>
-                <td>{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->nama_usaha ?? '', 20) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->sektor ?? '', 12) }}</td>
                 <td>{{ $permohonan->kbli ?? '-' }}</td>
@@ -119,8 +119,8 @@
                 </td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->verifikasi_pd_teknis ?? '', 10) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->verifikasi_dpmptsp ?? '', 10) }}</td>
-                <td>{{ $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->format('d/m/Y') : '-' }}</td>
-                <td>{{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->format('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
+                <td>{{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->verifikator ?? '', 10) }}</td>
             </tr>
             @empty
