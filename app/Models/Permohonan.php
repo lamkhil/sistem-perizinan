@@ -168,6 +168,16 @@ class Permohonan extends Model
             return 'no_deadline';
         }
 
+        // Jika status sudah final (Diterima, Ditolak), tidak dianggap terlambat
+        if (in_array($this->status, ['Diterima', 'Ditolak'])) {
+            return 'on_time';
+        }
+        
+        // Jika verifikasi PD Teknis sudah disetujui, tidak dianggap terlambat
+        if ($this->verifikasi_pd_teknis === 'Berkas Disetujui') {
+            return 'on_time';
+        }
+
         $today = now()->toDateString();
         $deadline = $this->getAttribute('deadline')->toDateString();
 
