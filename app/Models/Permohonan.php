@@ -151,7 +151,13 @@ class Permohonan extends Model
             return false;
         }
         
-        // Untuk status Menunggu dan Dikembalikan, cek apakah melewati deadline
+        // Jika verifikasi PD Teknis sudah disetujui, tidak dianggap terlambat
+        // karena proses sudah berjalan dengan baik
+        if ($this->verifikasi_pd_teknis === 'Berkas Disetujui') {
+            return false;
+        }
+        
+        // Untuk status lainnya, cek apakah melewati deadline
         return now()->toDateString() > $this->getAttribute('deadline')->toDateString();
     }
 
