@@ -194,7 +194,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 ],
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    'wrapText' => true
                 ]
             ],
         ];
@@ -255,6 +256,11 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet->getStyle('A:AF')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('A:AF')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
+                // Special styling for header row
+                $sheet->getStyle('A1:AF1')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A1:AF1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A1:AF1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                
                 // Set font size 10 for data rows (excluding header)
                 $highestRow = $sheet->getHighestRow();
                 if ($highestRow > 1) {
@@ -262,7 +268,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
                 
                 // Set row height for header (wider)
-                $sheet->getRowDimension(1)->setRowHeight(50);
+                $sheet->getRowDimension(1)->setRowHeight(80);
                 
                 // Set NIB column (F) as text format to prevent scientific notation
                 for ($row = 2; $row <= $highestRow; $row++) {
