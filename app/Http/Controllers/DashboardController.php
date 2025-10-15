@@ -18,6 +18,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         // Ambil data permohonan berdasarkan role
         if ($user->role === 'admin') {
             // Admin melihat semua data
@@ -92,6 +97,11 @@ class DashboardController extends Controller
     public function statistik(Request $request)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
         
         // Ambil parameter dari request
         $selectedDateFilter = $request->query('date_filter');
@@ -189,6 +199,11 @@ class DashboardController extends Controller
     public function penerbitanBerkas(Request $request)
     {
         $user = Auth::user();
+
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
         // Batasi akses hanya admin dan penerbitan_berkas
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
@@ -288,6 +303,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         // Batasi akses hanya admin dan penerbitan_berkas
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
             return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
@@ -313,6 +333,12 @@ class DashboardController extends Controller
     public function storePenerbitanBerkas(Request $request)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
         }
@@ -367,6 +393,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         // Cek authorization - hanya admin dan penerbitan_berkas yang bisa edit
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
             return response()->json(['error' => 'Unauthorized'], 403);
@@ -380,6 +411,11 @@ class DashboardController extends Controller
     public function updatePenerbitanBerkas(Request $request, $id)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
         
         // Cek authorization - hanya admin dan penerbitan_berkas yang bisa update
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
@@ -429,6 +465,11 @@ class DashboardController extends Controller
     public function destroyPenerbitanBerkas($id)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
         
         // Cek authorization - hanya admin dan penerbitan_berkas yang bisa delete
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
