@@ -163,8 +163,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->keterangan_menghubungi ?? '',
             // APPROVED (TANGGAL)
             $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->locale('id')->translatedFormat('d/m/Y') : '',
-            // KETERANGAN (perbaikan)
-            $permohonan->keterangan_perbaikan ?? '',
+            // KETERANGAN (disetujui)
+            $permohonan->keterangan_disetujui ?? '',
             // TERBIT (TANGGAL)
             $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->locale('id')->translatedFormat('d/m/Y') : '',
             // KETERANGAN (terbit)
@@ -185,9 +185,9 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function styles(Worksheet $sheet)
     {
         return [
-            // Style the first row as bold text with font size 12
+            // Style the first row as normal text with font size 12
             1    => [
-                'font' => ['bold' => true, 'size' => 12],
+                'font' => ['bold' => false, 'size' => 12],
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'E3F2FD']
@@ -228,13 +228,13 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'T' => 20,  // VERIFIKASI PD TEKNIS
             'U' => 20,  // VERIFIKASI ANALISA
             'V' => 12,  // TANGGAL PENGEMBALIAN
-            'W' => 20,  // KETERANGAN PENGEMBALIAN
+            'W' => 25,  // KETERANGAN PENGEMBALIAN
             'X' => 12,  // TANGGAL MENGHUBUNGI
-            'Y' => 20,  // KETERANGAN MENGHUBUNGI
+            'Y' => 25,  // KETERANGAN MENGHUBUNGI
             'Z' => 12,  // TANGGAL DISETUJUI
-            'AA' => 20, // KETERANGAN DISETUJUI
+            'AA' => 25, // KETERANGAN DISETUJUI
             'AB' => 12, // TANGGAL TERBIT
-            'AC' => 20, // KETERANGAN TERBIT
+            'AC' => 25, // KETERANGAN TERBIT
             'AD' => 25, // PEMROSES
             'AE' => 12, // VERIFIKATOR
             'AF' => 10, // STATUS
