@@ -231,11 +231,11 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'V' => 12,  // TANGGAL PENGEMBALIAN
             'W' => 50,  // KETERANGAN PENGEMBALIAN
             'X' => 12,  // TANGGAL MENGHUBUNGI
-            'Y' => 50,  // KETERANGAN MENGHUBUNGI
+            'Y' => 20,  // KETERANGAN MENGHUBUNGI
             'Z' => 12,  // TANGGAL DISETUJUI
-            'AA' => 50, // KETERANGAN DISETUJUI
+            'AA' => 20, // KETERANGAN DISETUJUI
             'AB' => 12, // TANGGAL TERBIT
-            'AC' => 50, // KETERANGAN TERBIT
+            'AC' => 20, // KETERANGAN TERBIT
             'AD' => 25, // PEMROSES
             'AE' => 12, // VERIFIKATOR
             'AF' => 10, // STATUS
