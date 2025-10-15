@@ -189,48 +189,48 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 $ttdRow = $lastRow + 3;
                 
-                // TTD Mengetahui (kiri) - di bawah kolom KEGIATAN (kolom H)
-                $sheet->setCellValue('H' . $ttdRow, 'Mengetahui');
-                $sheet->getStyle('H' . $ttdRow)->getFont()->setBold(true);
-                $sheet->getStyle('H' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('H' . $ttdRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('H' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
-                $sheet->getStyle('H' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('H' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('H' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
-                $sheet->getStyle('H' . ($ttdRow + 2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('H' . ($ttdRow + 2))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                // TTD Mengetahui (kiri) - di bawah kolom TANGGAL PERMOHONAN (kolom D)
+                $sheet->setCellValue('D' . $ttdRow, 'Mengetahui');
+                $sheet->getStyle('D' . $ttdRow)->getFont()->setBold(true);
+                $sheet->getStyle('D' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . $ttdRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
+                $sheet->getStyle('D' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
+                $sheet->getStyle('D' . ($ttdRow + 2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 2))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 // Tambahkan 4 baris kosong untuk spacing (ttdRow+3, +4, +5, +6)
-                $sheet->setCellValue('H' . ($ttdRow + 7), 'Yohanes Franklin, S.H.');
-                $sheet->getStyle('H' . ($ttdRow + 7))->getFont()->setBold(true);
-                $sheet->getStyle('H' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('H' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('H' . ($ttdRow + 8), 'Penata Tk.1');
-                $sheet->getStyle('H' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('H' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('H' . ($ttdRow + 9), 'NIP: 198502182010011008');
-                $sheet->getStyle('H' . ($ttdRow + 9))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('H' . ($ttdRow + 9))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 7), 'Yohanes Franklin, S.H.');
+                $sheet->getStyle('D' . ($ttdRow + 7))->getFont()->setBold(true);
+                $sheet->getStyle('D' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 8), 'Penata Tk.1');
+                $sheet->getStyle('D' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 9), 'NIP: 198502182010011008');
+                $sheet->getStyle('D' . ($ttdRow + 9))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 9))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
-                // TTD Menyetujui (kanan) - di bawah kolom PEMROSES DAN TGL (kolom Q)
-                $sheet->setCellValue('Q' . $ttdRow, 'Surabaya, ' . date('d F Y'));
-                $sheet->getStyle('Q' . $ttdRow)->getFont()->setBold(true);
-                $sheet->getStyle('Q' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('Q' . $ttdRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('Q' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
-                $sheet->getStyle('Q' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('Q' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                // TTD Menyetujui (kanan) - di bawah kolom SKALA USAHA (kolom O)
+                $sheet->setCellValue('O' . $ttdRow, 'Surabaya, ' . date('d F Y'));
+                $sheet->getStyle('O' . $ttdRow)->getFont()->setBold(true);
+                $sheet->getStyle('O' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . $ttdRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
+                $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 // Tambahkan 3 baris kosong untuk spacing (kurangi 1 baris di sisi kanan)
-                $sheet->setCellValue('Q' . ($ttdRow + 6), 'Ulvia Zulvia, ST');
-                $sheet->getStyle('Q' . ($ttdRow + 6))->getFont()->setBold(true);
-                $sheet->getStyle('Q' . ($ttdRow + 6))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('Q' . ($ttdRow + 6))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('Q' . ($ttdRow + 7), 'Penata Tk. 1');
-                $sheet->getStyle('Q' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('Q' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $sheet->setCellValue('Q' . ($ttdRow + 8), 'NIP: 197710132006042012');
-                $sheet->getStyle('Q' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('Q' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 6), 'Ulvia Zulvia, ST');
+                $sheet->getStyle('O' . ($ttdRow + 6))->getFont()->setBold(true);
+                $sheet->getStyle('O' . ($ttdRow + 6))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 6))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 7), 'Penata Tk. 1');
+                $sheet->getStyle('O' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 8), 'NIP: 197710132006042012');
+                $sheet->getStyle('O' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }
@@ -254,8 +254,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setPath($path);
             $drawing->setHeight(50);
             $drawing->setWidth(100);
-            // Position under KEGIATAN column (H)
-            $drawing->setCoordinates('H' . ($this->collection()->count() + 9));
+            // Position under TANGGAL PERMOHONAN column (D)
+            $drawing->setCoordinates('D' . ($this->collection()->count() + 9));
             $drawings[] = $drawing;
             }
         }
@@ -272,8 +272,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setPath($path);
             $drawing->setHeight(50);
             $drawing->setWidth(100);
-            // Position under PEMROSES DAN TGL column (Q)
-            $drawing->setCoordinates('Q' . ($this->collection()->count() + 8));
+            // Position under SKALA USAHA column (O)
+            $drawing->setCoordinates('O' . ($this->collection()->count() + 8));
             $drawings[] = $drawing;
             }
         }
