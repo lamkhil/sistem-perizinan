@@ -150,6 +150,9 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 // Baris header tabel sekarang ada di baris 7 (setelah 2 baris jarak)
                 $headerRow = 7;
                 
+                // Debug: Tampilkan nilai lastRow dan data count
+                \Log::info("Debug Excel Export - lastRow: " . $lastRow . ", data count: " . $this->collection()->count());
+                
                 // Set text wrapping hanya untuk area tabel yang ada datanya
                 $dataEndRow = $headerRow + $this->collection()->count();
                 $sheet->getStyle('A' . $headerRow . ':Q' . $dataEndRow)->getAlignment()->setWrapText(true);
@@ -189,7 +192,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 }
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
-                $ttdRow = $lastRow;
+                // Gunakan dataEndRow yang sudah dihitung sebelumnya untuk memastikan TTD dimulai setelah data terakhir
+                $ttdRow = $dataEndRow;
                 
                 // TTD Mengetahui (kiri) - di bawah kolom TANGGAL PERMOHONAN (kolom D)
                 $sheet->setCellValue('D' . $ttdRow, 'Mengetahui');
