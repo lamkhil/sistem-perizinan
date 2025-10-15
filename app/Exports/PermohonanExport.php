@@ -211,7 +211,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'B' => 10,  // WAKTU
             'C' => 20,  // NO. PERMOHONAN
             'D' => 18,  // NO. PROYEK
-            'E' => 12,  // TANGGAL PERMOHONAN
+            'E' => 18,  // TANGGAL PERMOHONAN
             'F' => 12,  // NIB
             'G' => 10,  // KBLI
             'H' => 20,  // KEGIATAN
@@ -268,7 +268,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
                 
                 // Set row height for header (wider)
-                $sheet->getRowDimension(1)->setRowHeight(80);
+                $sheet->getRowDimension(1)->setRowHeight(60);
                 
                 // Set NIB column (F) as text format to prevent scientific notation
                 for ($row = 2; $row <= $highestRow; $row++) {
