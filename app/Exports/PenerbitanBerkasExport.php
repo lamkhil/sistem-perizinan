@@ -189,7 +189,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 }
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
-                $ttdRow = $lastRow + 1;
+                $ttdRow = $lastRow;
                 
                 // TTD Mengetahui (kiri) - di bawah kolom TANGGAL PERMOHONAN (kolom D)
                 $sheet->setCellValue('D' . $ttdRow, 'Mengetahui');
