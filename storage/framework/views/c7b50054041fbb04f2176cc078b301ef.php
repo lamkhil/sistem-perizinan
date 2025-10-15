@@ -113,69 +113,6 @@
                 </div>
             </div>
 
-            <!-- Data Terlambat Section -->
-            <?php if(isset($terlambatData) && $terlambatData->count() > 0): ?>
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mt-8">
-                <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                Data Terlambat - Perlu Perhatian Segera
-                            </h3>
-                            <p class="text-sm text-gray-600 mt-1">Data yang melewati deadline dan memerlukan tindakan segera</p>
-                        </div>
-                        <span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: #E0E7FF; color: #3B82F6;">
-                            <?php echo e($terlambatData->count()); ?> Data
-                        </span>
-                    </div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead style="background-color: #253B7E;">
-                            <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Permohonan</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Sektor</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Deadline</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Keterlambatan</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <?php $__currentLoopData = $terlambatData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <tr class="hover:bg-red-50 transition-colors duration-200">
-                                <td class="px-4 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
-                                        <span class="text-sm font-medium text-gray-900"><?php echo e($permohonan->no_permohonan); ?></span>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-4 whitespace-nowrap"><div class="text-sm text-gray-900"><?php echo e($permohonan->nama_usaha); ?></div></td>
-                                <td class="px-4 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"><?php echo e($permohonan->sektor); ?></span>
-                                </td>
-                                <td class="px-4 py-4 whitespace-nowrap"><div class="text-sm text-gray-900"><?php echo e($permohonan->deadline ? $permohonan->deadline->format('d/m/Y') : '-'); ?></div></td>
-                                <td class="px-4 py-4 whitespace-nowrap">
-                                    <?php if($permohonan->deadline): ?>
-                                        <?php $daysLate = now()->diffInDays($permohonan->deadline, false); ?>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800"><?php echo e(abs($daysLate)); ?> hari terlambat</span>
-                                    <?php else: ?>
-                                        <span class="text-sm text-gray-500">-</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="px-4 py-4 text-center">
-                                    <a href="<?php echo e(route('permohonan.show', $permohonan)); ?>" class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">Lihat Detail</a>
-                                </td>
-                            </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <?php endif; ?>
 
             <!-- Recent Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">

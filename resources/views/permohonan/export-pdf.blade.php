@@ -40,8 +40,9 @@
         }
         th {
             background-color: #f5f5f5;
-            font-weight: bold;
+            font-weight: normal;
             font-size: 9px;
+            padding: 10px 6px;
         }
         td {
             font-size: 8px;
@@ -101,12 +102,13 @@
                 <th style="width: 5%;">VERIFIKASI OLEH PD TEKNIS</th>
                 <th style="width: 5%;">VERIFIKASI OLEH DPMPTSP</th>
                 <th style="width: 5%;">PENGEMBALIAN (TANGGAL)</th>
-                <th style="width: 6%;">KETERANGAN</th>
+                <th style="width: 8%;">KETERANGAN PENGEMBALIAN</th>
                 <th style="width: 5%;">MENGHUBUNGI (TANGGAL)</th>
-                <th style="width: 6%;">KETERANGAN</th>
+                <th style="width: 8%;">KETERANGAN MENGHUBUNGI</th>
                 <th style="width: 5%;">APPROVED (TANGGAL)</th>
+                <th style="width: 8%;">KETERANGAN DISETUJUI</th>
                 <th style="width: 5%;">TERBIT (TANGGAL)</th>
-                <th style="width: 6%;">KETERANGAN</th>
+                <th style="width: 8%;">KETERANGAN TERBIT</th>
                 <th style="width: 6%;">PEMROSES DAN TGL E SURAT DAN TGL PERTEK</th>
                 <th style="width: 4%;">VERIFIKATOR</th>
                 <th style="width: 4%;">KETERANGAN</th>
@@ -137,6 +139,7 @@
                 <td>{{ $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->keterangan_menghubungi ?? '', 15) }}</td>
                 <td>{{ $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
+                <td>{{ \Illuminate\Support\Str::limit($permohonan->keterangan_disetujui ?? '', 15) }}</td>
                 <td>{{ $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->locale('id')->translatedFormat('d/m/Y') : '-' }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->keterangan_terbit ?? '', 15) }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($permohonan->pemroses_dan_tgl_surat ?? '', 15) }}</td>
@@ -155,7 +158,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="29" style="text-align: center; padding: 20px;">Tidak ada data permohonan</td>
+                <td colspan="30" style="text-align: center; padding: 20px;">Tidak ada data permohonan</td>
             </tr>
             @endforelse
         </tbody>
