@@ -286,7 +286,8 @@
                                     'Diterima' => 'bg-green-100 text-green-800',
                                     'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                     'Ditolak' => 'bg-red-100 text-red-800',
-                                    'Menunggu' => 'bg-primary-100 text-primary-800'
+                                    'Menunggu' => 'bg-blue-100 text-blue-800',
+                                    'Terlambat' => 'bg-orange-100 text-orange-800'
                                 ];
                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                                 
@@ -403,7 +404,8 @@
                                 'Diterima' => 'bg-green-100 text-green-800',
                                 'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                 'Ditolak' => 'bg-red-100 text-red-800',
-                                'Menunggu' => 'bg-primary-100 text-primary-800'
+                                'Menunggu' => 'bg-blue-100 text-blue-800',
+                                'Terlambat' => 'bg-orange-100 text-orange-800'
                             ];
                             $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                             

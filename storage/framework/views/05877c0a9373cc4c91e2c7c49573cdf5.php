@@ -1,5 +1,14 @@
-<x-sidebar-layout>
-    <x-slot name="header">Dashboard Admin</x-slot>
+<?php if (isset($component)) { $__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sidebar-layout','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('sidebar-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Dashboard DPMPTSP <?php $__env->endSlot(); ?>
 
     <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
@@ -16,7 +25,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-blue-100 truncate">Total Permohonan</dt>
-                                    <dd class="text-xl font-bold text-white">{{ $stats['totalPermohonan'] ?? 0 }}</dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['totalPermohonan'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -36,7 +45,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-green-100 truncate">Diterima</dt>
-                                    <dd class="text-xl font-bold text-white">{{ $stats['diterima'] ?? 0 }}</dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['diterima'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -55,8 +64,8 @@
                             </div>
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-xs font-medium text-yellow-100 truncate">Dikembalikan</dt>
-                                    <dd class="text-xl font-bold text-white">{{ $stats['dikembalikan'] ?? 0 }}</dd>
+                                    <dt class="text-xs font-medium text-orange-100 truncate">Dikembalikan</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['dikembalikan'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -76,7 +85,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-red-100 truncate">Ditolak</dt>
-                                    <dd class="text-xl font-bold text-white">{{ $stats['ditolak'] ?? 0 }}</dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['ditolak'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -95,15 +104,14 @@
                             </div>
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-xs font-medium text-orange-100 truncate">Terlambat</dt>
-                                    <dd class="text-xl font-bold text-white">{{ $stats['terlambat'] ?? 0 }}</dd>
+                                    <dt class="text-xs font-medium text-gray-200 truncate">Terlambat</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['terlambat'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <!-- Recent Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
@@ -118,122 +126,81 @@
                             </h3>
                         </div>
                         <span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: #E0E7FF; color: #3B82F6;">
-                            {{ $permohonans->count() }} Data
+                            <?php echo e($permohonans->count()); ?> Data
                         </span>
                     </div>
                 </div>
-                @if($permohonans->count() > 0)
+                <?php if($permohonans->count() > 0): ?>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                        <thead style="background-color: #253B7E;">
-                            <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Permohonan</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Proyek</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Tanggal</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Alamat Perusahaan</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Verifikasi</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Status</th>
-                                <th class="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Aksi</th>
-                            </tr>
-                        </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach($permohonans as $permohonan)
+                            <thead style="background-color: #253B7E;">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Permohonan</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Sektor</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Status</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Tanggal Dibuat</th>
+                                    <th class="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                    <?php $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="hover:bg-primary-50 transition-colors duration-200">
                                         <!-- No. Permohonan -->
                                         <td class="px-4 py-4 text-sm font-medium text-gray-900">
                                             <div class="flex items-center">
                                                 <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
-                                                <span class="font-mono text-xs">{{ $permohonan->no_permohonan ?? '-' }}</span>
+                                                <span class="font-mono text-xs"><?php echo e($permohonan->no_permohonan ?? '-'); ?></span>
                                             </div>
-                                        </td>
-                                        <!-- No. Proyek -->
-                                        <td class="px-4 py-4 text-sm text-gray-900">
-                                            <p class="font-medium text-gray-900">{{ $permohonan->no_proyek ?? '-' }}</p>
-                                        </td>
-                                        <!-- Tanggal -->
-                                        <td class="px-4 py-4 text-sm text-gray-900">
-                                            <span class="text-xs">{{ $permohonan->tanggal_permohonan ? $permohonan->tanggal_permohonan->setTimezone('Asia/Jakarta')->format('d M Y') : ($permohonan->created_at->setTimezone('Asia/Jakarta')->format('d M Y')) }}</span>
                                         </td>
                                         <!-- Nama Usaha -->
                                         <td class="px-4 py-4 text-sm text-gray-900">
-                                            <p class="font-medium text-gray-900 text-xs">{{ $permohonan->nama_usaha ?? '-' }}</p>
+                                            <p class="font-medium text-gray-900 text-xs"><?php echo e($permohonan->nama_usaha ?? '-'); ?></p>
                                         </td>
-                                        <!-- Alamat Perusahaan -->
-                                        <td class="px-4 py-4 text-sm text-gray-900">
-                                            <p class="text-gray-600 text-xs">{{ $permohonan->alamat_perusahaan ?? '-' }}</p>
-                                        </td>
-                                        <!-- Verifikasi -->
-                                        <td class="px-4 py-4 text-sm text-gray-900">
-                                            <div class="space-y-1">
-                                                @if($permohonan->verifikasi_pd_teknis)
-                                                    <div class="flex items-center">
-                                                        @php
-                                                            $verifikasiColor = match($permohonan->verifikasi_pd_teknis) {
-                                                                'Berkas Disetujui' => 'bg-green-100 text-green-800',
-                                                                'Berkas Diperbaiki' => 'bg-yellow-100 text-yellow-800',
-                                                                'Pemohon Dihubungi' => 'bg-orange-100 text-orange-800',
-                                                                'Berkas Diunggah Ulang' => 'bg-red-100 text-red-800',
-                                                                'Pemohon Belum Dihubungi' => 'bg-purple-100 text-purple-800',
-                                                                default => 'bg-gray-100 text-gray-800'
-                                                            };
-                                                        @endphp
-                                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium {{ $verifikasiColor }}">
-                                                            {{ $permohonan->verifikasi_pd_teknis }}
-                                                        </span>
-                                                    </div>
-                                                @endif
-                                                @if($permohonan->verifikasi_dpmptsp)
-                                                    <div class="flex items-center">
-                                                        @php
-                                                            $verifikasiColor = match($permohonan->verifikasi_dpmptsp) {
-                                                                'Berkas Disetujui' => 'bg-green-100 text-green-800',
-                                                                'Berkas Diperbaiki' => 'bg-yellow-100 text-yellow-800',
-                                                                'Pemohon Dihubungi' => 'bg-orange-100 text-orange-800',
-                                                                'Berkas Diunggah Ulang' => 'bg-red-100 text-red-800',
-                                                                'Pemohon Belum Dihubungi' => 'bg-purple-100 text-purple-800',
-                                                                default => 'bg-gray-100 text-gray-800'
-                                                            };
-                                                        @endphp
-                                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium {{ $verifikasiColor }}">
-                                                            {{ $permohonan->verifikasi_dpmptsp }}
-                                                        </span>
-                                                    </div>
-                                                @endif
-                                                @if(!$permohonan->verifikasi_pd_teknis && !$permohonan->verifikasi_dpmptsp)
-                                                    <span class="text-gray-400 text-xs">Belum diverifikasi</span>
-                                                @endif
-                                            </div>
+                                        <!-- Sektor -->
+                                        <td class="px-4 py-4 text-sm">
+                                            <?php if($permohonan && $permohonan->sektor): ?>
+                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    <?php echo e($permohonan->sektor); ?>
+
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="text-gray-400 text-xs">-</span>
+                                            <?php endif; ?>
                                         </td>
                                         <!-- Status -->
                                         <td class="px-4 py-4 text-sm">
-                                            @php
+                                            <?php
                                                 $status = $permohonan->status ?? 'Menunggu';
                                                 $statusColors = [
                                                     'Diterima' => 'bg-green-100 text-green-800',
                                                     'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                                     'Ditolak' => 'bg-red-100 text-red-800',
-                                                    'Menunggu' => 'bg-blue-100 text-blue-800',
-                                                    'Terlambat' => 'bg-orange-100 text-orange-800'
+                                                    'Menunggu' => 'bg-blue-100 text-blue-800'
                                                 ];
                                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
-                                            @endphp
-                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $statusColor }}">
-                                                {{ $status }}
+                                            ?>
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <?php echo e($statusColor); ?>">
+                                                <?php echo e($status); ?>
+
                                             </span>
+                                        </td>
+                                        <!-- Tanggal Dibuat -->
+                                        <td class="px-4 py-4 text-sm text-gray-900">
+                                            <span class="text-xs"><?php echo e($permohonan->created_at->setTimezone('Asia/Jakarta')->format('d M Y')); ?></span>
                                         </td>
                                         <!-- Aksi -->
                                         <td class="px-4 py-4 text-center">
-                                            <a href="{{ route('permohonan.show', $permohonan) }}" class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                                            <a href="<?php echo e(route('permohonan.show', $permohonan)); ?>" class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
                                                 Lihat
                                             </a>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
                         <div class="text-center py-12">
                             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -241,6 +208,17 @@
                             <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada permohonan</h3>
                             <p class="mt-1 text-sm text-gray-500">Belum ada data permohonan yang tersedia.</p>
                         </div>
-                @endif
+                <?php endif; ?>
             </div>
-</x-sidebar-layout>
+
+        </div>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
+<?php $attributes = $__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12; ?>
+<?php unset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
+<?php $component = $__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12; ?>
+<?php unset($__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12); ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/dashboard/dpmptsp.blade.php ENDPATH**/ ?>

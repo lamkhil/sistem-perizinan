@@ -55,7 +55,7 @@
                             </div>
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-xs font-medium text-orange-100 truncate">Dikembalikan</dt>
+                                    <dt class="text-xs font-medium text-yellow-100 truncate">Dikembalikan</dt>
                                     <dd class="text-xl font-bold text-white">{{ $stats['dikembalikan'] ?? 0 }}</dd>
                                 </dl>
                             </div>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-xs font-medium text-gray-200 truncate">Terlambat</dt>
+                                    <dt class="text-xs font-medium text-orange-100 truncate">Terlambat</dt>
                                     <dd class="text-xl font-bold text-white">{{ $stats['terlambat'] ?? 0 }}</dd>
                                 </dl>
                             </div>
@@ -166,7 +166,8 @@
                                                     'Diterima' => 'bg-green-100 text-green-800',
                                                     'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                                     'Ditolak' => 'bg-red-100 text-red-800',
-                                                    'Menunggu' => 'bg-blue-100 text-blue-800'
+                                                    'Menunggu' => 'bg-blue-100 text-blue-800',
+                                                    'Terlambat' => 'bg-orange-100 text-orange-800'
                                                 ];
                                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                                             @endphp

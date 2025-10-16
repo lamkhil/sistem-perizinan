@@ -185,4 +185,31 @@
         </main>
     </div>
 </div>
+
+<script>
+// Fallback logout function
+function handleLogout(event) {
+    event.preventDefault();
+    
+    try {
+        // Try to submit the form normally
+        const form = event.target.closest('form');
+        if (form) {
+            form.submit();
+        } else {
+            // Fallback: redirect to GET logout route
+            window.location.href = '<?php echo e(route("logout.get")); ?>';
+        }
+    } catch (error) {
+        console.error('Logout error:', error);
+        // Emergency fallback
+        window.location.href = '<?php echo e(route("logout.get")); ?>';
+    }
+}
+
+// Global logout function for emergency use
+window.emergencyLogout = function() {
+    window.location.href = '<?php echo e(route("logout.get")); ?>';
+};
+</script>
 <?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/components/sidebar.blade.php ENDPATH**/ ?>
