@@ -3,7 +3,7 @@
 
     <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-                <div class="bg-blue-500 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-gradient-to-r from-blue-400 to-blue-600 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <div class="bg-green-500 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-gradient-to-r from-green-400 to-green-600 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
@@ -43,11 +43,11 @@
                     </div>
                 </div>
 
-                <div class="bg-orange-500 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                                <div class="w-10 h-10 bg-yellow-600 rounded-lg flex items-center justify-center">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                                     </svg>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="bg-red-500 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-gradient-to-r from-red-400 to-red-600 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
@@ -83,11 +83,11 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-600 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-gradient-to-r from-orange-400 to-orange-600 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center">
+                                <div class="w-10 h-10 bg-orange-700 rounded-lg flex items-center justify-center">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>

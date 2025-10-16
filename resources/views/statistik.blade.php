@@ -253,18 +253,18 @@
                     statsData.terlambat
                 ],
                 backgroundColor: [
+                    '#60A5FA',
+                    '#34D399',
+                    '#FBBF24',
+                    '#F87171',
+                    '#FB923C'
+                ],
+                borderColor: [
                     '#3B82F6',
                     '#10B981',
                     '#F59E0B',
                     '#EF4444',
                     '#F97316'
-                ],
-                borderColor: [
-                    '#2563EB',
-                    '#059669',
-                    '#D97706',
-                    '#DC2626',
-                    '#EA580C'
                 ],
                 borderWidth: 2,
                 hoverOffset: 10

@@ -92,12 +92,15 @@
                             </div>
                         </div>
                         <div>
-                            <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex items-end gap-4">
+                            <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex flex-wrap items-end gap-4">
                                 <div class="hidden">
                                     <input type="hidden" name="page" value="{{ request('page') }}" />
                                 </div>
-                                <div class="w-48">
-                                    <select name="date_filter" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                
+                                <!-- Date Filter Dropdown -->
+                                <div class="w-52">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Filter Periode</label>
+                                    <select name="date_filter" onchange="this.form.submit()" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                                         <option value="">Semua Periode</option>
                                         <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
                                         <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
@@ -108,20 +111,33 @@
                                         <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
                                     </select>
                                 </div>
+                                
+                                <!-- Custom Date Input -->
                                 @if(($selectedDateFilter ?? '')==='custom')
-                                <div class="w-48">
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                <div class="w-52">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal Custom</label>
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                 </div>
                                 @endif
-                                <div class="flex">
-                                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-64 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
-                                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                    </button>
+                                
+                                <!-- Search Input -->
+                                <div class="flex-1 min-w-80">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Pencarian</label>
+                                    <div class="flex">
+                                        <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="flex-1 px-4 py-2.5 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                        <button type="submit" class="px-4 py-2.5 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <a href="{{ route('penerbitan-berkas') }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm">Reset</a>
+                                
+                                <!-- Reset Button -->
+                                <div class="flex-shrink-0">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">&nbsp;</label>
+                                    <a href="{{ route('penerbitan-berkas') }}" class="inline-block px-4 py-2.5 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm font-medium">Reset</a>
+                                </div>
                             </form>
                         </div>
                     </div>
