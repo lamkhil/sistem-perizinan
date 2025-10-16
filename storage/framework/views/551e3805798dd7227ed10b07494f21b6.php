@@ -3,90 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Permohonan - Landscape</title>
+    <title>Data Permohonan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 8px;
+            font-size: 6px;
             margin: 0;
-            padding: 15px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 8px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 16px;
-            color: #333;
-        }
-        .header p {
-            margin: 3px 0 0 0;
-            font-size: 10px;
-            color: #666;
+            padding: 10px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 3px;
+            padding: 2px;
             text-align: left;
             vertical-align: top;
         }
         th {
-            background-color: #f5f5f5;
+            background-color: #E3F2FD;
             font-weight: normal;
-            font-size: 7px;
-            padding: 6px 3px;
+            font-size: 6px;
+            padding: 4px 2px;
+            text-align: center;
         }
         td {
-            font-size: 7px;
-        }
-        .status-diterima {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 6px;
-        }
-        .status-dikembalikan {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 6px;
-        }
-        .status-ditolak {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 6px;
-        }
-        .status-menunggu {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 6px;
-        }
-        .status-terlambat {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 6px;
+            font-size: 5px;
         }
         .text-center {
             text-align: center;
-        }
-        .text-right {
-            text-align: right;
         }
         .no-data {
             text-align: center;
@@ -94,79 +40,82 @@
             color: #666;
             font-style: italic;
         }
-        /* Column widths for landscape optimization */
-        .col-no { width: 3%; }
-        .col-nomor { width: 8%; }
-        .col-tanggal { width: 6%; }
-        .col-nama { width: 12%; }
-        .col-alamat { width: 15%; }
-        .col-jenis { width: 8%; }
-        .col-skala { width: 6%; }
-        .col-sektor { width: 6%; }
-        .col-status { width: 6%; }
-        .col-keterangan { width: 8%; }
-        .col-keterangan-pengembalian { width: 8%; }
-        .col-keterangan-menghubungi { width: 8%; }
-        .col-keterangan-disetujui { width: 8%; }
-        .col-keterangan-terbit { width: 8%; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>DATA PERMOHONAN IZIN USAHA</h1>
-        <p>Tanggal Export: <?php echo e(date('d F Y, H:i')); ?></p>
-    </div>
-
     <?php if($permohonans->count() > 0): ?>
         <table>
             <thead>
                 <tr>
-                    <th class="col-no">No</th>
-                    <th class="col-nomor">No. Permohonan</th>
-                    <th class="col-tanggal">Tanggal</th>
-                    <th class="col-nama">Nama Usaha</th>
-                    <th class="col-alamat">Alamat</th>
-                    <th class="col-jenis">Jenis Usaha</th>
-                    <th class="col-skala">Skala</th>
-                    <th class="col-sektor">Sektor</th>
-                    <th class="col-status">Status</th>
-                    <th class="col-keterangan">Keterangan</th>
-                    <th class="col-keterangan-pengembalian">Keterangan Pengembalian</th>
-                    <th class="col-keterangan-menghubungi">Keterangan Menghubungi</th>
-                    <th class="col-keterangan-disetujui">Keterangan Disetujui</th>
-                    <th class="col-keterangan-terbit">Keterangan Terbit</th>
+                    <th>SEKTOR</th>
+                    <th>WAKTU</th>
+                    <th>NO. PERMOHONAN (PD TEKNIS)</th>
+                    <th>NO. PROYEK (PD TEKNIS)</th>
+                    <th>TANGGAL PERMOHONAN (PD TEKNIS)</th>
+                    <th>NIB (PD TEKNIS)</th>
+                    <th>KBLI (PD TEKNIS)</th>
+                    <th>KEGIATAN (PD TEKNIS)</th>
+                    <th>JENIS PERUSAHAAN (PD TEKNIS)</th>
+                    <th>NAMA PERUSAHAAN (PD TEKNIS)</th>
+                    <th>NAMA USAHA (DPM)</th>
+                    <th>ALAMAT PERUSAHAAN (DPM)</th>
+                    <th>MODAL USAHA (DPM)</th>
+                    <th>JENIS PROYEK (DPM)</th>
+                    <th>NAMA PERIZINAN (DPM)</th>
+                    <th>SKALA USAHA (DPM)</th>
+                    <th>RISIKO (DPM)</th>
+                    <th>JANGKA WAKTU (HARI KERJA) (DPM)</th>
+                    <th>NO TELPHONE (DPM)</th>
+                    <th>VERIFIKASI OLEH PD TEKNIS</th>
+                    <th>VERIFIKASI ANALISA (DPMPTSP)</th>
+                    <th>TANGGAL PENGEMBALIAN</th>
+                    <th>KETERANGAN PENGEMBALIAN</th>
+                    <th>TANGGAL MENGHUBUNGI</th>
+                    <th>KETERANGAN MENGHUBUNGI</th>
+                    <th>TANGGAL DISETUJUI</th>
+                    <th>KETERANGAN DISETUJUI</th>
+                    <th>TANGGAL TERBIT</th>
+                    <th>KETERANGAN TERBIT</th>
+                    <th>PEMROSES DAN TGL E-SURAT DAN TGL PERTEK</th>
+                    <th>VERIFIKATOR</th>
+                    <th>STATUS</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td class="text-center"><?php echo e($index + 1); ?></td>
-                        <td><?php echo e($permohonan->nomor_permohonan ?? '-'); ?></td>
-                        <td><?php echo e($permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '-'); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->nama_usaha ?? '', 20)); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->alamat_usaha ?? '', 25)); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->jenis_usaha ?? '', 15)); ?></td>
-                        <td class="text-center"><?php echo e($permohonan->skala_usaha ?? '-'); ?></td>
-                        <td class="text-center"><?php echo e($permohonan->sektor ?? '-'); ?></td>
-                        <td class="text-center">
-                            <?php
-                                $status = $permohonan->status ?? 'Menunggu';
-                                $statusClass = match($status) {
-                                    'Diterima' => 'status-diterima',
-                                    'Dikembalikan' => 'status-dikembalikan',
-                                    'Ditolak' => 'status-ditolak',
-                                    'Menunggu' => 'status-menunggu',
-                                    'Terlambat' => 'status-terlambat',
-                                    default => 'status-menunggu'
-                                };
-                            ?>
-                            <span class="<?php echo e($statusClass); ?>"><?php echo e($status); ?></span>
-                        </td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->keterangan ?? '', 15)); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->keterangan_pengembalian ?? '', 15)); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->keterangan_menghubungi ?? '', 15)); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->keterangan_disetujui ?? '', 15)); ?></td>
-                        <td><?php echo e(\Illuminate\Support\Str::limit($permohonan->keterangan_terbit ?? '', 15)); ?></td>
+                        <td><?php echo e($permohonan->sektor ?? ''); ?></td>
+                        <td><?php echo e($permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->no_permohonan ?? ''); ?></td>
+                        <td><?php echo e($permohonan->no_proyek ?? ''); ?></td>
+                        <td><?php echo e($permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d/m/Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->nib ?? ''); ?></td>
+                        <td><?php echo e($permohonan->kbli ?? ''); ?></td>
+                        <td><?php echo e($permohonan->inputan_teks ?? ''); ?></td>
+                        <td><?php echo e($permohonan->jenis_perusahaan_display ?? ''); ?></td>
+                        <td><?php echo e($permohonan->nama_perusahaan ?? ''); ?></td>
+                        <td><?php echo e($permohonan->nama_usaha ?? ''); ?></td>
+                        <td><?php echo e($permohonan->alamat_perusahaan ?? ''); ?></td>
+                        <td><?php echo e($permohonan->modal_usaha ? number_format((float) $permohonan->modal_usaha, 0, ',', '.') : ''); ?></td>
+                        <td><?php echo e($permohonan->jenis_proyek ?? ''); ?></td>
+                        <td><?php echo e($permohonan->nama_perizinan ?? ''); ?></td>
+                        <td><?php echo e($permohonan->skala_usaha ?? ''); ?></td>
+                        <td><?php echo e($permohonan->risiko ?? ''); ?></td>
+                        <td><?php echo e($permohonan->jangka_waktu ?? ''); ?></td>
+                        <td><?php echo e($permohonan->no_telephone ?? ''); ?></td>
+                        <td><?php echo e($permohonan->verifikasi_pd_teknis ?? ''); ?></td>
+                        <td><?php echo e($permohonan->verifikasi_dpmptsp ?? ''); ?></td>
+                        <td><?php echo e($permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->locale('id')->translatedFormat('d/m/Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->keterangan_pengembalian ?? ''); ?></td>
+                        <td><?php echo e($permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->locale('id')->translatedFormat('d/m/Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->keterangan_menghubungi ?? ''); ?></td>
+                        <td><?php echo e($permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->locale('id')->translatedFormat('d/m/Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->keterangan_disetujui ?? ''); ?></td>
+                        <td><?php echo e($permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->locale('id')->translatedFormat('d/m/Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->keterangan_terbit ?? ''); ?></td>
+                        <td><?php echo e($permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->locale('id')->translatedFormat('d/m/Y') : ''); ?></td>
+                        <td><?php echo e($permohonan->verifikator ?? ''); ?></td>
+                        <td><?php echo e($permohonan->status ?? ''); ?></td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
