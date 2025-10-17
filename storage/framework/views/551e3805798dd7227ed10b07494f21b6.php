@@ -19,8 +19,8 @@
         th, td {
             border: 1px solid #ddd;
             padding: 1px;
-            text-align: left;
-            vertical-align: top;
+            text-align: center;
+            vertical-align: middle;
             word-wrap: break-word;
             overflow: hidden;
         }
@@ -33,9 +33,6 @@
         }
         td {
             font-size: 3px;
-        }
-        .text-center {
-            text-align: center;
         }
         .no-data {
             text-align: center;

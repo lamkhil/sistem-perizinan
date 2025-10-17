@@ -41,6 +41,7 @@
                         
                         <!-- Filter Buttons -->
                         <div class="flex gap-2">
+                            <?php if(auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])): ?>
                             <div class="relative custom-dropdown">
                                 <select name="sektor" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
                                     <option value="">Semua Sektor</option>
@@ -57,6 +58,7 @@
                                     </svg>
                                 </div>
                             </div>
+                            <?php endif; ?>
                             
                             <div class="relative custom-dropdown">
                                 <select name="date_filter" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
@@ -92,7 +94,7 @@
                                 </div>
                             </div>
                             
-                            <?php if(($searchQuery || $selectedSektor || $selectedDateFilter || $selectedStatus) && ($selectedDateFilter ?? '') != 'custom'): ?>
+                            <?php if(($searchQuery || ($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])) || $selectedDateFilter || $selectedStatus) && ($selectedDateFilter ?? '') != 'custom'): ?>
                             <a href="<?php echo e(route('permohonan.index')); ?>" class="h-11 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center text-sm font-medium transition-colors">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -175,7 +177,7 @@
         </div>
         
         <!-- Active Filters Display -->
-        <?php if($searchQuery || $selectedSektor || $selectedDateFilter): ?>
+        <?php if($searchQuery || ($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])) || $selectedDateFilter): ?>
         <div class="mt-4 pt-4 border-t border-gray-200">
             <div class="flex flex-wrap gap-2">
                 <?php if($searchQuery): ?>
@@ -186,7 +188,7 @@
                     Search: "<?php echo e($searchQuery); ?>"
                 </span>
                 <?php endif; ?>
-                <?php if($selectedSektor): ?>
+                <?php if($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])): ?>
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                     <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>

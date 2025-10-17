@@ -55,34 +55,6 @@
                         <?php endif; ?>
                     </div>
                     </div>
-                    <div>
-                        <form method="GET" action="<?php echo e(route('statistik')); ?>" class="flex items-end gap-3">
-                            <div class="md:w-48">
-                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-                                    <option value="">Semua Periode</option>
-                                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
-                                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
-                                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
-                                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
-                                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
-                                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
-                                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom</option>
-                                </select>
-                            </div>
-                            <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-                            <div class="flex items-end gap-2">
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal</label>
-                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
-                                </div>
-                                <div class="pb-0.5 flex gap-2">
-                                    <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">Filter</button>
-                                    <a href="<?php echo e(route('statistik')); ?>" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">Reset</a>
-                                </div>
-                            </div>
-                            <?php endif; ?>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -193,8 +165,40 @@
         <!-- Chart Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="bg-gradient-to-r from-primary-50 to-primary-100 px-6 py-4 border-b border-gray-200">
-                <h2 class="text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
-                <p class="text-gray-600 text-sm">Visualisasi data dalam bentuk pie chart</p>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
+                        <p class="text-gray-600 text-sm">Visualisasi data dalam bentuk pie chart</p>
+                    </div>
+                    <div>
+                        <form method="GET" action="<?php echo e(route('statistik')); ?>" class="flex items-end gap-3">
+                            <div class="md:w-48">
+                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                    <option value="">Semua Periode</option>
+                                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
+                                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
+                                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
+                                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
+                                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
+                                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
+                                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom</option>
+                                </select>
+                            </div>
+                            <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
+                            <div class="flex items-end gap-2">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal</label>
+                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                                </div>
+                                <div class="pb-0.5 flex gap-2">
+                                    <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">Filter</button>
+                                    <a href="<?php echo e(route('statistik')); ?>" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">Reset</a>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </form>
+                    </div>
+                </div>
             </div>
             
             <div class="p-6">
