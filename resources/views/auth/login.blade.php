@@ -210,7 +210,16 @@
 
     <script>
         function refreshCaptcha() {
-            document.getElementById('captcha-image').src = '{{ route("refresh-captcha") }}?v=' + new Date().getTime();
+            fetch('{{ route("refresh-captcha") }}?v=' + new Date().getTime())
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('captcha-image').src = data.captcha;
+                })
+                .catch(error => {
+                    console.error('Error refreshing captcha:', error);
+                    // Fallback: reload page on error
+                    window.location.reload();
+                });
         }
     </script>
 </body>
