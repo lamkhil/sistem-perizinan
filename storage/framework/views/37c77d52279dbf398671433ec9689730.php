@@ -153,6 +153,34 @@
                     >
                 </div>
 
+                <!-- CAPTCHA Field -->
+                <div class="mb-6">
+                    <label class="text-white text-sm mb-2 block">Captcha</label>
+                    <div class="captcha-container mb-2">
+                        <img id="captcha-image" src="<?php echo e(captcha_src('flat')); ?>" alt="Captcha" style="border-radius: 8px; cursor: pointer;" onclick="refreshCaptcha()">
+                    </div>
+                    <div class="input-container">
+                        <input 
+                            type="text" 
+                            name="captcha" 
+                            class="form-input" 
+                            placeholder="Masukkan Captcha"
+                            required
+                        >
+                    </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <button type="button" onclick="refreshCaptcha()" class="text-white hover:text-yellow-300 transition-colors text-sm flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            <span>Refresh</span>
+                        </button>
+                    </div>
+                    <?php if($errors->has('captcha')): ?>
+                        <p class="text-red-400 text-sm mt-1"><?php echo e($errors->first('captcha')); ?></p>
+                    <?php endif; ?>
+                </div>
+
                 <!-- Remember Me & Forgot Password -->
                 <div class="flex items-center justify-between mb-6">
                     <label class="checkbox-container text-white">
@@ -179,5 +207,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function refreshCaptcha() {
+            document.getElementById('captcha-image').src = '<?php echo e(route("refresh-captcha")); ?>?v=' + new Date().getTime();
+        }
+    </script>
 </body>
 </html><?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/auth/login.blade.php ENDPATH**/ ?>

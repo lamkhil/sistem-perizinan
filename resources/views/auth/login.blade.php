@@ -156,15 +156,10 @@
                 <!-- CAPTCHA Field -->
                 <div class="mb-6">
                     <label class="text-white text-sm mb-2 block">Captcha</label>
+                    <div class="captcha-container mb-2">
+                        <img id="captcha-image" src="{{ captcha_src('flat') }}" alt="Captcha" style="border-radius: 8px; cursor: pointer;" onclick="refreshCaptcha()">
+                    </div>
                     <div class="input-container">
-                        <div class="captcha-img mb-2 flex items-center gap-2">
-                            <div id="captcha-image">{!! captcha_img('flat') !!}</div>
-                            <button type="button" onclick="refreshCaptcha()" class="text-white hover:text-yellow-300 transition-colors">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                </svg>
-                            </button>
-                        </div>
                         <input 
                             type="text" 
                             name="captcha" 
@@ -172,6 +167,14 @@
                             placeholder="Masukkan Captcha"
                             required
                         >
+                    </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <button type="button" onclick="refreshCaptcha()" class="text-white hover:text-yellow-300 transition-colors text-sm flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            <span>Refresh</span>
+                        </button>
                     </div>
                     @if($errors->has('captcha'))
                         <p class="text-red-400 text-sm mt-1">{{ $errors->first('captcha') }}</p>
@@ -207,11 +210,7 @@
 
     <script>
         function refreshCaptcha() {
-            fetch('{{ route("refresh-captcha") }}')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('captcha-image').innerHTML = data;
-                });
+            document.getElementById('captcha-image').src = '{{ route("refresh-captcha") }}?v=' + new Date().getTime();
         }
     </script>
 </body>
