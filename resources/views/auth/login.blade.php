@@ -154,8 +154,8 @@
                 </div>
 
                 <!-- CAPTCHA Field -->
-                <div class="mb-6">
-                    <div class="captcha-container mb-2">
+                <div class="input-container">
+                    <div class="captcha-container">
                         <img id="captcha-image" src="{{ captcha_src('flat') }}" alt="Captcha" onerror="this.onerror=null; window.location.reload();" style="border-radius: 8px; cursor: pointer; width: 100%; height: auto; display: block;">
                     </div>
                     <div class="input-container">
