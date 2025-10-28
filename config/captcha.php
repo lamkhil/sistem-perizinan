@@ -14,7 +14,7 @@ return [
         'height' => 65,
         'quality' => 90,
         'math' => false,
-        'expire' => 60,
+        'expire' => 300,
         'encrypt' => false,
     ],
     'flat' => [
@@ -28,6 +28,7 @@ return [
         'bgImage' => true,
         'bgColor' => '#28faef',
         'contrast' => 0,
+        'expire' => 300,
     ],
     'mini' => [
         'length' => 3,

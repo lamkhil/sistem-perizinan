@@ -138,6 +138,9 @@
                         required
                     >
                 </div>
+                @if($errors->has('email'))
+                    <p class="text-red-400 text-sm mt-1">{{ $errors->first('email') }}</p>
+                @endif
 
                 <!-- Password Field -->
                 <div class="input-container">
@@ -152,6 +155,9 @@
                         required
                     >
                 </div>
+                @if($errors->has('password'))
+                    <p class="text-red-400 text-sm mt-1">{{ $errors->first('password') }}</p>
+                @endif
 
                 <!-- CAPTCHA Field -->
                 <div class="input-container">
