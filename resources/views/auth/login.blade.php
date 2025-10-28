@@ -38,6 +38,19 @@
             width: 20px;
             height: 20px;
         }
+        .toggle-visibility {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fbbf24;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+        }
         .form-input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
@@ -148,12 +161,19 @@
                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
                     </svg>
                     <input 
+                        id="password-input"
                         type="password" 
                         name="password" 
                         class="form-input" 
                         placeholder="Password"
                         required
                     >
+                    <button type="button" class="toggle-visibility" aria-label="Tampilkan password" onclick="(function(btn){var i=document.getElementById('password-input');if(i.type==='password'){i.type='text';btn.setAttribute('aria-label','Sembunyikan password');}else{i.type='password';btn.setAttribute('aria-label','Tampilkan password');}})(this)">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
                 </div>
                 @if($errors->has('password'))
                     <p class="text-red-400 text-sm mt-1">{{ $errors->first('password') }}</p>
