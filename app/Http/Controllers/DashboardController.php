@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -93,6 +95,7 @@ class DashboardController extends Controller
                 return redirect('/login')->with('error', 'Peran tidak valid, hubungi admin.');
         }
     }
+
 
     public function statistik(Request $request)
     {

@@ -6,6 +6,8 @@ use App\Models\Permohonan;
 use App\Models\LogPermohonan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
 use App\Exports\PermohonanExport;
