@@ -24,8 +24,17 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
      * Counter untuk kolom NO agar berurutan 1..n
      */
     private int $rowNumber = 0;
+    private $data = null;
+
+    public function __construct($data = null)
+    {
+        $this->data = $data; // optional: koleksi data terfilter
+    }
     public function collection()
     {
+        if ($this->data !== null) {
+            return $this->data;
+        }
         return PenerbitanBerkas::with('user')->orderBy('created_at', 'asc')->get();
     }
 
