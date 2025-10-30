@@ -121,7 +121,7 @@
                                 </div>
                                 
                                 <!-- Date Filter Dropdown -->
-                                <div class="w-52 md:w-56 flex-shrink-0">
+                                <div class="w-52 md:w-60 flex-shrink-0">
                                     <select name="date_filter" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                                         <option value="">Semua Periode</option>
                                         <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
@@ -136,13 +136,13 @@
                                 
                                 <!-- Custom Date Input -->
                                 @if(($selectedDateFilter ?? '')==='custom')
-                                <div class="w-52 md:w-56 flex-shrink-0">
+                                <div class="w-52 md:w-60 flex-shrink-0">
                                     <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                 </div>
                                 @endif
                                 
                                 <!-- Search Input -->
-                                <div class="flex w-full md:w-[460px] basis-full md:basis-auto order-last md:order-none">
+                                <div class="flex w-full md:w-[500px] basis-full md:basis-auto order-last md:order-none">
                                     <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-full min-w-0 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                     <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
