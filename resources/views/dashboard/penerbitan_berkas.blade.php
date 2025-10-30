@@ -118,26 +118,40 @@
                             <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex flex-col gap-3">
                                 <!-- Row 1: Per Page & Date Filter -->
                                 <div class="flex items-center gap-3">
-                                    <select name="per_page" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                                        <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
-                                        <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
-                                        <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
-                                        <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
-                                    </select>
+                                    <div class="relative">
+                                        <select name="per_page" onchange="this.form.submit()" class="appearance-none px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer">
+                                            <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
+                                            <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
+                                            <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
+                                            <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                     
-                                    <select name="date_filter" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                                        <option value="">Semua Periode</option>
-                                        <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
-                                        <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
-                                        <option value="this_week" @selected(($selectedDateFilter ?? '')==='this_week')>Minggu Ini</option>
-                                        <option value="last_week" @selected(($selectedDateFilter ?? '')==='last_week')>Minggu Lalu</option>
-                                        <option value="this_month" @selected(($selectedDateFilter ?? '')==='this_month')>Bulan Ini</option>
-                                        <option value="last_month" @selected(($selectedDateFilter ?? '')==='last_month')>Bulan Lalu</option>
-                                        <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
-                                    </select>
+                                    <div class="relative">
+                                        <select name="date_filter" onchange="this.form.submit()" class="appearance-none px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer">
+                                            <option value="">Semua Periode</option>
+                                            <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
+                                            <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
+                                            <option value="this_week" @selected(($selectedDateFilter ?? '')==='this_week')>Minggu Ini</option>
+                                            <option value="last_week" @selected(($selectedDateFilter ?? '')==='last_week')>Minggu Lalu</option>
+                                            <option value="this_month" @selected(($selectedDateFilter ?? '')==='this_month')>Bulan Ini</option>
+                                            <option value="last_month" @selected(($selectedDateFilter ?? '')==='last_month')>Bulan Lalu</option>
+                                            <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
                                     
                                     @if(($selectedDateFilter ?? '')==='custom')
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm cursor-pointer" />
                                     @endif
                                 </div>
                                 
