@@ -5,18 +5,6 @@
 
     @section('head')
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <style>
-            /* Remove default select arrow in all browsers */
-            select.custom-select {
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                background-image: none;
-            }
-            select.custom-select::-ms-expand {
-                display: none; /* IE 10+ */
-            }
-        </style>
     @endsection
 
     <!-- Header dengan Judul Laporan -->
@@ -77,93 +65,79 @@
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
-                    <!-- Header & Export Buttons -->
-                    <div class="flex items-center gap-4 mb-4">
-                        <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                             <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                             </svg>
-                             Data Permohonan
-                        </h3>
-                        <!-- Export Buttons -->
-                        <div class="flex gap-3 flex-shrink-0">
-                            <!-- Kolom kiri: Excel -->
-                            <div class="flex flex-col gap-2">
-                                <a href="{{ route('penerbitan-berkas.export.excel') }}" 
-                                   class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm whitespace-nowrap">
-                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Export Excel (Semua)
-                                </a>
-                                <a href="{{ route('penerbitan-berkas.export.excel', request()->only(['date_filter','custom_date'])) }}" 
-                                   class="inline-flex items-center px-3 py-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors text-sm whitespace-nowrap">
-                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Export Excel (Per Tanggal)
-                                </a>
-                            </div>
+                    <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+                        <div class="flex items-center gap-4 flex-shrink-0">
+                            <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                                 <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                 </svg>
+                                 Data Permohonan
+                            </h3>
+                            <!-- Export Buttons -->
+                            <div class="flex gap-3 flex-shrink-0 flex-wrap">
+                                <!-- Kolom kiri: Excel -->
+                                <div class="flex flex-col gap-2">
+                                    <a href="{{ route('penerbitan-berkas.export.excel') }}" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export Excel (Semua)
+                                    </a>
+                                    <a href="{{ route('penerbitan-berkas.export.excel', request()->only(['date_filter','custom_date'])) }}" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export Excel (Per Tanggal)
+                                    </a>
+                                </div>
 
-                            <!-- Kolom kanan: PDF -->
-                            <div class="flex flex-col gap-2">
-                                <a href="{{ route('penerbitan-berkas.export.pdf.landscape') }}" 
-                                   class="inline-flex items-center px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm whitespace-nowrap">
-                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Export PDF (Semua)
-                                </a>
-                                <a href="{{ route('penerbitan-berkas.export.pdf.landscape', request()->only(['date_filter','custom_date'])) }}" 
-                                   class="inline-flex items-center px-3 py-1.5 bg-violet-600 text-white rounded-md hover:bg-violet-700 transition-colors text-sm whitespace-nowrap">
-                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Export PDF (Per Tanggal)
-                                </a>
+                                <!-- Kolom kanan: PDF -->
+                                <div class="flex flex-col gap-2">
+                                    <a href="{{ route('penerbitan-berkas.export.pdf.landscape') }}" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export PDF (Semua)
+                                    </a>
+                                    <a href="{{ route('penerbitan-berkas.export.pdf.landscape', request()->only(['date_filter','custom_date'])) }}" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-violet-600 text-white rounded-md hover:bg-violet-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export PDF (Per Tanggal)
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Filter Section - Vertical Stacked Layout -->
-                    <div class="w-full">
+                        
+                        <!-- Filter Section - Vertical Stacked Layout -->
+                        <div class="w-full">
                             <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex flex-col gap-3">
                                 <!-- Row 1: Per Page & Date Filter -->
                                 <div class="flex items-center gap-3">
-                                    <div class="relative inline-block w-auto">
-                                        <select name="per_page" onchange="this.form.submit()" class="custom-select w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer" style="min-width: 170px; background-image: none !important;">
-                                            <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
-                                            <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
-                                            <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
-                                            <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-600">
-                                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
+                                    <select name="per_page" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
+                                        <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
+                                        <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
+                                        <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
+                                    </select>
                                     
-                                    <div class="relative inline-block w-auto">
-                                        <select name="date_filter" onchange="this.form.submit()" class="custom-select w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer" style="min-width: 180px; background-image: none !important;">
-                                            <option value="">Semua Periode</option>
-                                            <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
-                                            <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
-                                            <option value="this_week" @selected(($selectedDateFilter ?? '')==='this_week')>Minggu Ini</option>
-                                            <option value="last_week" @selected(($selectedDateFilter ?? '')==='last_week')>Minggu Lalu</option>
-                                            <option value="this_month" @selected(($selectedDateFilter ?? '')==='this_month')>Bulan Ini</option>
-                                            <option value="last_month" @selected(($selectedDateFilter ?? '')==='last_month')>Bulan Lalu</option>
-                                            <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
-                                        </select>
-                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-600">
-                                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
+                                    <select name="date_filter" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="">Semua Periode</option>
+                                        <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
+                                        <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
+                                        <option value="this_week" @selected(($selectedDateFilter ?? '')==='this_week')>Minggu Ini</option>
+                                        <option value="last_week" @selected(($selectedDateFilter ?? '')==='last_week')>Minggu Lalu</option>
+                                        <option value="this_month" @selected(($selectedDateFilter ?? '')==='this_month')>Bulan Ini</option>
+                                        <option value="last_month" @selected(($selectedDateFilter ?? '')==='last_month')>Bulan Lalu</option>
+                                        <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
+                                    </select>
                                     
                                     @if(($selectedDateFilter ?? '')==='custom')
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm cursor-pointer" />
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                     @endif
                                 </div>
                                 
@@ -183,6 +157,7 @@
                                     </a>
                                 </div>
                             </form>
+                        </div>
                     </div>
                 </div>
                     <div class="overflow-x-auto">
