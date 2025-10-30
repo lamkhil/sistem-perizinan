@@ -5,6 +5,18 @@
 
     @section('head')
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <style>
+            /* Remove default select arrow in all browsers */
+            select.custom-select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-image: none;
+            }
+            select.custom-select::-ms-expand {
+                display: none; /* IE 10+ */
+            }
+        </style>
     @endsection
 
     <!-- Header dengan Judul Laporan -->
@@ -119,7 +131,7 @@
                                 <!-- Row 1: Per Page & Date Filter -->
                                 <div class="flex items-center gap-3">
                                     <div class="relative inline-block w-auto">
-                                        <select name="per_page" onchange="this.form.submit()" class="appearance-none w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer" style="min-width: 170px;">
+                                        <select name="per_page" onchange="this.form.submit()" class="custom-select w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer" style="min-width: 170px; background-image: none !important;">
                                             <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
                                             <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
                                             <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
@@ -133,7 +145,7 @@
                                     </div>
                                     
                                     <div class="relative inline-block w-auto">
-                                        <select name="date_filter" onchange="this.form.submit()" class="appearance-none w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer" style="min-width: 180px;">
+                                        <select name="date_filter" onchange="this.form.submit()" class="custom-select w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white cursor-pointer" style="min-width: 180px; background-image: none !important;">
                                             <option value="">Semua Periode</option>
                                             <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
                                             <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
