@@ -599,7 +599,18 @@ class DashboardController extends Controller
             $validated['jenis_badan_usaha'] = null;
         }
 
-        $permohonan->update($validated);
+        // Pastikan field nomor_bap dan tanggal_bap bisa diupdate bahkan jika kosong/null
+        // Jika field kosong, set ke null (bukan empty string)
+        if (empty($request->nomor_bap)) {
+            $validated['nomor_bap'] = null;
+        }
+        if (empty($request->tanggal_bap)) {
+            $validated['tanggal_bap'] = null;
+        }
+
+        // Update dengan fill untuk memastikan semua field ter-update
+        $permohonan->fill($validated);
+        $permohonan->save();
 
         return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil diperbarui!');
     }
