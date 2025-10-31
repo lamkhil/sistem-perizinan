@@ -532,18 +532,27 @@ class DashboardController extends Controller
         
         $permohonan = PenerbitanBerkas::findOrFail($id);
         
-        // Format tanggal_bap untuk input type="date" (Y-m-d format)
+        // Format tanggal untuk input type="date" (Y-m-d format)
         // Handle null untuk data lama yang belum punya field ini
         $data = $permohonan->toArray();
         
         // Pastikan ID selalu ada di response untuk validasi di frontend
         $data['id'] = $permohonan->id;
         
+        // Format tanggal_permohonan untuk input type="date"
+        if ($permohonan->tanggal_permohonan) {
+            $data['tanggal_permohonan'] = $permohonan->tanggal_permohonan->format('Y-m-d');
+        } else {
+            $data['tanggal_permohonan'] = null;
+        }
+        
+        // Format tanggal_bap untuk input type="date"
         if ($permohonan->tanggal_bap) {
             $data['tanggal_bap'] = $permohonan->tanggal_bap->format('Y-m-d');
         } else {
             $data['tanggal_bap'] = null; // Pastikan null untuk data lama
         }
+        
         // Pastikan nomor_bap null jika tidak ada
         if (!isset($data['nomor_bap'])) {
             $data['nomor_bap'] = null;
@@ -619,8 +628,11 @@ class DashboardController extends Controller
         // Debug: Log data yang akan di-update
         \Log::info('Update Penerbitan Berkas', [
             'id' => $id,
+            'tanggal_permohonan' => $validated['tanggal_permohonan'] ?? 'NOT SET',
             'skala_usaha' => $validated['skala_usaha'] ?? 'NOT SET',
             'risiko' => $validated['risiko'] ?? 'NOT SET',
+            'nomor_bap' => $validated['nomor_bap'] ?? 'NOT SET',
+            'tanggal_bap' => $validated['tanggal_bap'] ?? 'NOT SET',
             'validated' => $validated
         ]);
 
@@ -632,6 +644,7 @@ class DashboardController extends Controller
         $permohonan->refresh();
         \Log::info('After Update Penerbitan Berkas', [
             'id' => $id,
+            'tanggal_permohonan' => $permohonan->tanggal_permohonan,
             'skala_usaha' => $permohonan->skala_usaha,
             'risiko' => $permohonan->risiko,
             'nomor_bap' => $permohonan->nomor_bap,
