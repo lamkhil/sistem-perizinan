@@ -251,10 +251,18 @@
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
                                         <?php if($permohonan->jenis_pelaku_usaha): ?>
-                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                                                <?php echo e($permohonan->jenis_pelaku_usaha); ?>
+                                            <div class="flex flex-col gap-1">
+                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                                    <?php echo e($permohonan->jenis_pelaku_usaha); ?>
 
-                                            </span>
+                                                </span>
+                                                <?php if($permohonan->jenis_pelaku_usaha === 'Badan Usaha' && $permohonan->jenis_badan_usaha): ?>
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                        <?php echo e($permohonan->jenis_badan_usaha); ?>
+
+                                                    </span>
+                                                <?php endif; ?>
+                                            </div>
                                         <?php else: ?>
                                             <span class="text-gray-400 text-xs">-</span>
                                         <?php endif; ?>
@@ -314,7 +322,7 @@
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="text-xs">
                                             <p class="font-medium">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
-                                            <p class="font-mono">No: BAP/OSS/IX/<?php echo e($permohonan->nomor_bap ?? '-'); ?>/436.7.15/<?php echo e(date('Y')); ?></p>
+                                            <p class="font-mono">No: <?php echo e($permohonan->nomor_bap ?? '-'); ?></p>
                                             <p class="text-gray-600">tanggal BAP: <?php echo e($permohonan->tanggal_bap ? \Carbon\Carbon::parse($permohonan->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-'); ?></p>
                                         </div>
                                     </td>
@@ -1358,14 +1366,14 @@
                         <div>
                             <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'nomor_bap','value' => 'Nomor BAP']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'nomor_bap','value' => 'Nomor BAP (Full Format)']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['for' => 'nomor_bap','value' => 'Nomor BAP']); ?>
+<?php $component->withAttributes(['for' => 'nomor_bap','value' => 'Nomor BAP (Full Format)']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
@@ -1378,14 +1386,14 @@
 <?php endif; ?>
                             <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','value' => old('nomor_bap'),'required' => true,'placeholder' => 'Contoh: I-202506231211589788945']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','value' => old('nomor_bap'),'required' => true,'placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['id' => 'nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('nomor_bap')),'required' => true,'placeholder' => 'Contoh: I-202506231211589788945']); ?>
+<?php $component->withAttributes(['id' => 'nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('nomor_bap')),'required' => true,'placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -2928,14 +2936,14 @@
                         <div>
                             <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'edit_nomor_bap','value' => 'Nomor BAP']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'edit_nomor_bap','value' => 'Nomor BAP (Full Format)']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['for' => 'edit_nomor_bap','value' => 'Nomor BAP']); ?>
+<?php $component->withAttributes(['for' => 'edit_nomor_bap','value' => 'Nomor BAP (Full Format)']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
@@ -2948,14 +2956,14 @@
 <?php endif; ?>
                             <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: I-202506231211589788945']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: I-202506231211589788945']); ?>
+<?php $component->withAttributes(['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>

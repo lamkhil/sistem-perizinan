@@ -239,9 +239,16 @@
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
                                         @if($permohonan->jenis_pelaku_usaha)
-                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                                                {{ $permohonan->jenis_pelaku_usaha }}
-                                            </span>
+                                            <div class="flex flex-col gap-1">
+                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                                    {{ $permohonan->jenis_pelaku_usaha }}
+                                                </span>
+                                                @if($permohonan->jenis_pelaku_usaha === 'Badan Usaha' && $permohonan->jenis_badan_usaha)
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                        {{ $permohonan->jenis_badan_usaha }}
+                                                    </span>
+                                                @endif
+                                            </div>
                                         @else
                                             <span class="text-gray-400 text-xs">-</span>
                                         @endif

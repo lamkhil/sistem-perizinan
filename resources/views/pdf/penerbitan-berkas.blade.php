@@ -201,7 +201,13 @@
                 <td>{{ $item->kbli ?? '-' }}</td>
                 <td>{{ $item->nama_usaha ?? '-' }}</td>
                 <td>{{ $item->inputan_teks ?? '-' }}</td>
-                <td>{{ $item->jenis_pelaku_usaha ?? '-' }}</td>
+                <td>
+                    @if($item->jenis_pelaku_usaha === 'Badan Usaha' && $item->jenis_badan_usaha)
+                        {{ $item->jenis_pelaku_usaha }} - {{ $item->jenis_badan_usaha }}
+                    @else
+                        {{ $item->jenis_pelaku_usaha ?? '-' }}
+                    @endif
+                </td>
                 <td>{{ $item->pemilik ?? '-' }}</td>
                 <td>{{ $item->modal_usaha ? 'Rp ' . number_format($item->modal_usaha, 0, ',', '.') : '-' }}</td>
                 <td>{{ $item->alamat_perusahaan ?? '-' }}</td>

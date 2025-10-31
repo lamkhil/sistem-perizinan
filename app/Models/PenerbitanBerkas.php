@@ -114,7 +114,11 @@ class PenerbitanBerkas extends Model
         if ($this->jenis_pelaku_usaha === 'Orang Perseorangan') {
             return 'Orang Perseorangan';
         } elseif ($this->jenis_pelaku_usaha === 'Badan Usaha' && $this->jenis_badan_usaha) {
-            return $this->jenis_badan_usaha;
+            // Tampilkan keduanya: "Badan Usaha" dan jenis badan usahanya (PT, CV, dll)
+            return $this->jenis_pelaku_usaha . ' - ' . $this->jenis_badan_usaha;
+        } elseif ($this->jenis_pelaku_usaha === 'Badan Usaha') {
+            // Jika Badan Usaha tapi belum ada jenis badan usahanya
+            return $this->jenis_pelaku_usaha;
         }
         
         return $this->jenis_pelaku_usaha ?? '-';
