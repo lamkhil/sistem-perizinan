@@ -59,10 +59,13 @@ class PenerbitanBerkas extends Model
         'risiko',
         'status',
         'pemroses_dan_tgl_surat',
+        'nomor_bap',
+        'tanggal_bap',
     ];
 
     protected $casts = [
         'tanggal_permohonan' => 'date',
+        'tanggal_bap' => 'date',
         'modal_usaha' => 'decimal:2',
     ];
 
