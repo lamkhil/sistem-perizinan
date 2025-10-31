@@ -211,7 +211,7 @@
                 <td>{{ $item->risiko ?? '-' }}</td>
                 <td>
                     DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
-                    No: BAP/OSS/IX/{{ $item->nomor_bap ?? '-' }}/436.7.15/{{ date('Y') }}<br>
+                    No: {{ $item->nomor_bap ?? '-' }}<br>
                     tanggal BAP: {{ $item->tanggal_bap ? \Carbon\Carbon::parse($item->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-' }}
                 </td>
             </tr>

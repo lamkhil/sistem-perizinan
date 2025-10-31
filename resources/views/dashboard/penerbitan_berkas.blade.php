@@ -298,7 +298,7 @@
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="text-xs">
                                             <p class="font-medium">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
-                                            <p class="font-mono">No: BAP/OSS/IX/{{ $permohonan->nomor_bap ?? '-' }}/436.7.15/{{ date('Y') }}</p>
+                                            <p class="font-mono">No: {{ $permohonan->nomor_bap ?? '-' }}</p>
                                             <p class="text-gray-600">tanggal BAP: {{ $permohonan->tanggal_bap ? \Carbon\Carbon::parse($permohonan->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-' }}</p>
                                         </div>
                                     </td>
@@ -522,8 +522,8 @@
 
                         <!-- Nomor BAP -->
                         <div>
-                            <x-input-label for="nomor_bap" value="Nomor BAP" />
-                            <x-text-input id="nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" :value="old('nomor_bap')" required placeholder="Contoh: I-202506231211589788945" />
+                            <x-input-label for="nomor_bap" value="Nomor BAP (Full Format)" />
+                            <x-text-input id="nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" :value="old('nomor_bap')" required placeholder="Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025" />
                             <x-input-error :messages="$errors->get('nomor_bap')" class="mt-2" />
                         </div>
 
@@ -933,8 +933,8 @@
 
                         <!-- Nomor BAP -->
                         <div>
-                            <x-input-label for="edit_nomor_bap" value="Nomor BAP" />
-                            <x-text-input id="edit_nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" required placeholder="Contoh: I-202506231211589788945" />
+                            <x-input-label for="edit_nomor_bap" value="Nomor BAP (Full Format)" />
+                            <x-text-input id="edit_nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" required placeholder="Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025" />
                         </div>
 
                         <!-- Tanggal BAP -->
