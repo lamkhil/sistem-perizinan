@@ -535,6 +535,10 @@ class DashboardController extends Controller
         // Format tanggal_bap untuk input type="date" (Y-m-d format)
         // Handle null untuk data lama yang belum punya field ini
         $data = $permohonan->toArray();
+        
+        // Pastikan ID selalu ada di response untuk validasi di frontend
+        $data['id'] = $permohonan->id;
+        
         if ($permohonan->tanggal_bap) {
             $data['tanggal_bap'] = $permohonan->tanggal_bap->format('Y-m-d');
         } else {
@@ -544,6 +548,10 @@ class DashboardController extends Controller
         if (!isset($data['nomor_bap'])) {
             $data['nomor_bap'] = null;
         }
+        
+        // Pastikan skala_usaha dan risiko ada di response
+        $data['skala_usaha'] = $permohonan->skala_usaha ?? null;
+        $data['risiko'] = $permohonan->risiko ?? null;
         
         return response()->json($data);
     }

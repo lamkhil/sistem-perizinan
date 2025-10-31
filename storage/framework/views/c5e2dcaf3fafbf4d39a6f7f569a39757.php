@@ -3099,10 +3099,34 @@
         const userRole = '<?php echo e(auth()->user() ? auth()->user()->role : ""); ?>';
         if (['admin', 'penerbitan_berkas'].includes(userRole)) {
             function editPermohonan(id) {
+            // Pastikan ID adalah number
+            id = parseInt(id);
+            
             // Fetch data via AJAX
             fetch(`/penerbitan-berkas/${id}/edit`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    // Debug: Log ID dan data untuk memastikan sesuai
+                    console.log('Edit ID:', id);
+                    console.log('Data ID:', data.id);
+                    console.log('Skala Usaha:', data.skala_usaha);
+                    console.log('Risiko:', data.risiko);
+                    
+                    // Pastikan ID sesuai
+                    if (data.id && parseInt(data.id) !== id) {
+                        console.error('ID mismatch! Expected:', id, 'Got:', data.id);
+                        alert('Error: Data ID tidak sesuai!');
+                        return;
+                    }
+                    
+                    // Reset form dulu untuk memastikan tidak ada data tersisa
+                    document.getElementById('editForm').reset();
+                    
                     // Populate form fields
                     document.getElementById('edit_no_permohonan').value = data.no_permohonan || '';
                     document.getElementById('edit_no_proyek').value = data.no_proyek || '';
@@ -3119,20 +3143,34 @@
                     document.getElementById('edit_jenis_proyek').value = data.jenis_proyek || '';
                     document.getElementById('edit_nama_perizinan').value = data.nama_perizinan || '';
                     
-                    // Set skala usaha dengan memastikan value cocok
+                    // Set skala usaha dengan memastikan value cocok - PASTIKAN SESUAI
                     const skalaUsahaSelect = document.getElementById('edit_skala_usaha');
+                    // Clear dulu
+                    skalaUsahaSelect.value = '';
+                    // Set value yang sesuai dari data
                     if (data.skala_usaha) {
-                        skalaUsahaSelect.value = data.skala_usaha;
-                    } else {
-                        skalaUsahaSelect.value = '';
+                        // Pastikan value cocok dengan option yang ada
+                        const validValues = ['Mikro', 'Usaha Kecil', 'Usaha Menengah', 'Usaha Besar'];
+                        if (validValues.includes(data.skala_usaha)) {
+                            skalaUsahaSelect.value = data.skala_usaha;
+                        } else {
+                            console.warn('Invalid skala_usaha value:', data.skala_usaha);
+                        }
                     }
                     
-                    // Set risiko dengan memastikan value cocok
+                    // Set risiko dengan memastikan value cocok - PASTIKAN SESUAI
                     const risikoSelect = document.getElementById('edit_risiko');
+                    // Clear dulu
+                    risikoSelect.value = '';
+                    // Set value yang sesuai dari data
                     if (data.risiko) {
-                        risikoSelect.value = data.risiko;
-                    } else {
-                        risikoSelect.value = '';
+                        // Pastikan value cocok dengan option yang ada
+                        const validValues = ['Rendah', 'Menengah Rendah', 'Menengah Tinggi', 'Tinggi'];
+                        if (validValues.includes(data.risiko)) {
+                            risikoSelect.value = data.risiko;
+                        } else {
+                            console.warn('Invalid risiko value:', data.risiko);
+                        }
                     }
                     
                     document.getElementById('edit_nomor_bap').value = data.nomor_bap || '';
@@ -3142,8 +3180,19 @@
                     skalaUsahaSelect.dispatchEvent(new Event('change', { bubbles: true }));
                     risikoSelect.dispatchEvent(new Event('change', { bubbles: true }));
 
-                    // Update form action
+                    // Update form action dengan ID yang benar
                     document.getElementById('editForm').action = `/penerbitan-berkas/${id}`;
+                    
+                    // Simpan ID di hidden field untuk validasi
+                    let hiddenId = document.getElementById('edit_hidden_id');
+                    if (!hiddenId) {
+                        hiddenId = document.createElement('input');
+                        hiddenId.type = 'hidden';
+                        hiddenId.id = 'edit_hidden_id';
+                        hiddenId.name = 'edit_id';
+                        document.getElementById('editForm').appendChild(hiddenId);
+                    }
+                    hiddenId.value = id;
 
                     // Toggle jenis badan usaha
                     toggleEditJenisBadanUsaha();
@@ -3152,8 +3201,8 @@
                     document.getElementById('editModal').classList.remove('hidden');
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('Gagal memuat data permohonan');
+                    console.error('Error fetching data:', error);
+                    alert('Gagal memuat data permohonan: ' + error.message);
                 });
         }
 
