@@ -3116,10 +3116,29 @@
                     document.getElementById('edit_alamat_perusahaan').value = data.alamat_perusahaan || '';
                     document.getElementById('edit_jenis_proyek').value = data.jenis_proyek || '';
                     document.getElementById('edit_nama_perizinan').value = data.nama_perizinan || '';
-                    document.getElementById('edit_skala_usaha').value = data.skala_usaha || '';
-                    document.getElementById('edit_risiko').value = data.risiko || '';
+                    
+                    // Set skala usaha dengan memastikan value cocok
+                    const skalaUsahaSelect = document.getElementById('edit_skala_usaha');
+                    if (data.skala_usaha) {
+                        skalaUsahaSelect.value = data.skala_usaha;
+                    } else {
+                        skalaUsahaSelect.value = '';
+                    }
+                    
+                    // Set risiko dengan memastikan value cocok
+                    const risikoSelect = document.getElementById('edit_risiko');
+                    if (data.risiko) {
+                        risikoSelect.value = data.risiko;
+                    } else {
+                        risikoSelect.value = '';
+                    }
+                    
                     document.getElementById('edit_nomor_bap').value = data.nomor_bap || '';
                     document.getElementById('edit_tanggal_bap').value = data.tanggal_bap || '';
+                    
+                    // Trigger change event untuk memastikan select ter-update
+                    skalaUsahaSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                    risikoSelect.dispatchEvent(new Event('change', { bubbles: true }));
 
                     // Update form action
                     document.getElementById('editForm').action = `/penerbitan-berkas/${id}`;
