@@ -2956,14 +2956,14 @@
 <?php endif; ?>
                             <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']); ?>
+<?php $component->withAttributes(['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','placeholder' => 'Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -2974,6 +2974,7 @@
 <?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?>
+                            <p class="mt-1 text-xs text-gray-500">Opsional untuk data lama</p>
                         </div>
 
                         <!-- Tanggal BAP -->
@@ -3000,14 +3001,14 @@
 <?php endif; ?>
                             <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['id' => 'edit_tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap','required' => true]); ?>
+<?php $component->withAttributes(['id' => 'edit_tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -3018,6 +3019,7 @@
 <?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?>
+                            <p class="mt-1 text-xs text-gray-500">Opsional untuk data lama</p>
                         </div>
                     </div>
 

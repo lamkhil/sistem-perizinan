@@ -941,13 +941,15 @@
                         <!-- Nomor BAP -->
                         <div>
                             <x-input-label for="edit_nomor_bap" value="Nomor BAP (Full Format)" />
-                            <x-text-input id="edit_nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" required placeholder="Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025" />
+                            <x-text-input id="edit_nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" placeholder="Contoh: BAP/OSS/IX/I-202506231211589788945/436.7.15/2025" />
+                            <p class="mt-1 text-xs text-gray-500">Opsional untuk data lama</p>
                         </div>
 
                         <!-- Tanggal BAP -->
                         <div>
                             <x-input-label for="edit_tanggal_bap" value="Tanggal BAP" />
-                            <x-text-input id="edit_tanggal_bap" class="block mt-1 w-full" type="date" name="tanggal_bap" required />
+                            <x-text-input id="edit_tanggal_bap" class="block mt-1 w-full" type="date" name="tanggal_bap" />
+                            <p class="mt-1 text-xs text-gray-500">Opsional untuk data lama</p>
                         </div>
                     </div>
 

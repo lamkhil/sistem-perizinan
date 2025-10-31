@@ -533,9 +533,16 @@ class DashboardController extends Controller
         $permohonan = PenerbitanBerkas::findOrFail($id);
         
         // Format tanggal_bap untuk input type="date" (Y-m-d format)
+        // Handle null untuk data lama yang belum punya field ini
         $data = $permohonan->toArray();
         if ($permohonan->tanggal_bap) {
             $data['tanggal_bap'] = $permohonan->tanggal_bap->format('Y-m-d');
+        } else {
+            $data['tanggal_bap'] = null; // Pastikan null untuk data lama
+        }
+        // Pastikan nomor_bap null jika tidak ada
+        if (!isset($data['nomor_bap'])) {
+            $data['nomor_bap'] = null;
         }
         
         return response()->json($data);
@@ -576,8 +583,8 @@ class DashboardController extends Controller
             'risiko' => 'required|string|in:Rendah,Menengah Rendah,Menengah Tinggi,Tinggi',
             'verifikator' => 'nullable|string',
             'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
-            'nomor_bap' => 'required|string',
-            'tanggal_bap' => 'required|date',
+            'nomor_bap' => 'nullable|string', // Nullable untuk data lama yang belum punya field ini
+            'tanggal_bap' => 'nullable|date', // Nullable untuk data lama yang belum punya field ini
         ];
 
         // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
