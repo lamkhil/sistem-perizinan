@@ -516,7 +516,13 @@ class DashboardController extends Controller
         
         $permohonan = PenerbitanBerkas::findOrFail($id);
         
-        return response()->json($permohonan);
+        // Format tanggal_bap untuk input type="date" (Y-m-d format)
+        $data = $permohonan->toArray();
+        if ($permohonan->tanggal_bap) {
+            $data['tanggal_bap'] = $permohonan->tanggal_bap->format('Y-m-d');
+        }
+        
+        return response()->json($data);
     }
 
     public function updatePenerbitanBerkas(Request $request, $id)
