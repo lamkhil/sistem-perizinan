@@ -210,13 +210,9 @@
                 <td>{{ $item->skala_usaha ?? '-' }}</td>
                 <td>{{ $item->risiko ?? '-' }}</td>
                 <td>
-                    @if($item->pemroses_dan_tgl_surat)
-                        {{ $item->pemroses_dan_tgl_surat }}
-                    @else
-                        DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
-                        No: BAP/OSS/IX/PARKIR-341/436.7.15/{{ date('Y') }}<br>
-                        tanggal BAP: {{ date('d') }}
-                    @endif
+                    DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
+                    No: BAP/OSS/IX/{{ $item->nomor_bap ?? '-' }}/436.7.15/{{ date('Y') }}<br>
+                    tanggal BAP: {{ $item->tanggal_bap ? \Carbon\Carbon::parse($item->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-' }}
                 </td>
             </tr>
             @endforeach

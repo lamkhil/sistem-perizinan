@@ -70,10 +70,15 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         $tanggalPermohonan = $row->tanggal_permohonan ? 
             \Carbon\Carbon::parse($row->tanggal_permohonan)->locale('id')->isoFormat('D MMMM Y') : '-';
         
-        // Format pemroses dan tanggal (contoh format)
+        // Format pemroses dan tanggal dengan data dari database
+        $nomorBap = $row->nomor_bap ?? '-';
+        $tanggalBap = $row->tanggal_bap ? 
+            \Carbon\Carbon::parse($row->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-';
+        $tahunSistem = date('Y'); // Tahun otomatis dari sistem (2025, 2026, dst)
+        
         $pemroses = 'DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU' . "\n" .
-                   'No: BAP/OSS/IX/PARKIR-341/436.7.15/' . date('Y') . "\n" .
-                   'tanggal BAP: ' . date('d');
+                   'No: BAP/OSS/IX/' . $nomorBap . '/436.7.15/' . $tahunSistem . "\n" .
+                   'tanggal BAP: ' . $tanggalBap;
 
         return [
             ++$this->rowNumber,
