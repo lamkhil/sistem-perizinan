@@ -109,16 +109,28 @@
 
         <!-- Chart Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-primary-50 to-primary-100 px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center justify-between">
+            <div class="bg-gradient-to-r from-primary-50 to-primary-100 px-4 sm:px-6 py-4 border-b border-gray-200">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div>
-                        <h2 class="text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
-                        <p class="text-gray-600 text-sm">Visualisasi data dalam bentuk pie chart</p>
+                        <h2 class="text-lg sm:text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
+                        <p class="text-gray-600 text-xs sm:text-sm">Visualisasi data dalam bentuk pie chart</p>
                     </div>
-                    <div>
-                        <form method="GET" action="{{ route('statistik') }}" class="flex items-end gap-3">
-                            <div class="md:w-48">
-                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    <div class="w-full lg:w-auto">
+                        <form method="GET" action="{{ route('statistik') }}" class="flex items-end gap-3 flex-wrap">
+                            @if(in_array($user->role ?? auth()->user()->role, ['dpmptsp', 'admin']))
+                            <div class="w-full sm:w-auto sm:min-w-[280px] md:min-w-[320px] lg:min-w-[360px]">
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Filter Sektor</label>
+                                <select name="sektor" id="sektor-filter" onchange="updateFormOnChange()" class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                                    <option value="">Semua Sektor</option>
+                                    @foreach($sektors ?? [] as $code => $name)
+                                        <option value="{{ $code }}" {{ ($selectedSektor ?? '') == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
+                            <div class="w-full sm:w-auto sm:min-w-[200px] md:min-w-[220px]">
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Filter Periode</label>
+                                <select name="date_filter" id="date-filter" onchange="updateFormOnChange()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
                                     <option value="">Semua Periode</option>
                                     <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
                                     <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
@@ -130,18 +142,29 @@
                                 </select>
                             </div>
                             @if(($selectedDateFilter ?? '') == 'custom')
-                            <div class="flex items-end gap-2">
-                                <div>
+                            <div class="w-full sm:w-auto flex items-end gap-2 flex-wrap">
+                                <div class="flex-1 sm:flex-none">
                                     <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal</label>
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" class="w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
                                 </div>
-                                <div class="pb-0.5 flex gap-2">
-                                    <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">Filter</button>
-                                    <a href="{{ route('statistik') }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">Reset</a>
+                                <div class="pb-0.5 flex gap-2 w-full sm:w-auto">
+                                    <button type="submit" class="flex-1 sm:flex-none px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">Filter</button>
+                                    <a href="{{ route('statistik', ['sektor' => $selectedSektor ?? '']) }}" class="flex-1 sm:flex-none px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium text-center">Reset</a>
                                 </div>
                             </div>
                             @endif
+                            @if(($selectedSektor ?? '') || ($selectedDateFilter ?? ''))
+                            <div class="w-full sm:w-auto pb-0.5">
+                                <a href="{{ route('statistik') }}" class="w-full sm:w-auto px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium inline-block text-center">Reset Semua</a>
+                            </div>
+                            @endif
                         </form>
+                        <script>
+                            function updateFormOnChange() {
+                                // Submit form saat dropdown berubah, mempertahankan semua parameter
+                                document.querySelector('form').submit();
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -273,6 +296,10 @@
                                 size: 14
                             },
                             formatter: function(value, context) {
+                                // Jangan tampilkan label jika nilai 0
+                                if (value === 0 || value === null || value === undefined) {
+                                    return '';
+                                }
                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                 const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
                                 return percentage + '%';

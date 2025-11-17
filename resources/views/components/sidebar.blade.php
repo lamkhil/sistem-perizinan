@@ -1,7 +1,19 @@
 {{-- Sidebar Layout --}}
+<style>
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+</style>
 <div class="flex h-screen bg-gray-100">
     <!-- Sidebar -->
-    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0" x-data="{ sidebarOpen: true }">
+    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative" style="z-index: 10; overflow: visible;" x-data="{ sidebarOpen: true }">
         <!-- Logo Section -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-white/20">
             <div class="flex items-center space-x-3">
@@ -70,6 +82,344 @@
 
             </div>
         </nav>
+
+        <!-- Notifications Section (for dpmptsp user) -->
+        @if(auth()->user() && auth()->user()->role === 'dpmptsp')
+        <div class="px-4 mt-4 relative" 
+             x-data="{
+                notifications: [],
+                count: 0,
+                showDropdown: false,
+                loading: false,
+                refreshInterval: null,
+                async fetchNotifications(showLoading = false) {
+                    if (showLoading) {
+                        this.loading = true;
+                    }
+                    try {
+                        const response = await fetch('{{ route('api.notifications') }}', {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            }
+                        });
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        // Update data tanpa re-render yang terlihat
+                        this.notifications = data.notifications || [];
+                        this.count = data.count || 0;
+                    } catch (error) {
+                        console.error('Error fetching notifications:', error);
+                        // Fallback: set empty notifications on error
+                        this.notifications = [];
+                        this.count = 0;
+                    } finally {
+                        if (showLoading) {
+                            this.loading = false;
+                        }
+                    }
+                },
+                handleNotificationClick(url) {
+                    if (!url) {
+                        console.error('URL notifikasi tidak valid:', url);
+                        return;
+                    }
+                    // Tutup modal dulu
+                    this.showDropdown = false;
+                    // Redirect setelah modal tertutup
+                    setTimeout(() => {
+                        window.location.href = url;
+                    }, 150);
+                },
+                init() {
+                    // Initial load dengan loading indicator
+                    this.fetchNotifications(true);
+                    // Auto-refresh every 30 seconds tanpa loading indicator
+                    this.refreshInterval = setInterval(() => {
+                        // Hanya refresh jika modal tidak terbuka untuk menghindari gangguan
+                        if (!this.showDropdown) {
+                            this.fetchNotifications(false);
+                        }
+                    }, 30000);
+                    // Listen for refresh event
+                    window.addEventListener('refresh-notifications', () => {
+                        this.fetchNotifications(false);
+                    });
+                },
+                destroy() {
+                    // Cleanup interval saat component di-destroy
+                    if (this.refreshInterval) {
+                        clearInterval(this.refreshInterval);
+                    }
+                }
+             }"
+             @click.away="showDropdown = false">
+            <div class="relative">
+                <button @click="showDropdown = !showDropdown; if (showDropdown) fetchNotifications(true);" 
+                        class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        </svg>
+                        <span>Notifikasi</span>
+                    </div>
+                    <span x-show="count > 0" 
+                          x-text="count" 
+                          class="ml-2 px-2.5 py-1 text-xs font-bold text-white bg-orange-500 rounded-full shadow-md"
+                          style="display: none;"></span>
+                </button>
+
+                <!-- Modal Notifications (Muncul di Tengah) -->
+                <div x-show="showDropdown" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     class="fixed inset-0 z-50 overflow-y-auto"
+                     style="display: none;"
+                     x-cloak
+                     @click.self="showDropdown = false">
+                    <!-- Overlay -->
+                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+                    
+                    <!-- Modal Content -->
+                    <div class="flex min-h-full items-center justify-center p-4">
+                        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                             x-transition:leave="transition ease-in duration-200"
+                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                            <!-- Header -->
+                            <div class="flex items-center justify-between p-4 border-b-2 border-orange-300 bg-gradient-to-r from-orange-50 to-amber-50 rounded-t-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-orange-800">Berkas Dikembalikan</h3>
+                                        <p class="text-sm text-orange-600 mt-0.5">Silakan periksa dan tindak lanjuti</p>
+                                    </div>
+                                </div>
+                                <button @click="showDropdown = false" 
+                                        class="text-orange-400 hover:text-orange-600 transition-colors p-1 hover:bg-orange-100 rounded-full">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Body -->
+                            <div class="flex-1 overflow-y-auto p-4">
+                                <div x-show="loading" class="text-center py-8 text-gray-500">
+                                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                                    <p class="mt-2 text-sm">Memuat notifikasi...</p>
+                                </div>
+                                
+                                <div x-show="!loading && notifications.length === 0" class="text-center py-8 text-gray-500">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                                    </svg>
+                                    <p class="mt-2 text-sm">Tidak ada notifikasi</p>
+                                </div>
+                                
+                                <div x-show="!loading && notifications.length > 0" class="space-y-3">
+                                    <template x-for="(notification, index) in notifications" :key="index">
+                                        <div class="relative border-l-4 border-orange-400 bg-gradient-to-r from-orange-50/50 to-white rounded-lg hover:shadow-md transition-all duration-200"
+                                             :style="`animation: slideIn 0.3s ease-out; animation-delay: ${index * 0.1}s;`"
+                                             x-data="{ 
+                                                expanded: false, 
+                                                saving: false,
+                                                status: notification.status || 'Dikembalikan',
+                                                menghubungi: notification.menghubungi || '',
+                                                keterangan_menghubungi: notification.keterangan_menghubungi || '',
+                                                async saveChanges() {
+                                                    this.saving = true;
+                                                    try {
+                                                        const response = await fetch(`{{ url('/api/notifications') }}/${notification.id}/update`, {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                                'X-Requested-With': 'XMLHttpRequest',
+                                                                'Accept': 'application/json'
+                                                            },
+                                                            body: JSON.stringify({
+                                                                status: this.status,
+                                                                menghubungi: this.menghubungi || null,
+                                                                keterangan_menghubungi: this.keterangan_menghubungi || null
+                                                            })
+                                                        });
+                                                        const data = await response.json();
+                                                        if (data.success) {
+                                                            Swal.fire({
+                                                                icon: 'success',
+                                                                title: 'Berhasil!',
+                                                                text: data.message,
+                                                                timer: 2000,
+                                                                showConfirmButton: false
+                                                            });
+                                                            this.expanded = false;
+                                                            // Refresh notifications - dispatch event
+                                                            window.dispatchEvent(new CustomEvent('refresh-notifications'));
+                                                        } else {
+                                                            throw new Error(data.message || 'Terjadi kesalahan');
+                                                        }
+                                                    } catch (error) {
+                                                        Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'Gagal!',
+                                                            text: error.message || 'Terjadi kesalahan saat menyimpan'
+                                                        });
+                                                    } finally {
+                                                        this.saving = false;
+                                                    }
+                                                }
+                                             }">
+                                            <!-- Header - Clickable untuk expand/collapse -->
+                                            <div @click.stop="expanded = !expanded" 
+                                                 class="group p-4 cursor-pointer hover:from-orange-100 hover:to-orange-50/50 hover:border-orange-500">
+                                                <div class="flex items-start">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-colors">
+                                                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-4 flex-1 min-w-0">
+                                                        <div class="flex items-center space-x-2">
+                                                            <p class="text-sm font-semibold text-orange-800" x-text="notification.no_permohonan"></p>
+                                                            <span class="px-2 py-0.5 text-xs font-medium text-orange-700 bg-orange-100 rounded-full">Perlu Tindakan</span>
+                                                        </div>
+                                                        <p class="text-sm text-gray-700 mt-1 font-medium" x-text="notification.nama_usaha"></p>
+                                                        <p class="text-sm text-gray-600 mt-2" x-text="notification.keterangan"></p>
+                                                        <div class="flex items-center mt-3 space-x-4">
+                                                            <p class="text-xs text-orange-600 font-medium bg-orange-50 px-2 py-1 rounded" x-show="notification.tanggal_pengembalian" x-text="'Dikembalikan: ' + notification.tanggal_pengembalian"></p>
+                                                            <p class="text-xs text-gray-400" x-text="notification.created_at"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ml-2 flex items-center space-x-2">
+                                                        <button @click.stop="expanded = !expanded" 
+                                                                class="text-orange-400 hover:text-orange-600 transition-colors p-1">
+                                                            <svg class="w-5 h-5 transition-transform" :class="{'rotate-180': expanded}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                            </svg>
+                                                        </button>
+                                                        <a @click.stop :href="notification.url" 
+                                                           class="text-orange-400 hover:text-orange-600 transition-transform hover:translate-x-1">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Form Section - Expandable -->
+                                            <div x-show="expanded" 
+                                                 x-transition:enter="transition ease-out duration-200"
+                                                 x-transition:enter-start="opacity-0 max-h-0"
+                                                 x-transition:enter-end="opacity-100 max-h-96"
+                                                 x-transition:leave="transition ease-in duration-150"
+                                                 x-transition:leave-start="opacity-100 max-h-96"
+                                                 x-transition:leave-end="opacity-0 max-h-0"
+                                                 @click.stop
+                                                 class="px-4 pb-4 border-t border-orange-200 bg-orange-50/30 overflow-hidden">
+                                                <div class="pt-4 space-y-3">
+                                                    <!-- Status Dropdown -->
+                                                    <div>
+                                                        <label class="block text-xs font-medium text-gray-700 mb-1">Status</label>
+                                                        <select x-model="status" 
+                                                                class="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                                                            <option value="Dikembalikan">Dikembalikan</option>
+                                                            <option value="Menunggu">Menunggu</option>
+                                                            <option value="Diterima">Diterima</option>
+                                                            <option value="Ditolak">Ditolak</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <!-- Menghubungi Date -->
+                                                    <div>
+                                                        <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal Menghubungi</label>
+                                                        <input type="date" 
+                                                               x-model="menghubungi"
+                                                               class="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
+                                                    </div>
+                                                    
+                                                    <!-- Keterangan Menghubungi -->
+                                                    <div>
+                                                        <label class="block text-xs font-medium text-gray-700 mb-1">Keterangan Menghubungi</label>
+                                                        <!-- Template Buttons -->
+                                                        <div class="flex flex-wrap gap-2 mb-2">
+                                                            <button type="button" 
+                                                                    @click="if (!keterangan_menghubungi || !keterangan_menghubungi.startsWith('Belum dihubungi')) { keterangan_menghubungi = 'Belum dihubungi\n\n' + (keterangan_menghubungi || ''); }"
+                                                                    class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 transition-colors">
+                                                                Belum dihubungi
+                                                            </button>
+                                                            <button type="button" 
+                                                                    @click="if (!keterangan_menghubungi || !keterangan_menghubungi.startsWith('Telah dihubungi')) { keterangan_menghubungi = 'Telah dihubungi\n\n' + (keterangan_menghubungi || ''); }"
+                                                                    class="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 border border-blue-300 rounded-md hover:bg-blue-200 transition-colors">
+                                                                Telah dihubungi
+                                                            </button>
+                                                            <button type="button" 
+                                                                    @click="if (!keterangan_menghubungi || !keterangan_menghubungi.startsWith('Tidak bisa dihubungi')) { keterangan_menghubungi = 'Tidak bisa dihubungi\n\n' + (keterangan_menghubungi || ''); }"
+                                                                    class="px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 border border-red-300 rounded-md hover:bg-red-200 transition-colors">
+                                                                Tidak bisa dihubungi
+                                                            </button>
+                                                        </div>
+                                                        <textarea x-model="keterangan_menghubungi"
+                                                                  rows="3"
+                                                                  placeholder="Masukkan keterangan menghubungi atau gunakan template di atas..."
+                                                                  class="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"></textarea>
+                                                    </div>
+                                                    
+                                                    <!-- Action Buttons -->
+                                                    <div class="flex items-center space-x-2 pt-2">
+                                                        <button @click="saveChanges()" 
+                                                                :disabled="saving"
+                                                                class="flex-1 px-4 py-2 bg-orange-600 text-white text-sm font-medium rounded-md hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                                                            <span x-show="!saving">Simpan</span>
+                                                            <span x-show="saving" class="flex items-center justify-center">
+                                                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                                </svg>
+                                                                Menyimpan...
+                                                            </span>
+                                                        </button>
+                                                        <button @click="expanded = false" 
+                                                                class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-300 transition-colors">
+                                                            Batal
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            
+                            <!-- Footer -->
+                            <div x-show="!loading && notifications.length > 0" 
+                                 class="p-4 border-t border-orange-200 bg-orange-50/50 rounded-b-lg">
+                                <p class="text-sm text-center text-orange-700">
+                                    Total <span x-text="count" class="font-semibold"></span> berkas dikembalikan yang perlu ditindak lanjuti
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
 
         <!-- User Profile Section - Compact -->
         <div class="absolute bottom-0 left-0 w-64 p-2 bg-gradient-sidebar" 

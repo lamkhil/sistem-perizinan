@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Permohonan;
 use App\Models\PenerbitanBerkas;
 use App\Models\TtdSetting;
+use App\Models\LogPermohonan;
 use App\Exports\PenerbitanBerkasExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -109,6 +110,7 @@ class DashboardController extends Controller
         // Ambil parameter dari request
         $selectedDateFilter = $request->query('date_filter');
         $customDate = $request->query('custom_date');
+        $selectedSektor = $request->query('sektor');
         
         // Query dasar
         $permohonans = Permohonan::with('user');
@@ -139,6 +141,11 @@ class DashboardController extends Controller
             });
         }
         // Admin melihat semua permohonan secara default
+        
+        // Filter sektor (hanya untuk dpmptsp dan admin)
+        if (in_array($user->role, ['dpmptsp', 'admin']) && $selectedSektor) {
+            $permohonans->where('sektor', $selectedSektor);
+        }
         
         // Terapkan filter tanggal
         if ($selectedDateFilter) {
@@ -196,7 +203,22 @@ class DashboardController extends Controller
             'terlambat' => $terlambatCount, // Otomatis berdasarkan deadline system
         ];
 
-        return view('statistik', compact('stats', 'selectedDateFilter', 'customDate'));
+        // Daftar sektor untuk filter (hanya untuk dpmptsp dan admin)
+        $sektors = [];
+        if (in_array($user->role, ['dpmptsp', 'admin'])) {
+            $sektors = [
+                'Dinkopdag' => 'Dinkopdag - Dinas Koperasi dan Perdagangan',
+                'Disbudpar' => 'Disbudpar - Dinas Kebudayaan dan Pariwisata',
+                'Dinkes' => 'Dinkes - Dinas Kesehatan',
+                'Dishub' => 'Dishub - Dinas Perhubungan',
+                'Dprkpp' => 'Dprkpp - Dinas Pemberdayaan Perempuan dan Perlindungan Anak',
+                'Dkpp' => 'Dkpp - Dinas Ketahanan Pangan dan Perikanan',
+                'Dlh' => 'Dlh - Dinas Lingkungan Hidup',
+                'Disperinaker' => 'Disperinaker - Dinas Perindustrian dan Tenaga Kerja'
+            ];
+        }
+
+        return view('statistik', compact('stats', 'selectedDateFilter', 'customDate', 'selectedSektor', 'sektors', 'user'));
     }
 
     public function penerbitanBerkas(Request $request)
@@ -692,5 +714,122 @@ class DashboardController extends Controller
         $permohonan->delete();
 
         return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil dihapus!');
+    }
+
+    /**
+     * Get notifications for dikembalikan berkas (for dpmptsp user)
+     */
+    public function getNotifications(Request $request)
+    {
+        $user = Auth::user();
+        
+        if (!$user || $user->role !== 'dpmptsp') {
+            return response()->json(['notifications' => [], 'count' => 0]);
+        }
+
+        // Get permohonan with status "Dikembalikan" that user can see
+        $permohonans = Permohonan::with('user')
+            ->where('status', 'Dikembalikan')
+            ->whereHas('user', function($query) {
+                $query->where('role', '!=', 'penerbitan_berkas');
+            })
+            ->orderBy('pengembalian', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        $notifications = $permohonans->map(function($permohonan) {
+            return [
+                'id' => $permohonan->id,
+                'no_permohonan' => $permohonan->no_permohonan ?? 'N/A',
+                'nama_usaha' => $permohonan->nama_usaha ?? 'N/A',
+                'status' => $permohonan->status ?? 'Dikembalikan',
+                'tanggal_pengembalian' => $permohonan->pengembalian 
+                    ? Carbon::parse($permohonan->pengembalian)->locale('id')->translatedFormat('d F Y')
+                    : null,
+                'keterangan' => $permohonan->keterangan_pengembalian ?? 'Berkas dikembalikan untuk perbaikan',
+                'menghubungi' => $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : null,
+                'keterangan_menghubungi' => $permohonan->keterangan_menghubungi ?? null,
+                'url' => route('permohonan.show', ['permohonan' => $permohonan->id]),
+                'created_at' => $permohonan->updated_at->diffForHumans(),
+            ];
+        });
+
+        return response()->json([
+            'notifications' => $notifications,
+            'count' => $notifications->count()
+        ]);
+    }
+
+    /**
+     * Update status and menghubungi from notification
+     */
+    public function updateNotificationStatus(Request $request, $id)
+    {
+        $user = Auth::user();
+        
+        if (!$user || $user->role !== 'dpmptsp') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $permohonan = Permohonan::findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak',
+            'menghubungi' => 'nullable|date',
+            'keterangan_menghubungi' => 'nullable|string',
+        ]);
+
+        $oldStatus = $permohonan->status;
+        $oldMenghubungi = $permohonan->menghubungi;
+        $oldKeteranganMenghubungi = $permohonan->keterangan_menghubungi;
+
+        // Update permohonan
+        $permohonan->status = $validated['status'];
+        if (isset($validated['menghubungi'])) {
+            $permohonan->menghubungi = $validated['menghubungi'];
+        }
+        if (isset($validated['keterangan_menghubungi'])) {
+            $permohonan->keterangan_menghubungi = $validated['keterangan_menghubungi'];
+        }
+        $permohonan->save();
+
+        // Create log for status change
+        if ($oldStatus !== $validated['status']) {
+            LogPermohonan::create([
+                'permohonan_id' => $permohonan->id,
+                'user_id' => $user->id,
+                'action' => 'status_update',
+                'status_sebelum' => $oldStatus,
+                'status_sesudah' => $validated['status'],
+                'keterangan' => 'Status diubah dari notifikasi: ' . $oldStatus . ' → ' . $validated['status'],
+                'old_data' => json_encode(['status' => $oldStatus]),
+                'new_data' => json_encode(['status' => $validated['status']]),
+            ]);
+        }
+
+        // Create log for menghubungi
+        if (isset($validated['menghubungi']) && $validated['menghubungi'] && (!$oldMenghubungi || $oldMenghubungi->format('Y-m-d') !== $validated['menghubungi'])) {
+            LogPermohonan::create([
+                'permohonan_id' => $permohonan->id,
+                'user_id' => $user->id,
+                'action' => 'contact',
+                'status_sebelum' => $permohonan->status,
+                'status_sesudah' => $permohonan->status,
+                'keterangan' => 'Pemohon dihubungi pada ' . Carbon::parse($validated['menghubungi'])->locale('id')->translatedFormat('d M Y') . ': ' . ($validated['keterangan_menghubungi'] ?? ''),
+                'old_data' => json_encode(['menghubungi' => $oldMenghubungi ? $oldMenghubungi->format('Y-m-d') : null]),
+                'new_data' => json_encode(['menghubungi' => $validated['menghubungi'], 'keterangan_menghubungi' => $validated['keterangan_menghubungi'] ?? '']),
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status dan data menghubungi berhasil diperbarui',
+            'permohonan' => [
+                'id' => $permohonan->id,
+                'status' => $permohonan->status,
+                'menghubungi' => $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : null,
+                'keterangan_menghubungi' => $permohonan->keterangan_menghubungi,
+            ]
+        ]);
     }
 }

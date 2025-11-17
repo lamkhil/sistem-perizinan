@@ -24,6 +24,16 @@ Route::get('/statistik', [DashboardController::class, 'statistik'])
     ->middleware(['auth', 'verified'])
     ->name('statistik');
 
+// Notifications API (for dpmptsp user)
+Route::get('/api/notifications', [DashboardController::class, 'getNotifications'])
+    ->middleware(['auth', 'verified'])
+    ->name('api.notifications');
+
+// Update notification status (for dpmptsp user)
+Route::post('/api/notifications/{id}/update', [DashboardController::class, 'updateNotificationStatus'])
+    ->middleware(['auth', 'verified'])
+    ->name('api.notifications.update');
+
 // Penerbitan Berkas
 Route::get('/penerbitan-berkas', [DashboardController::class, 'penerbitanBerkas'])
     ->middleware(['auth', 'verified'])
