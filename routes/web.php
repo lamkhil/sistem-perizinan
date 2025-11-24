@@ -70,6 +70,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/permohonan/{permohonan}/bap', [PermohonanController::class, 'bap'])->name('permohonan.bap');
     Route::post('/permohonan/{permohonan}/bap/generate', [PermohonanController::class, 'generateBap'])->name('permohonan.bap.generate');
     
+    // BAP TTD Settings (Admin only)
+    Route::middleware('can:admin')->group(function () {
+        Route::post('/bap/ttd/update', [PermohonanController::class, 'updateBapTtd'])->name('bap.ttd.update');
+    });
+    
     // Export routes
     Route::get('/permohonan/export/excel', [PermohonanController::class, 'exportExcel'])->name('permohonan.export.excel');
     Route::get('/permohonan/export/pdf-landscape', [PermohonanController::class, 'exportPdfLandscape'])->name('permohonan.export.pdf-landscape');

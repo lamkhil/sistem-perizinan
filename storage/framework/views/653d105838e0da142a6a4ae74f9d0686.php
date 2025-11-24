@@ -118,39 +118,100 @@
 
         <!-- Chart Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-primary-50 to-primary-100 px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center justify-between">
+            <div class="bg-gradient-to-r from-primary-50 to-primary-100 px-4 sm:px-6 py-4 border-b border-gray-200">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div>
-                        <h2 class="text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
-                        <p class="text-gray-600 text-sm">Visualisasi data dalam bentuk pie chart</p>
+                        <h2 class="text-lg sm:text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
+                        <p class="text-gray-600 text-xs sm:text-sm">Visualisasi data dalam bentuk pie chart</p>
                     </div>
-                    <div>
-                        <form method="GET" action="<?php echo e(route('statistik')); ?>" class="flex items-end gap-3">
-                            <div class="md:w-48">
-                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-                                    <option value="">Semua Periode</option>
-                                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
-                                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
-                                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
-                                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
-                                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
-                                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
-                                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom</option>
-                                </select>
+                    <div class="w-full lg:w-auto">
+                        <form method="GET" action="<?php echo e(route('statistik')); ?>" class="space-y-4">
+                            <div class="flex items-end gap-3 flex-wrap">
+                                <?php if(in_array($user->role ?? auth()->user()->role, ['dpmptsp', 'admin'])): ?>
+                                <div class="w-full sm:w-auto sm:min-w-[280px] md:min-w-[320px] lg:min-w-[360px]">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Filter Sektor</label>
+                                    <select name="sektor" id="sektor-filter" onchange="updateFormOnChange()" class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                                        <option value="">Semua Sektor</option>
+                                        <?php $__currentLoopData = $sektors ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code => $name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($code); ?>" <?php echo e(($selectedSektor ?? '') == $code ? 'selected' : ''); ?>><?php echo e($name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <?php endif; ?>
+                                <div class="w-full sm:w-auto sm:min-w-[200px] md:min-w-[220px]">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Filter Periode</label>
+                                    <select name="date_filter" id="date-filter" onchange="updateFormOnChange()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                                        <option value="">Semua Periode</option>
+                                        <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
+                                        <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
+                                        <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
+                                        <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
+                                        <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
+                                        <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
+                                        <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom</option>
+                                    </select>
+                                </div>
+                                <?php if(($selectedSektor ?? '') || ($selectedDateFilter ?? '')): ?>
+                                <div class="w-full sm:w-auto pb-0.5">
+                                    <a href="<?php echo e(route('statistik')); ?>" class="w-full sm:w-auto px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium inline-block text-center">Reset Semua</a>
+                                </div>
+                                <?php endif; ?>
                             </div>
+                            
+                            <!-- Custom Date Range -->
                             <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-                            <div class="flex items-end gap-2">
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal</label>
-                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                            <div class="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                                <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <label class="text-sm font-medium text-primary-700 flex items-center">
+                                            <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                            Dari Tanggal:
+                                        </label>
+                                        <input type="date" name="custom_date_from" value="<?php echo e($customDateFrom ?? ''); ?>" 
+                                               class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <label class="text-sm font-medium text-primary-700 flex items-center">
+                                            <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                            Sampai Tanggal:
+                                        </label>
+                                        <input type="date" name="custom_date_to" value="<?php echo e($customDateTo ?? ''); ?>" 
+                                               class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button type="submit" class="h-10 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors flex items-center shadow-sm">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                            </svg>
+                                            Terapkan Filter
+                                        </button>
+                                        <a href="<?php echo e(route('statistik', array_filter(['sektor' => $selectedSektor ?? '']))); ?>" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors flex items-center shadow-sm">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                            </svg>
+                                            Reset Tanggal
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="pb-0.5 flex gap-2">
-                                    <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">Filter</button>
-                                    <a href="<?php echo e(route('statistik')); ?>" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">Reset</a>
-                                </div>
+                                <p class="text-xs text-primary-600 mt-2 flex items-center">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Pilih range tanggal (dari tanggal sampai tanggal) untuk memfilter data statistik
+                                </p>
                             </div>
                             <?php endif; ?>
                         </form>
+                        <script>
+                            function updateFormOnChange() {
+                                // Submit form saat dropdown berubah, mempertahankan semua parameter
+                                document.querySelector('form').submit();
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -282,6 +343,10 @@
                                 size: 14
                             },
                             formatter: function(value, context) {
+                                // Jangan tampilkan label jika nilai 0
+                                if (value === 0 || value === null || value === undefined) {
+                                    return '';
+                                }
                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                 const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
                                 return percentage + '%';

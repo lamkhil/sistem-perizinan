@@ -109,14 +109,24 @@
                     <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
                     <div class="bg-primary-50 border border-primary-200 rounded-lg p-4 mt-3">
                         <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2 flex-wrap">
                                 <label class="text-sm font-medium text-primary-700 flex items-center">
                                     <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                     </svg>
-                                    Pilih Tanggal:
+                                    Dari Tanggal:
                                 </label>
-                                <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
+                                <input type="date" name="custom_date_from" value="<?php echo e($customDateFrom ?? ''); ?>" 
+                                       class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
+                            </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <label class="text-sm font-medium text-primary-700 flex items-center">
+                                    <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Sampai Tanggal:
+                                </label>
+                                <input type="date" name="custom_date_to" value="<?php echo e($customDateTo ?? ''); ?>" 
                                        class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
                             </div>
                             <div class="flex gap-2">
@@ -126,11 +136,11 @@
                                     </svg>
                                     Terapkan Filter
                                 </button>
-                                <a href="<?php echo e(route('permohonan.index')); ?>" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors flex items-center shadow-sm">
+                                <a href="<?php echo e(route('permohonan.index', array_filter(['sektor' => $selectedSektor ?? '', 'status' => $selectedStatus ?? '', 'search' => $searchQuery ?? '']))); ?>" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors flex items-center shadow-sm">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                     </svg>
-                                    Reset
+                                    Reset Tanggal
                                 </a>
                             </div>
                         </div>
@@ -138,7 +148,7 @@
                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            Pilih tanggal untuk memfilter data permohonan berdasarkan tanggal tersebut
+                            Pilih range tanggal (dari tanggal sampai tanggal) untuk memfilter data permohonan
                         </p>
                     </div>
                     <?php endif; ?>
@@ -547,13 +557,13 @@
         // Handle date filter dropdown change
         document.addEventListener('DOMContentLoaded', function() {
             const dateFilterSelect = document.querySelector('select[name="date_filter"]');
-            const customDateSection = document.querySelector('div:has(input[name="custom_date"])');
+            const customDateSection = document.querySelector('div:has(input[name="custom_date_from"])');
             
             if (dateFilterSelect) {
                 dateFilterSelect.addEventListener('change', function() {
                     if (this.value === 'custom') {
                         // Show custom date section with animation
-                        const customSection = document.querySelector('div:has(input[name="custom_date"])');
+                        const customSection = document.querySelector('div:has(input[name="custom_date_from"])');
                         if (customSection) {
                             customSection.style.display = 'block';
                             customSection.style.opacity = '0';
@@ -567,7 +577,7 @@
                         }
                     } else {
                         // Hide custom date section
-                        const customSection = document.querySelector('div:has(input[name="custom_date"])');
+                        const customSection = document.querySelector('div:has(input[name="custom_date_from"])');
                         if (customSection) {
                             customSection.style.transition = 'all 0.3s ease';
                             customSection.style.opacity = '0';

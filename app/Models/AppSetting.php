@@ -9,6 +9,7 @@ class AppSetting extends Model
     protected $fillable = [
         'nama_mengetahui',
         'nip_mengetahui',
+        'ttd_bap_mengetahui',
     ];
 
     /**

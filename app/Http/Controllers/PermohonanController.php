@@ -821,7 +821,10 @@ class PermohonanController extends Controller
         // Ambil data koordinator dari database
         $koordinator = AppSetting::getKoordinator();
         
-        return view('permohonan.bap-form', compact('permohonan', 'koordinator'));
+        // Cek apakah user adalah admin untuk menampilkan edit TTD
+        $isAdmin = $user->role === 'admin';
+        
+        return view('permohonan.bap-form', compact('permohonan', 'koordinator', 'isAdmin'));
     }
 
     /**
@@ -903,6 +906,28 @@ class PermohonanController extends Controller
 
             // Load relationships
             $permohonan->load('user');
+            
+            // Ambil TTD Mengetahui dari database jika tidak ada di form
+            $koordinator = AppSetting::getKoordinator();
+            if (empty($validated['ttd_mengetahui']) && $koordinator->ttd_bap_mengetahui) {
+                $ttdMengetahui = $koordinator->ttd_bap_mengetahui;
+                // Jika bukan base64, berarti path file
+                if (!str_starts_with($ttdMengetahui, 'data:image')) {
+                    $filePath = storage_path('app/public/ttd_photos/' . $ttdMengetahui);
+                    if (file_exists($filePath)) {
+                        $ttdMengetahui = 'data:image/png;base64,' . base64_encode(file_get_contents($filePath));
+                    }
+                }
+                $validated['ttd_mengetahui'] = $ttdMengetahui;
+            }
+            
+            // Jika nama dan NIP Mengetahui kosong, ambil dari database
+            if (empty($validated['nama_mengetahui']) && $koordinator->nama_mengetahui) {
+                $validated['nama_mengetahui'] = $koordinator->nama_mengetahui;
+            }
+            if (empty($validated['nip_mengetahui']) && $koordinator->nip_mengetahui) {
+                $validated['nip_mengetahui'] = $koordinator->nip_mengetahui;
+            }
             
             // Pastikan semua data aman sebelum generate PDF
             $pdfData = [
@@ -989,5 +1014,58 @@ class PermohonanController extends Controller
                 ->with('error', $errorMessage)
                 ->withInput();
         }
+    }
+
+    /**
+     * Update TTD BAP untuk Mengetahui (hanya admin)
+     */
+    public function updateBapTtd(Request $request)
+    {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
+        // Cek authorization - hanya admin yang bisa update
+        if ($user->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+        
+        $request->validate([
+            'nama_mengetahui' => 'required|string|max:255',
+            'nip_mengetahui' => 'required|string|max:255',
+            'ttd_bap_mengetahui' => 'nullable|string', // base64 signature
+            'ttd_bap_mengetahui_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        
+        $koordinator = AppSetting::getKoordinator();
+        
+        $data = [
+            'nama_mengetahui' => $request->nama_mengetahui,
+            'nip_mengetahui' => $request->nip_mengetahui,
+        ];
+        
+        // Handle upload TTD (file upload)
+        if ($request->hasFile('ttd_bap_mengetahui_file')) {
+            $file = $request->file('ttd_bap_mengetahui_file');
+            $filename = 'bap_mengetahui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('ttd_photos', $filename, 'public');
+            
+            if ($path) {
+                // Simpan sebagai path file
+                $data['ttd_bap_mengetahui'] = $filename;
+            }
+        }
+        // Handle base64 signature
+        elseif ($request->has('ttd_bap_mengetahui') && !empty($request->ttd_bap_mengetahui)) {
+            // Simpan sebagai base64
+            $data['ttd_bap_mengetahui'] = $request->ttd_bap_mengetahui;
+        }
+        
+        $koordinator->update($data);
+        
+        return redirect()->back()->with('success', 'TTD BAP Mengetahui berhasil diperbarui.');
     }
 }
