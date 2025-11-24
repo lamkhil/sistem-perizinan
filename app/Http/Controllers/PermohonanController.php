@@ -987,8 +987,17 @@ class PermohonanController extends Controller
             return $pdf->download($filename);
             
         } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->errors();
+            $errorMessages = [];
+            foreach ($errors as $field => $messages) {
+                foreach ($messages as $message) {
+                    $errorMessages[] = $message;
+                }
+            }
+            
             return redirect()->back()
                 ->withErrors($e->errors())
+                ->with('error', 'Validasi gagal: ' . implode(', ', $errorMessages))
                 ->withInput();
         } catch (\Barryvdh\DomPDF\Exception\PdfException $e) {
             \Log::error('PDF Generation Error: ' . $e->getMessage());

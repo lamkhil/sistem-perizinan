@@ -113,17 +113,85 @@
                       }
                   },
                   validateForm() {
+                      // Validasi persyaratan
                       if (this.persyaratan.length === 0) {
-                          alert('Mohon tambahkan minimal 1 persyaratan sebelum generate PDF!');
+                          if (typeof Swal !== 'undefined') {
+                              Swal.fire({
+                                  icon: 'warning',
+                                  title: 'Persyaratan Belum Ditambahkan',
+                                  text: 'Mohon tambahkan minimal 1 persyaratan sebelum generate PDF!',
+                                  confirmButtonText: 'OK'
+                              });
+                          } else {
+                              alert('Mohon tambahkan minimal 1 persyaratan sebelum generate PDF!');
+                          }
                           return false;
                       }
+                      
                       // Validasi setiap persyaratan harus punya nama dan status
                       for (let i = 0; i < this.persyaratan.length; i++) {
-                          if (!this.persyaratan[i].nama || !this.persyaratan[i].status) {
-                              alert('Mohon lengkapi semua persyaratan (nama dan status) sebelum generate PDF!');
+                          if (!this.persyaratan[i].nama || !this.persyaratan[i].nama.trim()) {
+                              if (typeof Swal !== 'undefined') {
+                                  Swal.fire({
+                                      icon: 'warning',
+                                      title: 'Data Belum Lengkap',
+                                      text: 'Persyaratan ke-' + (i + 1) + ' belum memiliki nama. Mohon lengkapi!',
+                                      confirmButtonText: 'OK'
+                                  });
+                              } else {
+                                  alert('Persyaratan ke-' + (i + 1) + ' belum memiliki nama. Mohon lengkapi!');
+                              }
+                              return false;
+                          }
+                          if (!this.persyaratan[i].status) {
+                              if (typeof Swal !== 'undefined') {
+                                  Swal.fire({
+                                      icon: 'warning',
+                                      title: 'Data Belum Lengkap',
+                                      text: 'Persyaratan ke-' + (i + 1) + ' belum memiliki status (Sesuai/Tidak Sesuai). Mohon pilih status!',
+                                      confirmButtonText: 'OK'
+                                  });
+                              } else {
+                                  alert('Persyaratan ke-' + (i + 1) + ' belum memiliki status. Mohon pilih status (Sesuai atau Tidak Sesuai)!');
+                              }
                               return false;
                           }
                       }
+                      
+                      // Validasi nama dan alamat pelaku usaha
+                      const namaPelakuUsaha = document.getElementById('nama_pelaku_usaha');
+                      const alamatPelakuUsaha = document.getElementById('alamat_pelaku_usaha');
+                      
+                      if (!namaPelakuUsaha || !namaPelakuUsaha.value || !namaPelakuUsaha.value.trim()) {
+                          if (typeof Swal !== 'undefined') {
+                              Swal.fire({
+                                  icon: 'warning',
+                                  title: 'Data Belum Lengkap',
+                                  text: 'Mohon isi Nama Pelaku Usaha!',
+                                  confirmButtonText: 'OK'
+                              });
+                          } else {
+                              alert('Mohon isi Nama Pelaku Usaha!');
+                          }
+                          namaPelakuUsaha?.focus();
+                          return false;
+                      }
+                      
+                      if (!alamatPelakuUsaha || !alamatPelakuUsaha.value || !alamatPelakuUsaha.value.trim()) {
+                          if (typeof Swal !== 'undefined') {
+                              Swal.fire({
+                                  icon: 'warning',
+                                  title: 'Data Belum Lengkap',
+                                  text: 'Mohon isi Alamat Pelaku Usaha!',
+                                  confirmButtonText: 'OK'
+                              });
+                          } else {
+                              alert('Mohon isi Alamat Pelaku Usaha!');
+                          }
+                          alamatPelakuUsaha?.focus();
+                          return false;
+                      }
+                      
                       return true;
                   },
                   toggleCatatan() {
@@ -139,12 +207,14 @@
                       }
                   }
               }"
-              @submit="
+              @submit.prevent="
+                  // Validasi client-side
                   if (!validateForm()) {
-                      $event.preventDefault();
                       return false;
                   }
-                  // Jika validasi berhasil, biarkan form submit normal
+                  
+                  // Jika validasi berhasil, submit form normal
+                  $el.submit();
               ">
             @csrf
 
