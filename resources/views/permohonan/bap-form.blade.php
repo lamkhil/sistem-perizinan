@@ -524,7 +524,7 @@
                     <div class="w-full md:w-1/2">
                         <div class="flex items-center justify-between mb-2">
                             <label class="block text-sm font-medium text-gray-700 text-center flex-1">Mengetahui</label>
-                            @if($isAdmin ?? false)
+                            @if($canEditTtd ?? false)
                                 <button type="button" 
                                         @click="$refs.editTtdForm.classList.toggle('hidden')"
                                         class="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600">
@@ -538,8 +538,8 @@
                         <p class="text-xs text-gray-600 mb-1 text-center">Koordinator Ketua Tim Kerja</p>
                         <p class="text-xs text-gray-600 mb-1 text-center">Pelayanan Terpadu Satu Pintu</p>
                         
-                        <!-- Form Edit TTD (Admin Only, Hidden by default) -->
-                        @if($isAdmin ?? false)
+                        <!-- Form Edit TTD (Semua role kecuali penerbitan_berkas, Hidden by default) -->
+                        @if($canEditTtd ?? false)
                             <div x-ref="editTtdForm" x-data="{ show: false }" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                 <form method="POST" action="{{ route('bap.ttd.update') }}" enctype="multipart/form-data" class="space-y-3">
                                     @csrf
@@ -836,7 +836,7 @@
             initSignaturePads();
             
             // Initialize Signature Pad untuk Edit TTD Mengetahui (Admin Only)
-            @if($isAdmin ?? false)
+            @if($canEditTtd ?? false)
                 const editCanvasMengetahui = document.getElementById('editSignatureCanvasMengetahui');
                 let editSignaturePadMengetahui = null;
 

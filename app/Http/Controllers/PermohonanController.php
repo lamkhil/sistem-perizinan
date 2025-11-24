@@ -821,10 +821,10 @@ class PermohonanController extends Controller
         // Ambil data koordinator dari database
         $koordinator = AppSetting::getKoordinator();
         
-        // Cek apakah user adalah admin untuk menampilkan edit TTD
-        $isAdmin = $user->role === 'admin';
+        // Cek apakah user bisa edit TTD (semua role kecuali penerbitan_berkas)
+        $canEditTtd = $user->role !== 'penerbitan_berkas';
         
-        return view('permohonan.bap-form', compact('permohonan', 'koordinator', 'isAdmin'));
+        return view('permohonan.bap-form', compact('permohonan', 'koordinator', 'canEditTtd'));
     }
 
     /**
@@ -1023,7 +1023,7 @@ class PermohonanController extends Controller
     }
 
     /**
-     * Update TTD BAP untuk Mengetahui (hanya admin)
+     * Update TTD BAP untuk Mengetahui (semua role kecuali penerbitan_berkas)
      */
     public function updateBapTtd(Request $request)
     {
@@ -1034,8 +1034,8 @@ class PermohonanController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
         
-        // Cek authorization - hanya admin yang bisa update
-        if ($user->role !== 'admin') {
+        // Cek authorization - semua role bisa update kecuali penerbitan_berkas
+        if ($user->role === 'penerbitan_berkas') {
             abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
         }
         

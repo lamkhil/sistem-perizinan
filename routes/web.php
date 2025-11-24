@@ -3,7 +3,6 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\JenisUsahaController; // ✅ Tambahkan ini
@@ -64,10 +63,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Settings (Admin Only)
-    Route::middleware('can:admin')->group(function () {
-        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    });
 
     // Permohonan (CRUD)
     Route::resource('permohonan', PermohonanController::class);
@@ -76,8 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/permohonan/{permohonan}/bap', [PermohonanController::class, 'bap'])->name('permohonan.bap');
     Route::post('/permohonan/{permohonan}/bap/generate', [PermohonanController::class, 'generateBap'])->name('permohonan.bap.generate');
     
-    // BAP TTD Settings (Admin only)
-    Route::middleware('can:admin')->group(function () {
+    // BAP TTD Settings (Semua role kecuali penerbitan_berkas)
+    Route::middleware('auth')->group(function () {
         Route::post('/bap/ttd/update', [PermohonanController::class, 'updateBapTtd'])->name('bap.ttd.update');
     });
     
