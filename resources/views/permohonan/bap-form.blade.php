@@ -194,6 +194,7 @@
                         <input type="text" id="nama_pelaku_usaha" name="nama_pelaku_usaha" 
                                value="{{ old('nama_pelaku_usaha', '') }}" 
                                required
+                               autocomplete="off"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                                placeholder="Masukkan nama pelaku usaha">
                     </div>
@@ -202,6 +203,7 @@
                         <input type="text" id="alamat_pelaku_usaha" name="alamat_pelaku_usaha" 
                                value="{{ old('alamat_pelaku_usaha', '') }}" 
                                required
+                               autocomplete="off"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                                placeholder="Masukkan alamat pelaku usaha">
                     </div>
