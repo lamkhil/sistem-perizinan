@@ -57,8 +57,8 @@ class DashboardController extends Controller
         }
         
         // Hitung statistik:
-        // Total = hanya status final (Diterima, Dikembalikan, Ditolak) — Menunggu tidak dihitung
-        $totalPermohonan = $permohonans->whereIn('status', ['Diterima', 'Dikembalikan', 'Ditolak'])->count();
+        // Total = semua permohonan (termasuk Menunggu, Diterima, Dikembalikan, Ditolak)
+        $totalPermohonan = $permohonans->count();
 
         // Terlambat = semua data yang melewati deadline (semua status bisa terlambat)
         $terlambatCount = $permohonans->filter(function($permohonan) {
@@ -66,7 +66,7 @@ class DashboardController extends Controller
         })->count();
         
         $stats = [
-            'totalPermohonan' => $totalPermohonan, // Hanya status final
+            'totalPermohonan' => $totalPermohonan, // Semua permohonan
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
