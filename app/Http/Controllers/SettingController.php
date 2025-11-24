@@ -11,6 +11,7 @@ class SettingController extends Controller
 {
     /**
      * Display settings page
+     * Hanya admin yang bisa akses
      */
     public function index()
     {
@@ -20,23 +21,16 @@ class SettingController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
         
-        // Admin bisa akses semua settings
-        // Penerbitan Berkas bisa akses TTD Settings
-        $canAccessTtdSettings = in_array($user->role, ['admin', 'penerbitan_berkas']);
-        $canAccessAppSettings = $user->role === 'admin';
-        
-        $ttdSettings = null;
-        $appSettings = null;
-        
-        if ($canAccessTtdSettings) {
-            $ttdSettings = TtdSetting::getSettings();
+        // Hanya admin yang bisa akses
+        if ($user->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki izin untuk mengakses halaman ini.');
         }
         
-        if ($canAccessAppSettings) {
-            $appSettings = AppSetting::getKoordinator();
-        }
+        // Load semua settings untuk admin
+        $ttdSettings = TtdSetting::getSettings();
+        $appSettings = AppSetting::getKoordinator();
         
-        return view('settings.index', compact('ttdSettings', 'appSettings', 'canAccessTtdSettings', 'canAccessAppSettings'));
+        return view('settings.index', compact('ttdSettings', 'appSettings'));
     }
 }
 

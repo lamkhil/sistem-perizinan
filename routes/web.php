@@ -64,8 +64,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Settings
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    // Settings (Admin Only)
+    Route::middleware('can:admin')->group(function () {
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    });
 
     // Permohonan (CRUD)
     Route::resource('permohonan', PermohonanController::class);
