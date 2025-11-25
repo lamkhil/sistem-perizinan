@@ -178,27 +178,27 @@
                 </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead style="background-color: #253B7E;">
+                            <thead class="bg-table-header">
                                 <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 3%; color: #E0E7FF;">NO</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NO. PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NO. PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 10%; color: #E0E7FF;">TANGGAL PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">NIB</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 6%; color: #E0E7FF;">KBLI</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NAMA USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">KEGIATAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">JENIS PERUSAHAAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 10%; color: #E0E7FF;">PEMILIK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">MODAL USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">ALAMAT</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 6%; color: #E0E7FF;">JENIS PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NAMA PERIZINAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">SKALA USAHA</th>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">RISIKO</th>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 15%; color: #E0E7FF;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 3%;">NO</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NO. PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NO. PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 10%;">TANGGAL PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">NIB</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 6%;">KBLI</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NAMA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">KEGIATAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">JENIS PERUSAHAAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 10%;">PEMILIK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">MODAL USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">ALAMAT</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 6%;">JENIS PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NAMA PERIZINAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">SKALA USAHA</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">RISIKO</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
                                   @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
-                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">AKSI</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">AKSI</th>
                                   @endif
                                 </tr>
                             </thead>
