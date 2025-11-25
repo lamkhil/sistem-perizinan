@@ -158,6 +158,35 @@
             background: transparent;
         }
         
+        /* Tabel persyaratan dengan background warna */
+        .doc-table-persyaratan {
+            border: 1px solid #D1D5DB;
+        }
+        
+        .doc-table-persyaratan thead tr {
+            background-color: #F9FAFB;
+        }
+        
+        .doc-table-persyaratan thead th {
+            background-color: #F9FAFB;
+            border: 1px solid #D1D5DB;
+            padding: 8px;
+        }
+        
+        .doc-table-persyaratan tbody td {
+            border: 1px solid #D1D5DB;
+            padding: 8px;
+            background-color: #FFFFFF;
+        }
+        
+        .doc-table-persyaratan tbody tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        
+        .doc-table-persyaratan tbody tr:nth-child(even) td {
+            background-color: #F9FAFB;
+        }
+        
         .doc-table .text-center {
             text-align: center;
         }
@@ -476,13 +505,13 @@
     </p>
     
     <!-- Tabel Persyaratan -->
-    <table class="doc-table" style="border: none; background: transparent;">
+    <table class="doc-table doc-table-persyaratan">
         <thead>
             <tr>
-                <th class="no-col" style="border: none; background: transparent;">No.</th>
-                <th class="nama-col" style="border: none; background: transparent;">Jenis Persyaratan</th>
-                <th class="checkbox-col" style="border: none; background: transparent;">Sesuai</th>
-                <th class="checkbox-col" style="border: none; background: transparent;">Tidak Sesuai</th>
+                <th class="no-col">No.</th>
+                <th class="nama-col">Jenis Persyaratan</th>
+                <th class="checkbox-col">Sesuai</th>
+                <th class="checkbox-col">Tidak Sesuai</th>
             </tr>
         </thead>
         <tbody>
@@ -507,8 +536,8 @@
                         }
                     @endphp
                     <tr>
-                        <td class="text-center" style="border: none; background: transparent;">{{ $no++ }}</td>
-                        <td style="border: none; background: transparent;">
+                        <td class="text-center">{{ $no++ }}</td>
+                        <td>
                             {{ $item['nama'] ?? '' }}
                             @if(count($subItems) > 0)
                                 <div class="sub-item">
@@ -518,7 +547,7 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="text-center" style="vertical-align: top; border: none; background: transparent;">
+                        <td class="text-center" style="vertical-align: top;">
                             @if(isset($item['status']) && $item['status'] === 'Sesuai')
                                 <div class="checkbox checked">
                                     <span class="checkbox-checkmark">✓</span>
@@ -542,7 +571,7 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="text-center" style="vertical-align: top; border: none; background: transparent;">
+                        <td class="text-center" style="vertical-align: top;">
                             @if(isset($item['status']) && $item['status'] === 'Tidak Sesuai')
                                 <div class="checkbox checked">
                                     <span class="checkbox-checkmark">✓</span>
