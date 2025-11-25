@@ -733,6 +733,7 @@ class DashboardController extends Controller
         
         if (!$user || !in_array($user->role, ['dpmptsp', 'admin'])) {
             return response()->json(['notifications' => [], 'count' => 0])
+                ->header('Content-Type', 'application/json; charset=utf-8')
                 ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
                 ->header('Pragma', 'no-cache')
                 ->header('Expires', '0');
@@ -772,6 +773,7 @@ class DashboardController extends Controller
             'notifications' => $notifications,
             'count' => $notifications->count()
         ])
+        ->header('Content-Type', 'application/json; charset=utf-8')
         ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
         ->header('Pragma', 'no-cache')
         ->header('Expires', '0');
