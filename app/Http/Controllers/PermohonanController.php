@@ -824,7 +824,10 @@ class PermohonanController extends Controller
         // Cek apakah user bisa edit TTD (semua role kecuali penerbitan_berkas)
         $canEditTtd = $user->role !== 'penerbitan_berkas';
         
-        return view('permohonan.bap-form', compact('permohonan', 'koordinator', 'canEditTtd'));
+        // Cek apakah user bisa edit nama dan NIP koordinator (hanya admin)
+        $canEditKoordinator = $user->role === 'admin';
+        
+        return view('permohonan.bap-form', compact('permohonan', 'koordinator', 'canEditTtd', 'canEditKoordinator'));
     }
 
     /**
@@ -1053,16 +1056,16 @@ class PermohonanController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
         
-        // Cek authorization - semua role bisa update kecuali penerbitan_berkas
-        if ($user->role === 'penerbitan_berkas') {
-            abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        // Cek authorization - hanya admin yang bisa edit nama dan NIP koordinator
+        if ($user->role !== 'admin') {
+            abort(403, 'Hanya admin yang dapat mengedit nama dan NIP koordinator.');
         }
         
         $request->validate([
             'nama_mengetahui' => 'required|string|max:255',
             'nip_mengetahui' => 'required|string|max:255',
-            'ttd_bap_mengetahui' => 'nullable|string', // base64 signature
-            'ttd_bap_mengetahui_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'ttd_bap_mengetahui' => 'nullable|string', // base64 signature (opsional, bisa diisi semua role)
+            'ttd_bap_mengetahui_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // opsional
         ]);
         
         $koordinator = AppSetting::getKoordinator();
@@ -1091,6 +1094,6 @@ class PermohonanController extends Controller
         
         $koordinator->update($data);
         
-        return redirect()->back()->with('success', 'TTD BAP Mengetahui berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Nama dan NIP koordinator berhasil diperbarui.');
     }
 }

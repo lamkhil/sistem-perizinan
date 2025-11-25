@@ -601,67 +601,53 @@
                     <div class="w-full md:w-1/2">
                         <div class="flex items-center justify-between mb-2">
                             <label class="block text-sm font-medium text-gray-700 text-center flex-1">Mengetahui</label>
-                            @if($canEditTtd ?? false)
+                            @if($canEditKoordinator ?? false)
                                 <button type="button" 
-                                        @click="$refs.editTtdForm.classList.toggle('hidden')"
+                                        @click="$refs.editKoordinatorForm.classList.toggle('hidden')"
                                         class="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                     </svg>
-                                    Edit TTD
+                                    Edit Koordinator
                                 </button>
                             @endif
                         </div>
                         <p class="text-xs text-gray-600 mb-1 text-center">Koordinator Ketua Tim Kerja</p>
                         <p class="text-xs text-gray-600 mb-1 text-center">Pelayanan Terpadu Satu Pintu</p>
                         
-                        <!-- Form Edit TTD (Semua role kecuali penerbitan_berkas, Hidden by default) -->
-                        @if($canEditTtd ?? false)
-                            <div x-ref="editTtdForm" x-data="{ show: false }" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                <form method="POST" action="{{ route('bap.ttd.update') }}" enctype="multipart/form-data" class="space-y-3">
+                        <!-- Form Edit Koordinator (Hanya Admin, Hidden by default) -->
+                        @if($canEditKoordinator ?? false)
+                            <div x-ref="editKoordinatorForm" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <h4 class="text-sm font-semibold text-gray-900 mb-3">Edit Nama dan NIP Koordinator</h4>
+                                <p class="text-xs text-gray-600 mb-3">Hanya admin yang dapat mengedit nama dan NIP koordinator. TTD dapat diisi oleh semua role di form utama.</p>
+                                <form method="POST" action="{{ route('bap.ttd.update') }}" class="space-y-3">
                                     @csrf
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
-                                            <label for="edit_nama_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">Nama</label>
+                                            <label for="edit_nama_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">Nama Koordinator <span class="text-red-500">*</span></label>
                                             <input type="text" id="edit_nama_mengetahui" name="nama_mengetahui" 
                                                    value="{{ $koordinator->nama_mengetahui ?? '' }}"
                                                    required
-                                                   class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                                   class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                                                   placeholder="Masukkan nama koordinator">
                                         </div>
                                         <div>
-                                            <label for="edit_nip_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">NIP</label>
+                                            <label for="edit_nip_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">NIP Koordinator <span class="text-red-500">*</span></label>
                                             <input type="text" id="edit_nip_mengetahui" name="nip_mengetahui" 
                                                    value="{{ $koordinator->nip_mengetahui ?? '' }}"
                                                    required
-                                                   class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                                   class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                                                   placeholder="Masukkan NIP koordinator">
                                         </div>
                                     </div>
-                                    <div>
-                                        <label for="ttd_bap_mengetahui_file" class="block text-xs font-medium text-gray-700 mb-1">Upload TTD (File)</label>
-                                        <input type="file" id="ttd_bap_mengetahui_file" name="ttd_bap_mengetahui_file" 
-                                               accept="image/*"
-                                               class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
-                                    </div>
-                                    <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
-                                        <canvas id="editSignatureCanvasMengetahui" width="800" height="200" style="display: block; width: 100%; height: 200px; touch-action: none;"></canvas>
-                                    </div>
-                                    <div class="flex gap-2 justify-center">
-                                        <button type="button" id="clearEditMengetahui" class="px-3 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600">
-                                            Hapus
-                                        </button>
-                                        <button type="button" id="saveEditMengetahui" class="px-3 py-1 bg-yellow-600 text-white text-xs rounded hover:bg-yellow-700">
-                                            Simpan TTD
-                                        </button>
-                                    </div>
-                                    <input type="hidden" id="edit_ttd_bap_mengetahui" name="ttd_bap_mengetahui" value="">
-                                    <div class="flex gap-2 justify-end">
+                                    <div class="flex gap-2 justify-end pt-2">
                                         <button type="button" 
-                                                @click="$refs.editTtdForm.classList.add('hidden')"
-                                                class="px-3 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600">
+                                                @click="$refs.editKoordinatorForm.classList.add('hidden')"
+                                                class="px-4 py-2 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">
                                             Batal
                                         </button>
-                                        <button type="submit" class="px-3 py-1 bg-yellow-600 text-white text-xs rounded hover:bg-yellow-700">
-                                            Simpan Pengaturan
+                                        <button type="submit" class="px-4 py-2 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700">
+                                            Simpan Nama & NIP
                                         </button>
                                     </div>
                                 </form>
@@ -966,75 +952,6 @@
 
             initSignaturePads();
             
-            // Initialize Signature Pad untuk Edit TTD Mengetahui (Admin Only)
-            @if($canEditTtd ?? false)
-                const editCanvasMengetahui = document.getElementById('editSignatureCanvasMengetahui');
-                let editSignaturePadMengetahui = null;
-
-                if (editCanvasMengetahui) {
-                    setTimeout(() => {
-                        const rect = editCanvasMengetahui.getBoundingClientRect();
-                        if (rect.width > 0 && rect.height > 0) {
-                            const ratio = Math.max(window.devicePixelRatio || 1, 1);
-                            editCanvasMengetahui.width = rect.width * ratio;
-                            editCanvasMengetahui.height = rect.height * ratio;
-                            const ctx = editCanvasMengetahui.getContext('2d');
-                            ctx.scale(ratio, ratio);
-
-                            editSignaturePadMengetahui = new SignaturePad(editCanvasMengetahui, {
-                                backgroundColor: 'rgb(255, 255, 255)',
-                                penColor: 'rgb(0, 0, 0)',
-                                minWidth: 1,
-                                maxWidth: 3,
-                            });
-
-                            // Load existing TTD if available
-                            @if($koordinator->ttd_bap_mengetahui && str_starts_with($koordinator->ttd_bap_mengetahui, 'data:image'))
-                                const existingTtd = '{{ $koordinator->ttd_bap_mengetahui }}';
-                                const img = new Image();
-                                img.onload = function() {
-                                    ctx.drawImage(img, 0, 0, rect.width, rect.height);
-                                };
-                                img.src = existingTtd;
-                            @endif
-
-                            // Clear button
-                            const clearEditBtn = document.getElementById('clearEditMengetahui');
-                            if (clearEditBtn) {
-                                clearEditBtn.addEventListener('click', () => {
-                                    editSignaturePadMengetahui.clear();
-                                    document.getElementById('edit_ttd_bap_mengetahui').value = '';
-                                });
-                            }
-
-                            // Save button
-                            const saveEditBtn = document.getElementById('saveEditMengetahui');
-                            if (saveEditBtn) {
-                                saveEditBtn.addEventListener('click', () => {
-                                    if (editSignaturePadMengetahui.isEmpty()) {
-                                        alert('Mohon buat tanda tangan terlebih dahulu!');
-                                        return;
-                                    }
-                                    const dataURL = editSignaturePadMengetahui.toDataURL('image/png', 1.0);
-                                    document.getElementById('edit_ttd_bap_mengetahui').value = dataURL;
-                                    
-                                    if (typeof Swal !== 'undefined') {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'TTD Tersimpan',
-                                            text: 'Tanda tangan telah disimpan. Klik "Simpan Pengaturan" untuk menyimpan ke database.',
-                                            toast: true,
-                                            position: 'top-end',
-                                            showConfirmButton: false,
-                                            timer: 3000
-                                        });
-                                    }
-                                });
-                            }
-                        }
-                    }, 300);
-                }
-            @endif
         });
     </script>
 </x-sidebar-layout>
