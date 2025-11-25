@@ -199,19 +199,23 @@
                   }
               }"
               @submit="
-                  console.log('Form submit triggered');
-                  console.log('Persyaratan count:', persyaratan.length);
-                  
-                  // Validasi client-side
-                  if (!validateForm()) {
-                      console.log('Validation failed');
-                      $event.preventDefault();
-                      return false;
+                  try {
+                      console.log('Form submit triggered (Alpine.js)');
+                      console.log('Persyaratan count:', persyaratan.length);
+                      
+                      // Validasi client-side
+                      if (!validateForm()) {
+                          console.log('Validation failed');
+                          $event.preventDefault();
+                          return false;
+                      }
+                      
+                      console.log('Validation passed, submitting form...');
+                      // Jika validasi berhasil, biarkan form submit normal (tidak prevent)
+                  } catch (error) {
+                      console.error('Error in submit handler:', error);
+                      // Jika ada error, tetap biarkan form submit
                   }
-                  
-                  console.log('Validation passed, submitting form...');
-                  // Jika validasi berhasil, biarkan form submit normal (tidak prevent)
-                  // Form akan submit secara normal
               ">
             @csrf
 
