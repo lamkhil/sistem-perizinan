@@ -13,7 +13,7 @@
 </style>
 <div class="flex h-screen bg-gray-100 overflow-hidden">
     <!-- Sidebar -->
-    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative" style="z-index: 10; overflow: visible;" x-data="{ sidebarOpen: true }">
+    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative z-sidebar overflow-visible" x-data="{ sidebarOpen: true }">
         <!-- Logo Section -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-white/20">
             <div class="flex items-center space-x-3">
@@ -197,7 +197,7 @@
                     <span x-show="count > 0" 
                           x-text="count" 
                           class="ml-2 px-2.5 py-1 text-xs font-bold text-white bg-orange-500 rounded-full shadow-md"
-                          style="display: none;"></span>
+                          class="display-none"></span>
                 </button>
 
                 <!-- Modal Notifications (Muncul di Tengah) -->
@@ -209,7 +209,7 @@
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      class="fixed inset-0 z-50 overflow-y-auto"
-                     style="display: none;"
+                     class="display-none"
                      x-cloak
                      @click.self="showDropdown = false">
                     <!-- Overlay -->
@@ -482,7 +482,7 @@
                     });
                 }
              }"
-             style="z-index: 1;">
+             class="z-profile-dropdown">
             <div class="relative">
                 <!-- Profile Button - Compact -->
                 <button @click="profileOpen = !profileOpen" class="flex items-center space-x-2 w-full p-1 rounded">
@@ -508,7 +508,7 @@
                      x-transition:leave-end="transform opacity-0 scale-95"
                      class="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10 w-48"
                      @click.away="profileOpen = false"
-                     style="pointer-events: auto;">
+                     class="pointer-events-auto">
                     
                     <!-- Profile Info -->
                     <div class="px-3 py-2 border-b border-gray-100">
@@ -548,7 +548,7 @@
         </header>
 
         <!-- Page Content -->
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50" style="z-index: 0; min-height: 0; max-height: 100%;">
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 z-content min-h-0 max-h-full">
             <div class="p-6 pb-8">
                 <?php echo e($slot); ?>
 

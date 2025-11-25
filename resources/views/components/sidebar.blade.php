@@ -197,7 +197,7 @@
                     <span x-show="count > 0" 
                           x-text="count" 
                           class="ml-2 px-2.5 py-1 text-xs font-bold text-white bg-orange-500 rounded-full shadow-md"
-                          style="display: none;"></span>
+                          class="display-none"></span>
                 </button>
 
                 <!-- Modal Notifications (Muncul di Tengah) -->
@@ -209,7 +209,7 @@
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      class="fixed inset-0 z-50 overflow-y-auto"
-                     style="display: none;"
+                     class="display-none"
                      x-cloak
                      @click.self="showDropdown = false">
                     <!-- Overlay -->
@@ -508,7 +508,7 @@
                      x-transition:leave-end="transform opacity-0 scale-95"
                      class="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10 w-48"
                      @click.away="profileOpen = false"
-                     style="pointer-events: auto;">
+                     class="pointer-events-auto">
                     
                     <!-- Profile Info -->
                     <div class="px-3 py-2 border-b border-gray-100">

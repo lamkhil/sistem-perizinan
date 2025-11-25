@@ -111,7 +111,7 @@
 
             <!-- Recent Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-                <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
+                <div class="px-6 py-5 border-b border-gray-200 bg-header-light">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
@@ -121,7 +121,7 @@
                                 Data Permohonan Terbaru
                             </h3>
                         </div>
-                        <span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: #E0E7FF; color: #3B82F6;">
+                        <span class="text-sm font-medium px-3 py-1 rounded-full bg-status-blue text-status-blue">
                             {{ $permohonans->count() }} Data
                         </span>
                     </div>
@@ -129,16 +129,16 @@
                 @if($permohonans->count() > 0)
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead style="background-color: #253B7E;">
+                            <thead class="bg-table-header">
                                 <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Permohonan</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Proyek</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Tanggal</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Alamat Perusahaan</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Verifikasi</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Status</th>
-                                    <th class="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">No. Permohonan</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">No. Proyek</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">Tanggal</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">Nama Usaha</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">Alamat Perusahaan</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">Verifikasi</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header">Status</th>
+                                    <th class="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-table-header">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">

@@ -80,7 +80,7 @@
 
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
-                <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
+                <div class="px-6 py-5 border-b border-gray-200 bg-header-light">
                     <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
                         <div class="flex items-center gap-4 flex-shrink-0">
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
@@ -438,7 +438,7 @@
                         </div>
 
                         <!-- Jenis Badan Usaha (conditional) -->
-                        <div id="jenis_badan_usaha_container" style="display: none;">
+                        <div id="jenis_badan_usaha_container" class="display-none">
                             <x-input-label for="jenis_badan_usaha" value="Jenis Badan Usaha" />
                             <select name="jenis_badan_usaha" id="jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
                                 <option value="">Pilih Jenis Badan Usaha</option>
@@ -628,8 +628,8 @@
                                     
                                     <!-- Signature Pad Canvas -->
                                     <div class="mt-2">
-                                        <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
-                                            <canvas id="signatureCanvasMengetahui" width="800" height="300" style="display: block; width: 100%; height: 300px; touch-action: none;"></canvas>
+                                        <div class="border-2 border-gray-300 rounded-lg bg-white position-relative">
+                                            <canvas id="signatureCanvasMengetahui" width="800" height="300" class="display-block width-full height-300 touch-action-none"></canvas>
                                         </div>
                                         <div class="mt-2 flex gap-2">
                                             <button type="button" id="clearMengetahui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
@@ -717,8 +717,8 @@
                                     
                                     <!-- Signature Pad Canvas -->
                                     <div class="mt-2">
-                                        <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
-                                            <canvas id="signatureCanvasMenyetujui" width="800" height="300" style="display: block; width: 100%; height: 300px; touch-action: none;"></canvas>
+                                        <div class="border-2 border-gray-300 rounded-lg bg-white position-relative">
+                                            <canvas id="signatureCanvasMenyetujui" width="800" height="300" class="display-block width-full height-300 touch-action-none"></canvas>
                                         </div>
                                         <div class="mt-2 flex gap-2">
                                             <button type="button" id="clearMenyetujui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
@@ -1137,7 +1137,7 @@
                         </div>
 
                         <!-- Jenis Badan Usaha (conditional) -->
-                        <div id="edit_jenis_badan_usaha_container" style="display: none;">
+                        <div id="edit_jenis_badan_usaha_container" class="display-none">
                             <x-input-label for="edit_jenis_badan_usaha" value="Jenis Badan Usaha" />
                             <select name="jenis_badan_usaha" id="edit_jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
                                 <option value="">Pilih Jenis Badan Usaha</option>

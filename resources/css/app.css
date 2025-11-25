@@ -61,4 +61,37 @@
     .text-table-header {
         color: #E0E7FF;
     }
+    
+    /* Additional utility classes for inline style replacement */
+    .display-none {
+        display: none;
+    }
+    
+    .pointer-events-auto {
+        pointer-events: auto;
+    }
+    
+    .position-relative {
+        position: relative;
+    }
+    
+    .display-block {
+        display: block;
+    }
+    
+    .width-full {
+        width: 100%;
+    }
+    
+    .height-200 {
+        height: 200px;
+    }
+    
+    .height-300 {
+        height: 300px;
+    }
+    
+    .touch-action-none {
+        touch-action: none;
+    }
 }
