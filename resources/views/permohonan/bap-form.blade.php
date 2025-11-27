@@ -999,7 +999,6 @@
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
                         alert('Gagal menyimpan data koordinator. Silakan coba lagi.');
                         submitButton.disabled = false;
                         submitButton.textContent = originalText;

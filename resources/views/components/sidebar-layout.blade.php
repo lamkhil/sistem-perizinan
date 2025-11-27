@@ -49,8 +49,6 @@
                     if (logoutForm) {
                         logoutForm.submit();
                     } else {
-                        console.error('Logout form not found');
-                        // Fallback: redirect to logout route
                         window.location.href = '{{ route("logout") }}';
                     }
                 }

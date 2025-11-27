@@ -170,7 +170,6 @@
                         this.notifications = data.notifications || [];
                         this.count = data.count || 0;
                     } catch (error) {
-                        console.error('Error fetching notifications:', error);
                         this.notifications = [];
                         this.count = 0;
                     } finally {
@@ -182,7 +181,6 @@
                 },
                 handleNotificationClick(url) {
                     if (!url) {
-                        console.error('URL notifikasi tidak valid:', url);
                         return;
                     }
                     this.showDropdown = false;
@@ -595,7 +593,6 @@ function handleLogout(event) {
             window.location.href = '{{ route("logout.get") }}';
         }
     } catch (error) {
-        console.error('Logout error:', error);
         window.location.href = '{{ route("logout.get") }}';
     }
 }
