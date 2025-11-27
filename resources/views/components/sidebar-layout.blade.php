@@ -32,11 +32,9 @@
         function resetTimer() {
             clearTimeout(inactivityTimer);
             inactivityTimer = setTimeout(logoutUser, timeout);
-            console.log('Timer reset - user activity detected');
         }
 
         function logoutUser() {
-            console.log('Auto logout triggered after 5 minutes of inactivity');
             Swal.fire({
                 title: 'Sesi Berakhir',
                 text: 'Anda tidak aktif selama 5 menit dan akan dikeluarkan dari sistem demi keamanan.',
@@ -49,7 +47,6 @@
                 if (result.isConfirmed) {
                     const logoutForm = document.getElementById('logout-form');
                     if (logoutForm) {
-                        console.log('Submitting logout form');
                         logoutForm.submit();
                     } else {
                         console.error('Logout form not found');
@@ -60,10 +57,8 @@
             });
         }
 
-        // Initialize timer when page loads
         document.addEventListener('DOMContentLoaded', function() {
             resetTimer();
-            console.log('Auto logout timer initialized');
         });
 
         // Reset timer on user activity

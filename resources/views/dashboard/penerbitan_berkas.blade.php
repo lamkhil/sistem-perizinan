@@ -1454,23 +1454,6 @@
                     submitButton.textContent = 'Menyimpan...';
                 }
                 
-                // Log form data
-                console.log('=== FORM SUBMIT DEBUG ===');
-                console.log('Form Submit - Action:', editForm.action);
-                console.log('Form Submit - Method:', editForm.method);
-                
-                const formDataObj = {};
-                for (let [key, value] of formData.entries()) {
-                    formDataObj[key] = value;
-                }
-                console.log('Form Submit - Data:', formDataObj);
-                console.log('Tanggal Permohonan:', formDataObj['tanggal_permohonan']);
-                console.log('Skala Usaha:', formDataObj['skala_usaha']);
-                console.log('Risiko:', formDataObj['risiko']);
-                console.log('Nomor BAP:', formDataObj['nomor_bap']);
-                console.log('Tanggal BAP:', formDataObj['tanggal_bap']);
-                console.log('========================');
-                
                 // Validasi form
                 if (!editForm.checkValidity()) {
                     console.error('Form validation failed!');

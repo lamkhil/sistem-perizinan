@@ -104,13 +104,7 @@
                       }
                   },
                   validateForm() {
-                      console.log('=== Starting validation ===');
-                      console.log('Persyaratan array:', this.persyaratan);
-                      console.log('Persyaratan length:', this.persyaratan.length);
-                      
-                      // Validasi persyaratan
                       if (this.persyaratan.length === 0) {
-                          console.log('Validation failed: No persyaratan');
                           if (typeof Swal !== 'undefined') {
                               Swal.fire({
                                   icon: 'warning',
@@ -124,11 +118,8 @@
                           return false;
                       }
                       
-                      // Validasi setiap persyaratan harus punya nama dan status
                       for (let i = 0; i < this.persyaratan.length; i++) {
-                          console.log('Checking persyaratan ' + (i + 1) + ':', this.persyaratan[i]);
                           if (!this.persyaratan[i].nama || !this.persyaratan[i].nama.trim()) {
-                              console.log('Validation failed: Persyaratan ' + (i + 1) + ' missing nama');
                               if (typeof Swal !== 'undefined') {
                                   Swal.fire({
                                       icon: 'warning',
@@ -142,7 +133,6 @@
                               return false;
                           }
                           if (!this.persyaratan[i].status) {
-                              console.log('Validation failed: Persyaratan ' + (i + 1) + ' missing status');
                               if (typeof Swal !== 'undefined') {
                                   Swal.fire({
                                       icon: 'warning',
@@ -157,15 +147,10 @@
                           }
                       }
                       
-                      // Validasi nama dan alamat pelaku usaha
                       const namaPelakuUsaha = document.getElementById('nama_pelaku_usaha');
                       const alamatPelakuUsaha = document.getElementById('alamat_pelaku_usaha');
                       
-                      console.log('Nama Pelaku Usaha:', namaPelakuUsaha?.value);
-                      console.log('Alamat Pelaku Usaha:', alamatPelakuUsaha?.value);
-                      
                       if (!namaPelakuUsaha || !namaPelakuUsaha.value || !namaPelakuUsaha.value.trim()) {
-                          console.log('Validation failed: Nama Pelaku Usaha empty');
                           if (typeof Swal !== 'undefined') {
                               Swal.fire({
                                   icon: 'warning',
@@ -181,7 +166,6 @@
                       }
                       
                       if (!alamatPelakuUsaha || !alamatPelakuUsaha.value || !alamatPelakuUsaha.value.trim()) {
-                          console.log('Validation failed: Alamat Pelaku Usaha empty');
                           if (typeof Swal !== 'undefined') {
                               Swal.fire({
                                   icon: 'warning',
@@ -196,7 +180,6 @@
                           return false;
                       }
                       
-                      console.log('=== Validation passed ===');
                       return true;
                   },
                   toggleCatatan() {
@@ -213,24 +196,12 @@
                   }
               }"
               @submit="
-                  console.log('=== BAP Form Submit (Alpine.js) ===');
-                  console.log('Form action:', $el.action);
-                  console.log('Persyaratan count:', persyaratan.length);
-                  console.log('Persyaratan data:', JSON.stringify(persyaratan));
-                  
-                  // Validasi client-side
                   const isValid = validateForm();
-                  console.log('Validation result:', isValid);
                   
                   if (!isValid) {
-                      console.log('Validation failed - preventing submit');
                       $event.preventDefault();
                       return false;
                   }
-                  
-                  console.log('Validation passed - allowing form submit');
-                  console.log('Form will submit to:', $el.action);
-                  // Jika validasi berhasil, biarkan form submit normal (tidak prevent)
               ">
             @csrf
 
@@ -748,11 +719,7 @@
             if (bapForm && generateButton) {
                 // Tambahkan event listener langsung sebagai fallback
                 bapForm.addEventListener('submit', function(e) {
-                    console.log('Form submit event triggered (fallback handler)');
-                    
-                    // Cek apakah Alpine.js sudah handle
                     if (e.defaultPrevented) {
-                        console.log('Submit already prevented by Alpine.js');
                         return;
                     }
                     
@@ -760,7 +727,6 @@
                     const persyaratanInputs = document.querySelectorAll('input[name^="persyaratan["][name$="[nama]"]');
                     const persyaratanCount = Array.from(persyaratanInputs).filter(input => input.value.trim()).length;
                     
-                    console.log('Persyaratan count (fallback):', persyaratanCount);
                     
                     if (persyaratanCount === 0) {
                         e.preventDefault();
@@ -786,12 +752,6 @@
                         return false;
                     }
                     
-                    console.log('Fallback validation passed, submitting form...');
-                });
-                
-                // Log saat button diklik
-                generateButton.addEventListener('click', function(e) {
-                    console.log('Generate button clicked');
                 });
             }
             

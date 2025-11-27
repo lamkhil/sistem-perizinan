@@ -22,14 +22,12 @@
     {{-- Script untuk Notifikasi & Timeout --}}
     <x-notification-popup />
     <script>
-        // Optimized inactivity timer dengan debouncing
         let inactivityTimer;
-        let timeout = 300000; // 5 menit
+        let timeout = 300000;
         let debounceTimer;
-        const DEBOUNCE_DELAY = 1000; // Debounce 1 detik
+        const DEBOUNCE_DELAY = 1000;
 
         function resetTimer() {
-            // Debounce untuk mengurangi overhead
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 clearTimeout(inactivityTimer);
@@ -55,21 +53,18 @@
             });
         }
 
-        // Optimize event listeners dengan passive listeners dan throttling
         function setupInactivityTimer() {
             resetTimer();
             
-            // Gunakan passive listeners untuk scroll dan mouse events (lebih performant)
             const options = { passive: true, capture: false };
             
-            // Throttle untuk mousemove (event yang sangat sering)
             let mousemoveThrottle;
             document.addEventListener('mousemove', () => {
                 if (!mousemoveThrottle) {
                     mousemoveThrottle = setTimeout(() => {
                         resetTimer();
                         mousemoveThrottle = null;
-                    }, 2000); // Throttle setiap 2 detik
+                    }, 2000);
                 }
             }, options);
             
@@ -78,7 +73,6 @@
             document.addEventListener('scroll', resetTimer, options);
         }
 
-        // Initialize setelah DOM ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', setupInactivityTimer);
         } else {

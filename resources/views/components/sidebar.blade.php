@@ -108,14 +108,12 @@
                 countCacheTime: 0,
                 CACHE_DURATION: 30000, // 30 detik cache untuk count
                 async fetchCountOnly() {
-                    // Gunakan cache jika masih valid
                     const now = Date.now();
                     if (this.countCache !== null && (now - this.countCacheTime) < this.CACHE_DURATION) {
                         this.count = this.countCache;
                         return;
                     }
                     
-                    // Fetch count saja tanpa loading indicator, untuk mempercepat
                     if (this.isFetching) {
                         return;
                     }
@@ -126,29 +124,25 @@
                                 'X-Requested-With': 'XMLHttpRequest',
                                 'Accept': 'application/json'
                             },
-                            cache: 'default' // Allow browser caching
+                            cache: 'default'
                         });
                         if (response.ok) {
                             const data = await response.json();
                             this.count = data.count || 0;
-                            // Update cache
                             this.countCache = this.count;
                             this.countCacheTime = Date.now();
                         }
                     } catch (error) {
-                        // Silent fail, tidak tampilkan error
                         this.count = 0;
                     } finally {
                         this.isFetching = false;
                     }
                 },
                 async fetchNotifications(showLoading = false) {
-                    // Prevent multiple concurrent requests
                     if (this.isFetching) {
                         return;
                     }
                     
-                    // Throttle: minimum 2 seconds between requests
                     const now = Date.now();
                     if (!showLoading && (now - this.lastFetchTime) < 2000) {
                         return;
@@ -173,12 +167,10 @@
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         const data = await response.json();
-                        // Update data tanpa re-render yang terlihat
                         this.notifications = data.notifications || [];
                         this.count = data.count || 0;
                     } catch (error) {
                         console.error('Error fetching notifications:', error);
-                        // Fallback: set empty notifications on error
                         this.notifications = [];
                         this.count = 0;
                     } finally {
@@ -193,33 +185,27 @@
                         console.error('URL notifikasi tidak valid:', url);
                         return;
                     }
-                    // Tutup modal dulu
                     this.showDropdown = false;
-                    // Redirect setelah modal tertutup
                     setTimeout(() => {
                         window.location.href = url;
                     }, 150);
                 },
                 init() {
-                    // PASTIKAN modal TIDAK muncul saat init
                     this.showDropdown = false;
                     this.notifications = [];
                     this.loading = false;
                     
-                    // Fetch count dengan requestIdleCallback untuk tidak mengganggu rendering
                     if ('requestIdleCallback' in window) {
                         requestIdleCallback(() => {
                             this.fetchCountOnly();
                         }, { timeout: 2000 });
                     } else {
-                        // Fallback untuk browser yang tidak support requestIdleCallback
                         setTimeout(() => {
                             this.fetchCountOnly();
                         }, 2000);
                     }
                 },
                 destroy() {
-                    // Cleanup interval saat component di-destroy
                     if (this.refreshInterval) {
                         clearInterval(this.refreshInterval);
                     }
@@ -598,27 +584,22 @@
 </div>
 
 <script>
-// Fallback logout function
 function handleLogout(event) {
     event.preventDefault();
     
     try {
-        // Try to submit the form normally
         const form = event.target.closest('form');
         if (form) {
             form.submit();
         } else {
-            // Fallback: redirect to GET logout route
             window.location.href = '{{ route("logout.get") }}';
         }
     } catch (error) {
         console.error('Logout error:', error);
-        // Emergency fallback
         window.location.href = '{{ route("logout.get") }}';
     }
 }
 
-// Global logout function for emergency use
 window.emergencyLogout = function() {
     window.location.href = '{{ route("logout.get") }}';
 };
