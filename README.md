@@ -119,110 +119,6 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - MySQL versi 5.7 atau lebih tinggi
 - Web server (Apache/Nginx)
 
-### Langkah Instalasi
-
-1. **Clone repository**
-   ```bash
-   git clone https://github.com/MUlilAMrI23091397091/sistem-perizinan.git
-   cd sistem-perizinan
-   ```
-
-2. **Install dependencies**
-   ```bash
-   composer install
-   npm install
-   ```
-
-3. **Setup environment**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. **Konfigurasi database**
-   - Edit file `.env` dan sesuaikan konfigurasi database:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=nama_database
-   DB_USERNAME=username
-   DB_PASSWORD=password
-   ```
-
-5. **Jalankan Migration**
-   ```bash
-   php artisan migrate
-   ```
-
-6. **Seed database (opsional)**
-   ```bash
-   php artisan db:seed
-   ```
-
-7. **Build assets**
-   ```bash
-   npm run build
-   ```
-
-8. **Jalankan aplikasi**
-   ```bash
-   php artisan serve
-   ```
-
-### Catatan Penting tentang Migration
-
-#### Dependencies yang Diperlukan
-- **doctrine/dbal** (v3.8+): Package ini **WAJIB** terinstall untuk migration yang menggunakan method `->change()` untuk memodifikasi kolom. Package ini sudah termasuk dalam `composer.json` dan akan terinstall otomatis saat menjalankan `composer install`.
-
-#### Urutan Migration
-Semua migration telah diurutkan dengan benar berdasarkan timestamp untuk memastikan foreign key constraints berjalan dengan baik:
-- `users` table dibuat terlebih dahulu
-- `permohonans` table dengan foreign key ke `users`
-- `log_permohonans` table dengan foreign key ke `permohonans` dan `users`
-- `jenis_usahas` table dibuat sebelum relasi ke `permohonans`
-- `penerbitan_berkas` table dengan foreign key ke `users` dan `permohonans`
-
-#### Troubleshooting Migration
-
-**Jika migration gagal dengan error "Class 'Doctrine\DBAL\Driver\PDO\MySQL\Driver' not found":**
-```bash
-composer require doctrine/dbal
-php artisan migrate
-```
-
-**Jika migration gagal karena index sudah ada:**
-- Pastikan database dalam kondisi fresh atau rollback migration terlebih dahulu:
-```bash
-php artisan migrate:rollback
-php artisan migrate
-```
-
-**Jika migration gagal karena foreign key constraint:**
-- Pastikan semua tabel parent sudah dibuat sebelum tabel child
-- Urutan migration sudah diatur otomatis berdasarkan timestamp
-
-**Untuk fresh migration (hapus semua dan buat ulang):**
-```bash
-php artisan migrate:fresh
-php artisan db:seed
-```
-
-#### Migration yang Telah Dioptimasi
-- ✅ Semua migration menggunakan nama index yang benar untuk kompatibilitas cross-database
-- ✅ Migration kosong telah dihapus untuk menghindari error
-- ✅ Semua migration memiliki method `down()` yang benar untuk rollback
-- ✅ Foreign key constraints diurutkan dengan benar (parent table dibuat sebelum child table)
-- ✅ Semua migration yang menggunakan `->change()` memerlukan `doctrine/dbal` (sudah terinstall)
-- ✅ Index naming convention konsisten: `{table}_{column}_index` atau `{table}_{column1}_{column2}_index`
-- ✅ Semua migration telah diuji dan berjalan dengan baik
-
-#### Verifikasi Migration
-Untuk memastikan semua migration aman saat pindah device:
-1. Pastikan `doctrine/dbal` sudah terinstall: `composer show doctrine/dbal`
-2. Pastikan urutan migration benar: `php artisan migrate:status`
-3. Test rollback migration: `php artisan migrate:rollback --step=1` (jika perlu)
-4. Test fresh migration: `php artisan migrate:fresh` (di development environment)
 
 ## Keamanan
 
@@ -236,11 +132,63 @@ Untuk memastikan semua migration aman saat pindah device:
 - ✅ CAPTCHA untuk form login
 
 ### Rekomendasi untuk Production
-- Implement rate limiting untuk API endpoints
-- Gunakan HTTPS untuk semua komunikasi
-- Enable request logging untuk audit trail
-- Pertimbangkan API token authentication untuk mobile apps
-- Implementasi monitoring dan alerting untuk suspicious activities
+
+#### Keamanan
+- ✅ **HTTPS Wajib**: Gunakan SSL/TLS certificate untuk semua komunikasi. Konfigurasi di `.env`:
+  ```env
+  APP_URL=https://yourdomain.com
+  APP_ENV=production
+  APP_DEBUG=false
+  ```
+- ✅ **Rate Limiting**: Implement rate limiting untuk API endpoints dan form submissions untuk mencegah abuse
+- ✅ **Environment Variables**: Pastikan semua sensitive data (database credentials, API keys) disimpan di `.env` dan tidak di-commit ke repository
+- ✅ **Session Security**: Gunakan secure cookies dan session encryption di production
+- ✅ **Input Sanitization**: Validasi dan sanitize semua input user untuk mencegah XSS dan injection attacks
+
+#### Performance
+- ✅ **Caching**: Enable Laravel caching (Redis/Memcached) untuk meningkatkan performa:
+  ```bash
+  php artisan config:cache
+  php artisan route:cache
+  php artisan view:cache
+  ```
+- ✅ **Database Optimization**: 
+  - Pastikan semua index sudah terpasang dengan benar
+  - Gunakan query optimization untuk mengurangi N+1 queries
+  - Pertimbangkan database connection pooling
+- ✅ **Asset Optimization**: 
+  - Minify CSS dan JavaScript untuk production
+  - Enable gzip compression di web server
+  - Gunakan CDN untuk static assets jika memungkinkan
+- ✅ **Queue Processing**: Gunakan queue untuk task yang berat (email, PDF generation):
+  ```bash
+  php artisan queue:work
+  ```
+
+#### Monitoring & Logging
+- ✅ **Error Logging**: Enable error logging dan monitoring (Laravel Log, Sentry, atau similar)
+- ✅ **Performance Monitoring**: Implement APM (Application Performance Monitoring) untuk tracking response time
+- ✅ **Audit Trail**: Pastikan semua aktivitas penting (login, perubahan data) tercatat di log
+- ✅ **Database Backup**: Setup automated database backup dengan schedule harian
+- ✅ **Health Checks**: Implement health check endpoint untuk monitoring uptime
+
+#### Deployment
+- ✅ **Version Control**: Gunakan Git tags untuk versioning dan rollback capability
+- ✅ **Zero-Downtime Deployment**: Implement deployment strategy yang tidak mengganggu service
+- ✅ **Database Migration**: Test semua migration di staging environment sebelum production
+- ✅ **Environment Separation**: Pisahkan environment development, staging, dan production dengan jelas
+
+#### Scalability
+- ✅ **Load Balancing**: Pertimbangkan load balancer jika traffic tinggi
+- ✅ **Database Replication**: Setup database replication untuk high availability
+- ✅ **Horizontal Scaling**: Desain aplikasi untuk mendukung multiple server instances
+- ✅ **CDN Integration**: Gunakan CDN untuk static files dan assets
+
+#### Compliance & Best Practices
+- ✅ **Data Privacy**: Implement data privacy sesuai regulasi (GDPR, PDPA jika applicable)
+- ✅ **Access Control**: Review dan audit user permissions secara berkala
+- ✅ **Documentation**: Maintain up-to-date documentation untuk maintenance
+- ✅ **Disaster Recovery**: Buat disaster recovery plan dan test secara berkala
 
 ---
 
