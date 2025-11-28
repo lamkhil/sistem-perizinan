@@ -229,7 +229,7 @@
                     <div x-show="showDropdown"
                          x-cloak
                          x-init="$watch('showDropdown', value => { if (value) { document.body.style.overflow = 'hidden'; } else { document.body.style.overflow = ''; } })"
-                         class="notification-modal overflow-y-auto"
+                         class="fixed inset-0 z-50 overflow-y-auto"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0"
                          x-transition:enter-end="opacity-100"
@@ -238,11 +238,15 @@
                          x-transition:leave-end="opacity-0"
                          @click.self="showDropdown = false">
                     <!-- Overlay -->
-                    <div class="notification-modal bg-black bg-opacity-50 transition-opacity" style="z-index: 99998 !important;"></div>
+                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" 
+                         @click="showDropdown = false"
+                         style="z-index: 99998 !important;"></div>
                     
                     <!-- Modal Content -->
-                    <div class="notification-modal pointer-events-none" style="z-index: 99999 !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 1rem !important;">
+                    <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none" 
+                         style="z-index: 99999 !important;">
                         <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col pointer-events-auto"
+                             @click.stop
                              x-transition:enter="transition ease-out duration-300"
                              x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                              x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
