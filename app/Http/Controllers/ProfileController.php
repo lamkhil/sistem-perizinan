@@ -50,6 +50,10 @@ class ProfileController extends Controller
 
     /**
      * Delete the user's account.
+     * 
+     * Data yang sudah di-entry oleh user akan tetap aman di database
+     * Foreign key constraints menggunakan SET NULL, jadi user_id akan menjadi null
+     * tapi data permohonan, log, dan penerbitan_berkas tetap ada
      */
     public function destroy(Request $request): RedirectResponse
     {
@@ -59,13 +63,22 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        // Cek apakah user memiliki data terkait (opsional, untuk informasi)
+        $hasPermohonan = $user->permohonans()->exists();
+        $permohonanCount = $user->permohonans()->count();
+
+        // Logout user terlebih dahulu
         Auth::logout();
 
+        // Hapus user (dengan SET NULL, data terkait akan tetap aman)
+        // user_id di tabel permohonans, log_permohonans, dan penerbitan_berkas akan menjadi NULL
         $user->delete();
 
+        // Invalidate session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        // Redirect dengan pesan informasi
+        return Redirect::to('/')->with('status', 'Akun Anda telah dihapus. Data yang sudah di-entry tetap aman di database.');
     }
 }

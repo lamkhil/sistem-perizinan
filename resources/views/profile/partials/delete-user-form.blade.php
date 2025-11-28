@@ -9,7 +9,7 @@
                     Peringatan: Tindakan ini tidak dapat dibatalkan
                 </p>
                 <p class="text-sm text-red-700">
-                    Setelah akun Anda dihapus, semua sumber daya dan data akan dihapus secara permanen. Sebelum menghapus akun, harap unduh data atau informasi yang ingin Anda pertahankan.
+                    Setelah akun Anda dihapus, Anda tidak akan bisa login lagi. Namun, <strong>data yang sudah di-entry (permohonan, log, penerbitan berkas) akan tetap aman di database</strong> dan tidak ikut terhapus. Hanya informasi akun Anda yang dihapus.
                 </p>
             </div>
         </div>
@@ -45,7 +45,7 @@
                         Apakah Anda yakin ingin menghapus akun?
                     </h2>
                     <p class="text-sm text-gray-600">
-                        Setelah akun Anda dihapus, semua sumber daya dan data akan dihapus secara permanen. Masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun secara permanen.
+                        Setelah akun Anda dihapus, Anda tidak akan bisa login lagi. Namun, <strong>data yang sudah di-entry (permohonan, log, penerbitan berkas) akan tetap aman di database</strong> dan tidak ikut terhapus. Hanya informasi akun Anda yang dihapus. Masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun secara permanen.
                     </p>
                 </div>
             </div>
