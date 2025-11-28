@@ -999,7 +999,7 @@ class PermohonanController extends Controller
             \Log::error('Stack trace: ' . $e->getTraceAsString());
             \Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
             return redirect()->back()
-                ->with('error', 'Terjadi kesalahan saat menghasilkan PDF. Pastikan semua data sudah lengkap dan coba lagi. Error: ' . $e->getMessage())
+                ->with('error', 'Terjadi kesalahan saat menghasilkan PDF. Pastikan semua data sudah lengkap dan coba lagi.')
                 ->withInput();
         } catch (\Exception $e) {
             \Log::error('Error generating BAP PDF: ' . $e->getMessage());
@@ -1007,18 +1007,17 @@ class PermohonanController extends Controller
             \Log::error('Stack trace: ' . $e->getTraceAsString());
             \Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
             
-            // Tampilkan error yang lebih informatif untuk debugging
+            // Tampilkan error yang user-friendly tanpa expose detail sistem
             $errorMessage = 'Terjadi kesalahan saat menghasilkan PDF. ';
             if (str_contains($e->getMessage(), 'file_get_contents')) {
-                $errorMessage .= 'Logo tidak ditemukan. ';
+                $errorMessage .= 'Logo tidak ditemukan. Silakan hubungi administrator.';
             } elseif (str_contains($e->getMessage(), 'parse')) {
-                $errorMessage .= 'Format tanggal tidak valid. ';
+                $errorMessage .= 'Format tanggal tidak valid. Pastikan semua tanggal sudah diisi dengan benar.';
             } elseif (str_contains($e->getMessage(), 'persyaratan')) {
-                $errorMessage .= 'Data persyaratan tidak valid. Pastikan semua persyaratan sudah diisi dengan lengkap. ';
+                $errorMessage .= 'Data persyaratan tidak valid. Pastikan semua persyaratan sudah diisi dengan lengkap.';
             } else {
-                $errorMessage .= 'Silakan coba lagi atau hubungi administrator. ';
+                $errorMessage .= 'Silakan coba lagi atau hubungi administrator jika masalah berlanjut.';
             }
-            $errorMessage .= 'Detail: ' . $e->getMessage();
             
             return redirect()->back()
                 ->with('error', $errorMessage)

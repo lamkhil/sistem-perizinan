@@ -25,12 +25,26 @@ trait SimpleFileUploadController
                 throw new \Exception('File size exceeds maximum allowed size');
             }
 
-            // Check file type
+            // Check file type (extension)
             $allowedTypes = config('optimization.file_upload.allowed_types', ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx']);
             $extension = strtolower($file->getClientOriginalExtension());
             
             if (!in_array($extension, $allowedTypes)) {
                 throw new \Exception('File type not allowed');
+            }
+
+            // Validate MIME type untuk mencegah file type spoofing
+            $allowedMimeTypes = [
+                'image/jpeg',
+                'image/png',
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
+            $mimeType = $file->getMimeType();
+            
+            if (!in_array($mimeType, $allowedMimeTypes)) {
+                throw new \Exception('File MIME type not allowed');
             }
 
             // Store file
@@ -102,10 +116,24 @@ trait SimpleFileUploadController
             return ['valid' => false, 'error' => 'File size exceeds maximum allowed size'];
         }
 
-        // Check file type
+        // Check file type (extension)
         $extension = strtolower($file->getClientOriginalExtension());
         if (!in_array($extension, $rules['allowed_types'])) {
             return ['valid' => false, 'error' => 'File type not allowed'];
+        }
+
+        // Validate MIME type untuk mencegah file type spoofing
+        $allowedMimeTypes = $rules['allowed_mime_types'] ?? [
+            'image/jpeg',
+            'image/png',
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        $mimeType = $file->getMimeType();
+        
+        if (!in_array($mimeType, $allowedMimeTypes)) {
+            return ['valid' => false, 'error' => 'File MIME type not allowed'];
         }
 
         return ['valid' => true];
