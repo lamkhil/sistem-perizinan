@@ -1,4 +1,4 @@
-﻿# Sistem Perizinan
+# Sistem Perizinan
 
 Web application berbasis Laravel untuk pengelolaan proses perizinan usaha secara digital. Sistem ini menyediakan platform terintegrasi bagi berbagai pemangku kepentingan dalam proses perizinan, mulai dari pengajuan hingga penerbitan dokumen resmi.
 
@@ -123,15 +123,14 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 ## Keamanan
 
 ### Implementasi Keamanan
-- âœ… Authentication & Authorization dengan role-based access control
-- âœ… CSRF Protection untuk semua POST requests
-- âœ… Input Validation dengan Laravel Form Request
-- âœ… SQL Injection Protection menggunakan Eloquent ORM
-- âœ… XSS Protection dengan Blade auto-escape
-- âœ… Session Security dengan regeneration dan secure cookies
-- âœ… CAPTCHA untuk form login
+- Authentication & Authorization dengan role-based access control
+- CSRF Protection untuk semua POST requests
+- Input Validation dengan Laravel Form Request
+- SQL Injection Protection menggunakan Eloquent ORM
+- XSS Protection dengan Blade auto-escape
+- Session Security dengan regeneration dan secure cookies
+- CAPTCHA untuk form login
 
 ---
 
 Dikembangkan menggunakan Laravel Framework
-
