@@ -19,7 +19,7 @@ class ClearAllData extends Command
      *
      * @var string
      */
-    protected $signature = 'data:clear {--all : Hapus semua data termasuk users}';
+    protected $signature = 'data:clear {--all : Hapus semua data termasuk users} {--force : Skip konfirmasi}';
 
     /**
      * The console command description.
@@ -33,9 +33,11 @@ class ClearAllData extends Command
      */
     public function handle()
     {
-        if (!$this->confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan!', true)) {
-            $this->info('Operasi dibatalkan.');
-            return 0;
+        if (!$this->option('force')) {
+            if (!$this->confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan!', true)) {
+                $this->info('Operasi dibatalkan.');
+                return 0;
+            }
         }
 
         $this->info('Menghapus data...');
