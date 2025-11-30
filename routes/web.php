@@ -58,6 +58,11 @@ Route::delete('/penerbitan-berkas/{id}', [DashboardController::class, 'destroyPe
     ->name('penerbitan-berkas.destroy');
 
 Route::middleware('auth')->group(function () {
+    // About Us
+    Route::get('/about', function () {
+        return view('about');
+    })->name('about');
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
