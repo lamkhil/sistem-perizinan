@@ -90,7 +90,7 @@
 
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
-                <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
+                <div class="px-6 py-5 border-b border-gray-200 bg-header-light">
                     <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
                         <div class="flex items-center gap-4 flex-shrink-0">
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
@@ -188,27 +188,27 @@
                 </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead style="background-color: #253B7E;">
+                            <thead class="bg-table-header">
                                 <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 3%; color: #E0E7FF;">NO</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NO. PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NO. PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 10%; color: #E0E7FF;">TANGGAL PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">NIB</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 6%; color: #E0E7FF;">KBLI</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NAMA USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">KEGIATAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">JENIS PERUSAHAAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 10%; color: #E0E7FF;">PEMILIK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">MODAL USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">ALAMAT</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 6%; color: #E0E7FF;">JENIS PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NAMA PERIZINAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">SKALA USAHA</th>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">RISIKO</th>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 15%; color: #E0E7FF;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 3%;">NO</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NO. PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NO. PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 10%;">TANGGAL PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">NIB</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 6%;">KBLI</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NAMA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">KEGIATAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">JENIS PERUSAHAAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 10%;">PEMILIK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">MODAL USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">ALAMAT</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 6%;">JENIS PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 12%;">NAMA PERIZINAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">SKALA USAHA</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">RISIKO</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
                                   <?php if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas'])): ?>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">AKSI</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">AKSI</th>
                                   <?php endif; ?>
                                 </tr>
                             </thead>
@@ -893,7 +893,7 @@
                         </div>
 
                         <!-- Jenis Badan Usaha (conditional) -->
-                        <div id="jenis_badan_usaha_container" style="display: none;">
+                        <div id="jenis_badan_usaha_container" class="display-none">
                             <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'jenis_badan_usaha','value' => 'Jenis Badan Usaha']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -1843,8 +1843,8 @@
                                     
                                     <!-- Signature Pad Canvas -->
                                     <div class="mt-2">
-                                        <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
-                                            <canvas id="signatureCanvasMengetahui" width="800" height="300" style="display: block; width: 100%; height: 300px; touch-action: none;"></canvas>
+                                        <div class="border-2 border-gray-300 rounded-lg bg-white position-relative">
+                                            <canvas id="signatureCanvasMengetahui" width="800" height="300" class="display-block width-full height-300 touch-action-none"></canvas>
                                         </div>
                                         <div class="mt-2 flex gap-2">
                                             <button type="button" id="clearMengetahui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
@@ -2198,8 +2198,8 @@
                                     
                                     <!-- Signature Pad Canvas -->
                                     <div class="mt-2">
-                                        <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
-                                            <canvas id="signatureCanvasMenyetujui" width="800" height="300" style="display: block; width: 100%; height: 300px; touch-action: none;"></canvas>
+                                        <div class="border-2 border-gray-300 rounded-lg bg-white position-relative">
+                                            <canvas id="signatureCanvasMenyetujui" width="800" height="300" class="display-block width-full height-300 touch-action-none"></canvas>
                                         </div>
                                         <div class="mt-2 flex gap-2">
                                             <button type="button" id="clearMenyetujui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
@@ -2305,20 +2305,12 @@
 
                     // Function untuk menginisialisasi signature pad
                     window.initSignaturePads = function() {
-                        console.log('initSignaturePads called');
-                        
-                        // Tunggu sampai SignaturePad tersedia
                         if (typeof SignaturePad === 'undefined') {
-                            console.log('SignaturePad belum tersedia, retry...');
                             setTimeout(initSignaturePads, 100);
                             return;
                         }
-                        
-                        console.log('SignaturePad tersedia');
 
-                        // Initialize Signature Pad untuk Mengetahui
                         const canvasMengetahui = document.getElementById('signatureCanvasMengetahui');
-                        console.log('Canvas Mengetahui:', canvasMengetahui);
                         
                         if (canvasMengetahui) {
                             // Reset instance jika sudah ada
@@ -2344,7 +2336,6 @@
                             // Tunggu canvas ter-render
                             setTimeout(() => {
                                 const rect = canvasMengetahui.getBoundingClientRect();
-                                console.log('Canvas Mengetahui size:', rect.width, rect.height);
                                 
                                 if (rect.width > 0 && rect.height > 0) {
                                     // Adjust canvas size dulu sebelum membuat SignaturePad
@@ -2360,8 +2351,6 @@
                                         minWidth: 1,
                                         maxWidth: 3,
                                     });
-                                    
-                                    console.log('SignaturePad Mengetahui initialized', signaturePadMengetahui);
 
                                     // Clear button
                                     const clearBtn = document.getElementById('clearMengetahui');
@@ -2370,7 +2359,6 @@
                                             e.preventDefault();
                                             signaturePadMengetahui.clear();
                                             document.getElementById('mengetahui_photo_base64').value = '';
-                                            console.log('Canvas Mengetahui cleared');
                                         });
                                     }
 
@@ -2394,10 +2382,8 @@
                                                 return;
                                             }
                                             
-                                            // Simpan dengan resolusi tinggi (2x untuk kualitas lebih baik)
                                             const dataURL = signaturePadMengetahui.toDataURL('image/png', 1.0);
                                             document.getElementById('mengetahui_photo_base64').value = dataURL;
-                                            console.log('TTD Mengetahui saved');
                                             
                                             if (typeof Swal !== 'undefined') {
                                                 Swal.fire({
@@ -2412,15 +2398,11 @@
                                             }
                                         });
                                     }
-                                } else {
-                                    console.error('Canvas Mengetahui belum ter-render dengan benar');
                                 }
                             }, 300);
                         }
 
-                        // Initialize Signature Pad untuk Menyetujui
                         const canvasMenyetujui = document.getElementById('signatureCanvasMenyetujui');
-                        console.log('Canvas Menyetujui:', canvasMenyetujui);
                         
                         if (canvasMenyetujui) {
                             // Reset instance jika sudah ada
@@ -2445,7 +2427,6 @@
                             // Tunggu canvas ter-render
                             setTimeout(() => {
                                 const rect = canvasMenyetujui.getBoundingClientRect();
-                                console.log('Canvas Menyetujui size:', rect.width, rect.height);
                                 
                                 if (rect.width > 0 && rect.height > 0) {
                                     // Adjust canvas size dulu sebelum membuat SignaturePad
@@ -2461,8 +2442,6 @@
                                         minWidth: 1,
                                         maxWidth: 3,
                                     });
-                                    
-                                    console.log('SignaturePad Menyetujui initialized', signaturePadMenyetujui);
 
                                     // Clear button
                                     const clearBtn = document.getElementById('clearMenyetujui');
@@ -2471,7 +2450,6 @@
                                             e.preventDefault();
                                             signaturePadMenyetujui.clear();
                                             document.getElementById('menyetujui_photo_base64').value = '';
-                                            console.log('Canvas Menyetujui cleared');
                                         });
                                     }
 
@@ -2495,10 +2473,8 @@
                                                 return;
                                             }
                                             
-                                            // Simpan dengan resolusi tinggi (2x untuk kualitas lebih baik)
                                             const dataURL = signaturePadMenyetujui.toDataURL('image/png', 1.0);
                                             document.getElementById('menyetujui_photo_base64').value = dataURL;
-                                            console.log('TTD Menyetujui saved');
                                             
                                             if (typeof Swal !== 'undefined') {
                                                 Swal.fire({
@@ -2513,14 +2489,10 @@
                                             }
                                         });
                                     }
-                                } else {
-                                    console.error('Canvas Menyetujui belum ter-render dengan benar');
                                 }
                             }, 300);
                         }
                     };
-                    
-                    console.log('Signature Pad script loaded');
                 </script>
 
                 <!-- Tampilan TTD -->
@@ -2922,7 +2894,7 @@
                         </div>
 
                         <!-- Jenis Badan Usaha (conditional) -->
-                        <div id="edit_jenis_badan_usaha_container" style="display: none;">
+                        <div id="edit_jenis_badan_usaha_container" class="display-none">
                             <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'edit_jenis_badan_usaha','value' => 'Jenis Badan Usaha']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -3391,15 +3363,10 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Debug: Log ID dan data untuk memastikan sesuai
-                    console.log('Edit ID:', id);
-                    console.log('Data ID:', data.id);
-                    console.log('Skala Usaha:', data.skala_usaha);
-                    console.log('Risiko:', data.risiko);
-                    
-                    // Pastikan ID sesuai
+                    if (data.id !== id) {
+                        return;
+                    }
                     if (data.id && parseInt(data.id) !== id) {
-                        console.error('ID mismatch! Expected:', id, 'Got:', data.id);
                         Swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -3441,8 +3408,6 @@
                         const validValues = ['Mikro', 'Usaha Kecil', 'Usaha Menengah', 'Usaha Besar'];
                         if (validValues.includes(data.skala_usaha)) {
                             skalaUsahaSelect.value = data.skala_usaha;
-                        } else {
-                            console.warn('Invalid skala_usaha value:', data.skala_usaha);
                         }
                     }
                     
@@ -3456,8 +3421,6 @@
                         const validValues = ['Rendah', 'Menengah Rendah', 'Menengah Tinggi', 'Tinggi'];
                         if (validValues.includes(data.risiko)) {
                             risikoSelect.value = data.risiko;
-                        } else {
-                            console.warn('Invalid risiko value:', data.risiko);
                         }
                     }
                     
@@ -3489,7 +3452,6 @@
                     document.getElementById('editModal').classList.remove('hidden');
                 })
                 .catch(error => {
-                    console.error('Error fetching data:', error);
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
@@ -3524,26 +3486,7 @@
                     submitButton.textContent = 'Menyimpan...';
                 }
                 
-                // Log form data
-                console.log('=== FORM SUBMIT DEBUG ===');
-                console.log('Form Submit - Action:', editForm.action);
-                console.log('Form Submit - Method:', editForm.method);
-                
-                const formDataObj = {};
-                for (let [key, value] of formData.entries()) {
-                    formDataObj[key] = value;
-                }
-                console.log('Form Submit - Data:', formDataObj);
-                console.log('Tanggal Permohonan:', formDataObj['tanggal_permohonan']);
-                console.log('Skala Usaha:', formDataObj['skala_usaha']);
-                console.log('Risiko:', formDataObj['risiko']);
-                console.log('Nomor BAP:', formDataObj['nomor_bap']);
-                console.log('Tanggal BAP:', formDataObj['tanggal_bap']);
-                console.log('========================');
-                
-                // Validasi form
                 if (!editForm.checkValidity()) {
-                    console.error('Form validation failed!');
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
@@ -3571,12 +3514,9 @@
                     }
                 })
                 .then(response => {
-                    console.log('Response status:', response.status);
                     return response.json().catch(() => response.text());
                 })
                 .then(data => {
-                    console.log('Response data:', data);
-                    
                     if (data.success || data.message) {
                         // Success - tampilkan notifikasi toast
                         Swal.fire({
@@ -3594,7 +3534,6 @@
                         }, 500);
                     } else if (data.errors) {
                         // Validation errors
-                        console.error('Validation errors:', data.errors);
                         let errorMessages = '';
                         for (let field in data.errors) {
                             errorMessages += `${field}: ${data.errors[field].join(', ')}\n`;
@@ -3619,7 +3558,6 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error submitting form:', error);
                     Swal.fire({
                         toast: true,
                         position: 'top-end',

@@ -9,7 +9,7 @@
     
 
     <!-- Header dengan Action Buttons -->
-    <div class="mb-6 bg-white rounded-xl shadow-sm p-6">
+    <div class="mb-6 bg-white rounded-xl shadow-md border border-gray-200 p-6">
         <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
             <!-- Left: Search dan Filter -->
             <div class="flex-1 min-w-0">
@@ -225,7 +225,7 @@
     </div>
 
     <!-- Tabel Permohonan -->
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200" style="background-color: #F8FAFC;">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center">

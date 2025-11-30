@@ -582,13 +582,6 @@
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden min-h-0">
-        <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0">
-            <div class="px-6 py-4">
-                <h1 class="text-2xl font-bold text-gray-900">{{ $header ?? 'Dashboard' }}</h1>
-            </div>
-        </header>
-
         <!-- Page Content -->
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 z-content min-h-0 max-h-full">
             <div class="p-6 pb-8">

@@ -16,6 +16,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        // Ensure session is started and CSRF token is generated
+        request()->session()->regenerateToken();
         return view('auth.login');
     }
 

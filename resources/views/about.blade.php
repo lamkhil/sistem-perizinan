@@ -17,12 +17,12 @@
 
                 <!-- Deskripsi Sistem -->
                 <div class="mb-8 space-y-4 text-white/95 leading-relaxed">
-                    <p class="text-lg">
+                    <p class="text-lg text-center max-w-4xl mx-auto">
                         Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses pengurusan perizinan usaha. 
                         Sistem ini mendukung workflow multi-level dengan kontrol akses berdasarkan peran pengguna, memungkinkan 
                         pengelolaan yang efisien dari tahap pengajuan hingga persetujuan dan penerbitan dokumen resmi.
                     </p>
-                    <p class="text-lg">
+                    <p class="text-lg text-center max-w-4xl mx-auto">
                         Sistem ini menyediakan platform terintegrasi bagi berbagai pemangku kepentingan dalam proses perizinan, 
                         mulai dari pengajuan hingga penerbitan dokumen resmi dengan tingkat efisiensi, transparansi, dan akuntabilitas yang tinggi.
                     </p>

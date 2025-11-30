@@ -3,27 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>Login - DPMPTSP</title>
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0E2A66 0%, #092767 71%, #283593 100%);
+            font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif;
             min-height: 100vh;
+            display: flex;
+        }
+        .left-section {
+            width: 50%;
+            background: linear-gradient(135deg, #0A1A3A 0%, #071024 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .left-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .left-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            pointer-events: none;
         }
         .logo-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
         }
         .logo {
             width: 300px;
             height: 300px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #fbbf24;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 0 30px rgba(212, 176, 101, 0.25), 0 0 60px rgba(212, 176, 101, 0.15), 0 5px 15px rgba(0, 0, 0, 0.3), inset 0 -2px 10px rgba(251, 191, 36, 0.15);
+            filter: drop-shadow(0 0 20px rgba(212, 176, 101, 0.2));
+            position: relative;
+        }
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+            border-radius: 50% 50% 0 0;
+            pointer-events: none;
+        }
+        .branding {
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .branding h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
             margin-bottom: 2rem;
+            font-family: 'Cormorant Garamond', 'Cinzel', serif;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 2px;
+        }
+        .branding h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+            font-family: 'Cinzel', 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #FDE07D 0%, #F5C241 50%, #E6B12A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(245, 194, 65, 0.25), 0 0 60px rgba(230, 177, 42, 0.2);
+            position: relative;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px rgba(245, 194, 65, 0.3));
+        }
+        .branding .divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 1.5rem auto;
+        }
+        .branding .tagline {
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+        .branding p {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.88);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.3px;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+        .right-section {
+            width: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .form-card {
+            background: rgba(255, 255, 255, 0.75);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 3rem;
+            padding-top: 3.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .form-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0E2A66;
+            margin-bottom: 0.5rem;
+        }
+        .form-header p {
+            color: #6b7280;
+            font-size: 0.95rem;
         }
         .input-container {
             position: relative;
@@ -34,78 +178,90 @@
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #fbbf24;
+            color: #6b7280;
             width: 20px;
             height: 20px;
+            z-index: 1;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #1f2937;
+            background: white;
+            transition: all 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #0E2A66;
+            box-shadow: 0 0 0 3px rgba(14, 42, 102, 0.1);
+        }
+        .form-input::placeholder {
+            color: #9ca3af;
         }
         .toggle-visibility {
             position: absolute;
             right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #fbbf24;
+            color: #6b7280;
             background: transparent;
             border: none;
             cursor: pointer;
             width: 24px;
             height: 24px;
             padding: 0;
+            z-index: 1;
         }
-        .form-input {
+        .toggle-visibility:hover {
+            color: #0E2A66;
+        }
+        .captcha-container {
+            margin-bottom: 1rem;
+        }
+        .captcha-container img {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            background: #1e3a8a;
-            border: 1px solid #3b82f6;
+            height: auto;
             border-radius: 8px;
-            color: white;
-            font-size: 1rem;
+            border: 1px solid #dfe7f4;
+            cursor: pointer;
+            background: #f8fafc;
+            padding: 4px;
         }
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #fbbf24;
-            background: #1e40af;
-        }
-        /* Enforce dark inputs and fix Chrome autofill background */
-        .form-input,
-        .form-input:focus {
-            background-color: #1e3a8a !important;
-            border-color: #3b82f6 !important;
-            color: #ffffff !important;
-        }
-        .form-input:-webkit-autofill,
-        .form-input:-webkit-autofill:hover,
-        .form-input:-webkit-autofill:focus {
-            -webkit-box-shadow: 0 0 0 1000px #1e3a8a inset !important;
-            box-shadow: 0 0 0 1000px #1e3a8a inset !important;
-            -webkit-text-fill-color: #ffffff !important;
-            caret-color: #ffffff !important;
-            border: 1px solid #3b82f6 !important;
-            transition: background-color 9999s ease-in-out 0s; /* keep dark after autofill */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
         }
         .checkbox-container {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
         }
-        .checkbox {
+        .checkbox-container input[type="checkbox"] {
             margin-right: 0.5rem;
-            accent-color: #fbbf24;
+            accent-color: #0E2A66;
+        }
+        .checkbox-container label {
+            color: #4b5563;
+            font-size: 0.9rem;
+            cursor: pointer;
         }
         .forgot-link {
-            color: white;
+            color: #0E2A66;
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
         }
         .forgot-link:hover {
-            color: #fbbf24;
+            text-decoration: underline;
         }
         .login-btn {
             width: 100%;
-            padding: 1rem;
-            background: #283593;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, #0F2547 0%, #163A6F 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -113,25 +269,83 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            border-radius: 8px 8px 0 0;
         }
         .login-btn:hover {
-            background: #092767;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #163A6F 0%, #1B4A8F 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(14, 42, 102, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+        }
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .form-footer a {
+            color: #0E2A66;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .left-section {
+                width: 100%;
+                min-height: 40vh;
+            }
+            .right-section {
+                width: 100%;
+            }
+            .logo {
+                width: 150px;
+                height: 150px;
+            }
+            .branding h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="w-full max-w-md">
-            <!-- Logo -->
-            <div class="logo-container">
-                <img src="<?php echo e(asset('images/dpmptsp-removebg.png')); ?>" alt="DPMPTSP Logo" class="logo">
-            </div>
+    <!-- Left Section - Branding -->
+    <div class="left-section">
+        <div class="logo-container">
+            <img src="<?php echo e(asset('images/dpmptsp-removebg.png')); ?>" alt="DPMPTSP Logo" class="logo">
+        </div>
+        <div class="branding">
+            <h2>Selamat Datang,</h2>
+            <h1>MASPATI</h1>
+            <p>Monitoring Analisa Sistem Perizinan Terintegrasi</p>
+        </div>
+    </div>
 
-            <!-- Login Form -->
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-white mb-2">Login</h1>
-                <p class="text-white text-lg">Masukkan Detail Pribadimu!</p>
+    <!-- Right Section - Login Form -->
+    <div class="right-section">
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Login</h1>
+                <p>Masukkan Detail Pribadimu!</p>
             </div>
 
             <form action="<?php echo e(route('login')); ?>" method="POST">
@@ -139,12 +353,11 @@
                 
                 <!-- Email Field -->
                 <?php if($errors->has('email')): ?>
-                    <div class="mb-2 text-red-400 text-sm"><?php echo e($errors->first('email')); ?></div>
+                    <div class="error-message"><?php echo e($errors->first('email')); ?></div>
                 <?php endif; ?>
                 <div class="input-container">
-                    <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
                     <input 
                         type="email" 
@@ -152,16 +365,17 @@
                         class="form-input" 
                         placeholder="Email"
                         required
+                        value="<?php echo e(old('email')); ?>"
                     >
                 </div>
 
                 <!-- Password Field -->
                 <?php if($errors->has('password')): ?>
-                    <div class="mb-2 text-red-400 text-sm"><?php echo e($errors->first('password')); ?></div>
+                    <div class="error-message"><?php echo e($errors->first('password')); ?></div>
                 <?php endif; ?>
                 <div class="input-container">
-                    <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                     </svg>
                     <input 
                         id="password-input"
@@ -172,8 +386,8 @@
                         required
                     >
                     <button type="button" class="toggle-visibility" aria-label="Tampilkan password" onclick="(function(btn){var i=document.getElementById('password-input');if(i.type==='password'){i.type='text';btn.setAttribute('aria-label','Sembunyikan password');}else{i.type='password';btn.setAttribute('aria-label','Tampilkan password');}})(this)">
-                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
                     </button>
@@ -182,26 +396,24 @@
                 <!-- CAPTCHA Field -->
                 <div class="input-container">
                     <div class="captcha-container">
-                        <img id="captcha-image" src="<?php echo e(captcha_src('flat')); ?>" alt="Captcha" onerror="this.onerror=null; window.location.reload();" style="border-radius: 8px; cursor: pointer; width: 100%; height: auto; display: block;">
+                        <img id="captcha-image" src="<?php echo e(captcha_src('flat')); ?>" alt="Captcha" style="cursor: pointer;" data-captcha-url="<?php echo e(captcha_src('flat')); ?>">
                     </div>
-                    <div class="input-container">
-                        <input 
-                            type="text" 
-                            name="captcha" 
-                            class="form-input" 
-                            placeholder="Masukkan Captcha"
-                            required
-                        >
-                    </div>
+                    <input 
+                        type="text" 
+                        name="captcha" 
+                        class="form-input" 
+                        placeholder="Masukkan Captcha"
+                        required
+                    >
                     <?php if($errors->has('captcha')): ?>
-                        <p class="text-red-400 text-sm mt-1"><?php echo e($errors->first('captcha')); ?></p>
+                        <div class="error-message"><?php echo e($errors->first('captcha')); ?></div>
                     <?php endif; ?>
                 </div>
 
                 <!-- Remember Me & Forgot Password -->
-                <div class="flex items-center justify-between mb-6">
-                    <label class="checkbox-container text-white">
-                        <input type="checkbox" name="remember" class="checkbox">
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="remember">
                         <span>Ingat Saya</span>
                     </label>
                     <a href="#" class="forgot-link">Lupa Password?</a>
@@ -213,16 +425,61 @@
                 </button>
             </form>
 
-            <!-- Links -->
-            <div class="text-center mt-6">
-                <p class="text-white text-sm">
+            <!-- Footer Links -->
+            <div class="form-footer">
+                <p>
                     Belum punya akun? 
-                    <a href="<?php echo e(route('register')); ?>" class="text-yellow-300 hover:text-yellow-200 underline">
-                        Daftar sekarang
-                    </a>
+                    <a href="<?php echo e(route('register')); ?>">Daftar sekarang</a>
                 </p>
             </div>
         </div>
     </div>
+
+    <script>
+        // Setup CSRF token for AJAX requests
+        window.Laravel = {
+            csrfToken: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+        };
+        
+        // Update CSRF token in all forms when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            if (csrfToken) {
+                const csrfInputs = document.querySelectorAll('input[name="_token"]');
+                csrfInputs.forEach(input => {
+                    input.value = csrfToken;
+                });
+            }
+            
+            // Ensure form has valid CSRF token before submit
+            const loginForm = document.querySelector('form[action*="login"]');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    const formToken = this.querySelector('input[name="_token"]');
+                    const metaToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                    
+                    if (formToken && metaToken && formToken.value !== metaToken) {
+                        formToken.value = metaToken;
+                    }
+                });
+            }
+        });
+
+        // CAPTCHA refresh handler
+        (function() {
+            var captchaImage = document.getElementById('captcha-image');
+            if (captchaImage) {
+                var captchaBaseUrl = captchaImage.getAttribute('data-captcha-url');
+                captchaImage.addEventListener('click', function() {
+                    this.src = captchaBaseUrl + '?' + Math.random();
+                });
+                captchaImage.addEventListener('error', function() {
+                    this.onerror = null;
+                    this.src = captchaBaseUrl + '?' + Math.random();
+                });
+            }
+        })();
+    </script>
 </body>
-</html><?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/auth/login.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/auth/login.blade.php ENDPATH**/ ?>

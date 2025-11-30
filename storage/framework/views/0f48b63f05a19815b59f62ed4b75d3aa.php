@@ -13,22 +13,24 @@
 </style>
 <div class="flex h-screen bg-gray-100 overflow-hidden">
     <!-- Sidebar -->
-    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative z-sidebar overflow-visible" x-data="{ sidebarOpen: true }">
+    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative z-sidebar overflow-visible gpu-accelerated" x-data="{ sidebarOpen: true }">
         <!-- Logo Section -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-white/20">
             <div class="flex items-center space-x-3">
-                <img src="<?php echo e(asset('images/logo.jpg')); ?>" alt="Logo" class="w-8 h-8 rounded-full">
+                <img src="<?php echo e(asset('images/logo.jpg')); ?>" alt="Logo" class="w-8 h-8 rounded-full" loading="lazy" decoding="async">
                 <span class="text-lg font-bold text-white">Dashboard Analisa</span>
             </div>
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="mt-6 px-4">
+        <nav class="mt-6 px-4 optimize-rendering">
             <div class="space-y-2">
                 <!-- Dashboard -->
                 <?php if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas'): ?>
                 <a href="<?php echo e(route('dashboard')); ?>" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('dashboard') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('dashboard') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?> transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -39,7 +41,9 @@
                 <!-- Manajemen Staff -->
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
                 <a href="<?php echo e(route('users.index')); ?>" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('users.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('users.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?> transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                     </svg>
@@ -50,7 +54,9 @@
                 <!-- Permohonan -->
                 <?php if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas'): ?>
                 <a href="<?php echo e(route('permohonan.index')); ?>" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('permohonan.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('permohonan.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?> transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -61,7 +67,9 @@
                 <!-- Statistik -->
                 <?php if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas'): ?>
                 <a href="<?php echo e(route('statistik')); ?>" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('statistik') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('statistik') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?> transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -72,7 +80,9 @@
                 <!-- Penerbitan Berkas -->
                 <?php if(auth()->user() && in_array(auth()->user()->role, ['admin', 'penerbitan_berkas'])): ?>
                 <a href="<?php echo e(route('penerbitan-berkas')); ?>" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('penerbitan-berkas') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('penerbitan-berkas') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?> transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -85,7 +95,7 @@
 
         <!-- Notifications Section (for dpmptsp and admin user) -->
         <?php if(auth()->user() && in_array(auth()->user()->role, ['dpmptsp', 'admin'])): ?>
-        <div class="px-4 mt-4 relative" 
+        <div class="px-4 mt-4" 
              x-data="{
                 notifications: [],
                 count: 0,
@@ -94,13 +104,45 @@
                 refreshInterval: null,
                 isFetching: false,
                 lastFetchTime: 0,
+                countCache: null,
+                countCacheTime: 0,
+                CACHE_DURATION: 30000, // 30 detik cache untuk count
+                async fetchCountOnly() {
+                    const now = Date.now();
+                    if (this.countCache !== null && (now - this.countCacheTime) < this.CACHE_DURATION) {
+                        this.count = this.countCache;
+                        return;
+                    }
+                    
+                    if (this.isFetching) {
+                        return;
+                    }
+                    this.isFetching = true;
+                    try {
+                        const response = await fetch('<?php echo e(route('api.notifications')); ?>', {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            },
+                            cache: 'default'
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.count = data.count || 0;
+                            this.countCache = this.count;
+                            this.countCacheTime = Date.now();
+                        }
+                    } catch (error) {
+                        this.count = 0;
+                    } finally {
+                        this.isFetching = false;
+                    }
+                },
                 async fetchNotifications(showLoading = false) {
-                    // Prevent multiple concurrent requests
                     if (this.isFetching) {
                         return;
                     }
                     
-                    // Throttle: minimum 2 seconds between requests
                     const now = Date.now();
                     if (!showLoading && (now - this.lastFetchTime) < 2000) {
                         return;
@@ -125,12 +167,9 @@
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         const data = await response.json();
-                        // Update data tanpa re-render yang terlihat
                         this.notifications = data.notifications || [];
                         this.count = data.count || 0;
                     } catch (error) {
-                        console.error('Error fetching notifications:', error);
-                        // Fallback: set empty notifications on error
                         this.notifications = [];
                         this.count = 0;
                     } finally {
@@ -142,43 +181,29 @@
                 },
                 handleNotificationClick(url) {
                     if (!url) {
-                        console.error('URL notifikasi tidak valid:', url);
                         return;
                     }
-                    // Tutup modal dulu
                     this.showDropdown = false;
-                    // Redirect setelah modal tertutup
                     setTimeout(() => {
                         window.location.href = url;
                     }, 150);
                 },
                 init() {
-                    // Initial load dengan loading indicator
-                    this.fetchNotifications(true);
-                    // Auto-refresh every 60 seconds (diperpanjang dari 30 detik) tanpa loading indicator
-                    this.refreshInterval = setInterval(() => {
-                        // Hanya refresh jika modal tidak terbuka dan tidak sedang fetching
-                        if (!this.showDropdown && !this.isFetching) {
-                            this.fetchNotifications(false);
-                        }
-                    }, 60000); // 60 detik = 60000ms
+                    this.showDropdown = false;
+                    this.notifications = [];
+                    this.loading = false;
                     
-                    // Listen for refresh event dengan debouncing
-                    let refreshTimeout = null;
-                    window.addEventListener('refresh-notifications', () => {
-                        // Debounce: tunggu 1 detik sebelum refresh
-                        if (refreshTimeout) {
-                            clearTimeout(refreshTimeout);
-                        }
-                        refreshTimeout = setTimeout(() => {
-                            if (!this.isFetching) {
-                                this.fetchNotifications(false);
-                            }
-                        }, 1000);
-                    });
+                    if ('requestIdleCallback' in window) {
+                        requestIdleCallback(() => {
+                            this.fetchCountOnly();
+                        }, { timeout: 2000 });
+                    } else {
+                        setTimeout(() => {
+                            this.fetchCountOnly();
+                        }, 2000);
+                    }
                 },
                 destroy() {
-                    // Cleanup interval saat component di-destroy
                     if (this.refreshInterval) {
                         clearInterval(this.refreshInterval);
                     }
@@ -186,8 +211,8 @@
              }"
              @click.away="showDropdown = false">
             <div class="relative">
-                <button @click="showDropdown = !showDropdown; if (showDropdown) fetchNotifications(true);" 
-                        class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+                <button @click="showDropdown = !showDropdown; if (showDropdown) { $nextTick(() => { fetchNotifications(true); }); }" 
+                        class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition-colors duration-150 gpu-accelerated">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
@@ -196,28 +221,32 @@
                     </div>
                     <span x-show="count > 0" 
                           x-text="count" 
-                          class="ml-2 px-2.5 py-1 text-xs font-bold text-white bg-orange-500 rounded-full shadow-md"
-                          class="display-none"></span>
+                          class="ml-2 px-2.5 py-1 text-xs font-bold text-white bg-orange-500 rounded-full shadow-md"></span>
                 </button>
 
                 <!-- Modal Notifications (Muncul di Tengah) -->
-                <div x-show="showDropdown" 
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     x-transition:leave="transition ease-in duration-200"
-                     x-transition:leave-start="opacity-100"
-                     x-transition:leave-end="opacity-0"
-                     class="fixed inset-0 z-50 overflow-y-auto"
-                     class="display-none"
-                     x-cloak
-                     @click.self="showDropdown = false">
+                <template x-if="showDropdown">
+                    <div x-show="showDropdown"
+                         x-cloak
+                         x-init="$watch('showDropdown', value => { if (value) { document.body.style.overflow = 'hidden'; } else { document.body.style.overflow = ''; } })"
+                         class="fixed inset-0 z-50 overflow-y-auto"
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         @click.self="showDropdown = false">
                     <!-- Overlay -->
-                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" 
+                         @click="showDropdown = false"
+                         style="z-index: 99998 !important;"></div>
                     
                     <!-- Modal Content -->
-                    <div class="flex min-h-full items-center justify-center p-4">
-                        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+                    <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none" 
+                         style="z-index: 99999 !important;">
+                        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col pointer-events-auto"
+                             @click.stop
                              x-transition:enter="transition ease-out duration-300"
                              x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                              x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
@@ -446,9 +475,23 @@
                         </div>
                     </div>
                 </div>
+                </template>
             </div>
         </div>
         <?php endif; ?>
+
+        <!-- Tentang Kami -->
+        <div class="px-4 mt-4">
+            <a href="<?php echo e(route('about')); ?>" 
+               rel="prefetch"
+               onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+               class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('about') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?> transition-colors duration-150">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Tentang Kami
+            </a>
+        </div>
 
         <!-- User Profile Section - Compact -->
         <div class="absolute bottom-0 left-0 w-64 p-2 bg-gradient-sidebar" 
@@ -506,9 +549,8 @@
                      x-transition:leave="transition ease-in duration-50"
                      x-transition:leave-start="transform opacity-100 scale-100"
                      x-transition:leave-end="transform opacity-0 scale-95"
-                     class="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10 w-48"
-                     @click.away="profileOpen = false"
-                     class="pointer-events-auto">
+                     class="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10 w-48 pointer-events-auto"
+                     @click.away="profileOpen = false">
                     
                     <!-- Profile Info -->
                     <div class="px-3 py-2 border-b border-gray-100">
@@ -540,13 +582,6 @@
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden min-h-0">
-        <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0">
-            <div class="px-6 py-4">
-                <h1 class="text-2xl font-bold text-gray-900"><?php echo e($header ?? 'Dashboard'); ?></h1>
-            </div>
-        </header>
-
         <!-- Page Content -->
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 z-content min-h-0 max-h-full">
             <div class="p-6 pb-8">
@@ -558,27 +593,21 @@
 </div>
 
 <script>
-// Fallback logout function
 function handleLogout(event) {
     event.preventDefault();
     
     try {
-        // Try to submit the form normally
         const form = event.target.closest('form');
         if (form) {
             form.submit();
         } else {
-            // Fallback: redirect to GET logout route
             window.location.href = '<?php echo e(route("logout.get")); ?>';
         }
     } catch (error) {
-        console.error('Logout error:', error);
-        // Emergency fallback
         window.location.href = '<?php echo e(route("logout.get")); ?>';
     }
 }
 
-// Global logout function for emergency use
 window.emergencyLogout = function() {
     window.location.href = '<?php echo e(route("logout.get")); ?>';
 };
