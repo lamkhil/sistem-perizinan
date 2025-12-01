@@ -89,9 +89,9 @@
             z-index: 1;
         }
         .branding h2 {
-            font-size: 1.5rem;
+            font-size: 1.875rem;
             font-weight: 300;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
             font-family: 'Cormorant Garamond', 'Cinzel', serif;
             color: rgba(255, 255, 255, 0.95);
             letter-spacing: 2px;
@@ -99,7 +99,7 @@
         .branding h1 {
             font-size: 5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             letter-spacing: 3px;
             font-family: 'Cinzel', 'Cormorant Garamond', serif;
             background: linear-gradient(135deg, #FDE07D 0%, #F5C241 50%, #E6B12A 100%);
@@ -127,12 +127,12 @@
             text-transform: uppercase;
         }
         .branding p {
-            font-size: 0.875rem;
+            font-size: 1rem;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.88);
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 0.3px;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             line-height: 1.6;
         }
         .right-section {
