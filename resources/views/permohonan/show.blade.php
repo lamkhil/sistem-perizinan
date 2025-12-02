@@ -2,72 +2,13 @@
 {{-- MODERN REDESIGN: Halaman detail permohonan dengan desain modern dan sophisticated --}}
 
 <x-sidebar-layout>
-    <x-slot name="header">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div class="flex-1">
-                <div class="flex items-center space-x-3 mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Detail Permohonan</h1>
-                        <p class="text-sm text-gray-500 font-mono">{{ $permohonan->no_permohonan }}</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-3">
-                <a href="{{ route('permohonan.index') }}" 
-                   class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    Kembali
-                </a>
-                
-                <a href="{{ route('permohonan.bap', $permohonan) }}" 
-                   class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    BAP
-                </a>
-                
-                <a href="{{ route('permohonan.edit', $permohonan) }}" 
-                   class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                    Ubah Data
-                </a>
-                
-                @can('delete', $permohonan)
-                <form method="POST" action="{{ route('permohonan.destroy', $permohonan) }}" id="delete-form-{{ $permohonan->id }}" class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" onclick="confirmDelete(this)" data-permohonan-id="{{ $permohonan->id }}"
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-pink-500 rounded-lg hover:from-red-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                        Hapus
-                    </button>
-                </form>
-                @endcan
-                
-            </div>
-        </div>
-    </x-slot>
-
     <!-- Main Content -->
     <div class="space-y-8">
         <!-- Status Banner -->
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 p-8 text-white">
             <div class="absolute inset-0 bg-black/10"></div>
             <div class="relative z-10">
-                <div class="flex items-center justify-between">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                     <div class="flex items-center space-x-4">
                         <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,17 +20,60 @@
                             <p class="text-blue-100 font-mono text-sm">{{ $permohonan->no_permohonan ?? 'No. Permohonan' }}</p>
                         </div>
                     </div>
-                    @php
-                        $statusConfig = match ($permohonan->status ?? 'Menunggu') {
-                            'Diterima' => ['class' => 'bg-green-500', 'icon' => 'M5 13l4 4L19 7', 'text' => 'Diterima'],
-                            'Ditolak' => ['class' => 'bg-red-500', 'icon' => 'M6 18L18 6M6 6l12 12', 'text' => 'Ditolak'],
-                            'Dikembalikan' => ['class' => 'bg-yellow-500', 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z', 'text' => 'Dikembalikan'],
-                            default => ['class' => 'bg-blue-500', 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'text' => 'Menunggu'],
-                                };
-                            @endphp
-                    <div class="flex items-center space-x-3">
-                        <div class="w-3 h-3 {{ $statusConfig['class'] }} rounded-full animate-pulse"></div>
-                        <span class="text-lg font-semibold">{{ $statusConfig['text'] }}</span>
+                    
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <a href="{{ route('permohonan.index') }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 transition-all duration-200 shadow-md hover:shadow-lg">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                </svg>
+                                Kembali
+                            </a>
+                            
+                            <a href="{{ route('permohonan.bap', $permohonan) }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-blue-600 transition-all duration-200 shadow-md hover:shadow-lg">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                BAP
+                            </a>
+                            
+                            <a href="{{ route('permohonan.edit', $permohonan) }}" 
+                               class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-blue-600 transition-all duration-200 shadow-md hover:shadow-lg">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                                Ubah Data
+                            </a>
+                            
+                            @can('delete', $permohonan)
+                            <form method="POST" action="{{ route('permohonan.destroy', $permohonan) }}" id="delete-form-{{ $permohonan->id }}" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="confirmDelete(this)" data-permohonan-id="{{ $permohonan->id }}"
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-pink-500 rounded-lg hover:from-red-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 focus:ring-offset-blue-600 transition-all duration-200 shadow-md hover:shadow-lg">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                    Hapus
+                                </button>
+                            </form>
+                            @endcan
+                        </div>
+                        
+                        @php
+                            $statusConfig = match ($permohonan->status ?? 'Menunggu') {
+                                'Diterima' => ['class' => 'bg-green-500', 'icon' => 'M5 13l4 4L19 7', 'text' => 'Diterima'],
+                                'Ditolak' => ['class' => 'bg-red-500', 'icon' => 'M6 18L18 6M6 6l12 12', 'text' => 'Ditolak'],
+                                'Dikembalikan' => ['class' => 'bg-yellow-500', 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z', 'text' => 'Dikembalikan'],
+                                default => ['class' => 'bg-blue-500', 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', 'text' => 'Menunggu'],
+                            };
+                        @endphp
+                        <div class="flex items-center space-x-3 ml-auto">
+                            <div class="w-3 h-3 {{ $statusConfig['class'] }} rounded-full animate-pulse"></div>
+                            <span class="text-lg font-semibold">{{ $statusConfig['text'] }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
