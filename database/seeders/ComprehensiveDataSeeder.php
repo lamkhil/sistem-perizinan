@@ -29,10 +29,22 @@ class ComprehensiveDataSeeder extends Seeder
         $penerbitanUser = $users->where('role', 'penerbitan_berkas')->first();
 
         if (!$dpmptspUser) {
-            $dpmptspUser = $users->first();
+            $this->command->error('❌ User DPMPTSP tidak ditemukan! Pastikan UserSeeder sudah dijalankan.');
+            return;
         }
         if (!$penerbitanUser) {
-            $penerbitanUser = $users->first();
+            $this->command->error('❌ User Penerbitan Berkas tidak ditemukan! Pastikan UserSeeder sudah dijalankan.');
+            return;
+        }
+        
+        // Pastikan user yang digunakan memiliki email_verified_at
+        if (!$dpmptspUser->email_verified_at) {
+            $dpmptspUser->email_verified_at = now();
+            $dpmptspUser->save();
+        }
+        if (!$penerbitanUser->email_verified_at) {
+            $penerbitanUser->email_verified_at = now();
+            $penerbitanUser->save();
         }
 
         $sektorList = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
