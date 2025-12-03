@@ -178,7 +178,7 @@ Sistem menggunakan 7 tabel utama:
 6. **ttd_settings** - Pengaturan tanda tangan digital
 7. **app_settings** - Pengaturan aplikasi
 
-ERD lengkap dapat dilihat di file `database/schema/dbml_schema.dbml`. File ini dapat digunakan di [dbdiagram.io](https://dbdiagram.io/) untuk melihat visualisasi ERD secara interaktif.
+ERD lengkap dapat dilihat di file `database/dbml_schema.dbml`. File ini dapat digunakan di [dbdiagram.io](https://dbdiagram.io/) untuk melihat visualisasi ERD secara interaktif.
 
 ## Keamanan
 
