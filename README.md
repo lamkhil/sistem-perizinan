@@ -13,12 +13,15 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Role-based access control dengan 4 level akses berbeda
 - Session management dan monitoring aktivitas pengguna
 - Validasi data pada level model dan controller
+- Email verification untuk semua user
+- Password hashing dengan bcrypt
 
 ### Manajemen Pengguna
 - 4 role dengan permission berbeda: Administrator, DPMPTSP, PD Teknis, Penerbitan Berkas
 - User management dengan kontrol penuh untuk administrator
 - Validasi kredensial pada level database dan aplikasi
 - Pengaturan profil pengguna dengan update keamanan
+- Manajemen sektor untuk user PD Teknis (8 sektor: Dinkopdag, Disbudpar, Dinkes, Dishub, Dprkpp, Dkpp, Dlh, Disperinaker)
 
 ### Pengelolaan Permohonan
 - Full CRUD untuk data permohonan
@@ -26,6 +29,17 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Filter multi-kriteria: status, sektor, tanggal, jenis usaha
 - Deteksi otomatis permohonan yang melewati deadline
 - Log aktivitas untuk audit trail
+- Form-only layout untuk create/edit (tanpa header/sidebar)
+- Detail permohonan dengan action buttons terintegrasi
+- Tracking workflow: Pengembalian, Menghubungi, Perbaikan, Terbit
+
+### Penerbitan Berkas
+- Full CRUD untuk data penerbitan berkas
+- Relasi dengan permohonan (1:1)
+- Tracking status: Menunggu, Diterima, Ditolak, Dikembalikan
+- Manajemen nomor BAP dan tanggal BAP
+- Filter dan pencarian data penerbitan berkas
+- Ekspor data ke Excel dan PDF
 
 ### Dashboard dan Analitik
 - Dashboard khusus untuk setiap role pengguna
@@ -33,6 +47,8 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Chart distribusi status permohonan
 - Filter statistik berdasarkan periode waktu
 - Monitoring kinerja dan metrik operasional
+- Dashboard PD Teknis dengan filter per sektor
+- Tracking permohonan terlambat dan deadline
 
 ### Ekspor Data dan Laporan
 - Ekspor data ke format Excel dengan formatting lengkap
@@ -51,6 +67,7 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Pengaturan role dan permission
 - Pengaturan koordinator untuk dokumen BAP (nama dan NIP)
 - Edit koordinator khusus untuk administrator
+- Pengaturan lokasi dan tanggal untuk tanda tangan
 
 ### User Interface
 - Desain modern menggunakan Tailwind CSS framework
@@ -62,6 +79,8 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Notifikasi real-time untuk berkas dikembalikan
 - Modal notifikasi dengan expand/collapse untuk detail
 - Form validation dengan feedback visual menggunakan SweetAlert2
+- Form-only layout untuk pengalaman input yang fokus
+- Status badge dengan warna dan animasi
 
 ### Berita Acara Pemeriksaan (BAP)
 - Form BAP dengan validasi lengkap (client-side dan server-side)
@@ -119,6 +138,110 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - MySQL versi 5.7 atau lebih tinggi
 - Web server (Apache/Nginx)
 
+### Langkah Instalasi
+
+1. **Clone repository**
+```bash
+git clone https://github.com/your-username/sistem-perizinan.git
+cd sistem-perizinan
+```
+
+2. **Install dependencies**
+```bash
+composer install
+npm install
+```
+
+3. **Setup environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. **Konfigurasi database di `.env`**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sistem_perizinan
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+5. **Jalankan migration dan seeder**
+```bash
+php artisan migrate
+php artisan db:seed --class=UserSeeder
+```
+
+6. **Compile assets**
+```bash
+npm run build
+# atau untuk development
+npm run dev
+```
+
+7. **Jalankan aplikasi**
+```bash
+php artisan serve
+```
+
+Aplikasi akan berjalan di `http://localhost:8000`
+
+## Database Seeding
+
+### User Seeder
+Seeder default akan membuat 11 user dengan role berbeda:
+
+**Admin:**
+- Email: `admin@dpmptsp.surabaya.go.id`
+- Password: `Admin@2025`
+
+**DPMPTSP:**
+- Email: `dpmptsp@dpmptsp.surabaya.go.id`
+- Password: `Dpmptsp@2025`
+
+**PD Teknis (8 user):**
+- Email: `[sektor]@dpmptsp.surabaya.go.id` (contoh: `dinkopdag@dpmptsp.surabaya.go.id`)
+- Password: `PdTeknis@2025`
+- Sektor: Dinkopdag, Disbudpar, Dinkes, Dishub, Dprkpp, Dkpp, Dlh, Disperinaker
+
+**Penerbitan Berkas:**
+- Email: `penerbitan@dpmptsp.surabaya.go.id`
+- Password: `Penerbitan@2025`
+
+### Data Seeder
+Untuk membuat data dummy permohonan dan penerbitan berkas:
+```bash
+php artisan db:seed --class=ComprehensiveDataSeeder
+```
+
+Untuk mengosongkan data (kecuali user):
+```bash
+php artisan db:seed --class=ClearDataSeeder
+```
+
+## Struktur Database
+
+Sistem menggunakan 7 tabel utama:
+
+1. **users** - Data pengguna dengan role dan sektor
+2. **permohonans** - Data permohonan perizinan
+3. **penerbitan_berkas** - Data penerbitan berkas
+4. **log_permohonans** - Log aktivitas permohonan
+5. **jenis_usahas** - Master data jenis usaha
+6. **ttd_settings** - Pengaturan tanda tangan digital
+7. **app_settings** - Pengaturan aplikasi
+
+### Relasi Database
+- `users` → `permohonans` (1:N) - SET NULL on delete
+- `users` → `penerbitan_berkas` (1:N) - SET NULL on delete
+- `users` → `log_permohonans` (1:N) - SET NULL on delete
+- `permohonans` → `penerbitan_berkas` (1:1) - CASCADE on delete
+- `permohonans` → `log_permohonans` (1:N) - CASCADE on delete
+- `jenis_usahas` → `permohonans` (1:N) - SET NULL on delete
+
+ERD lengkap dapat dilihat di file `database/dbml_schema.dbml` atau menggunakan format DBML untuk dbdiagram.io
 
 ## Keamanan
 
@@ -135,7 +258,56 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - File Upload Security dengan validasi extension dan MIME type
 - Error Handling yang aman (tidak expose informasi sistem)
 - Data Protection dengan foreign key constraints (SET NULL untuk data safety)
+- Email verification untuk mencegah akun tidak terverifikasi
+
+## Role dan Permission
+
+### Administrator
+- Akses penuh ke semua fitur
+- Manajemen user
+- Manajemen jenis usaha
+- Pengaturan sistem
+- Edit koordinator BAP
+
+### DPMPTSP
+- Melihat semua permohonan
+- Membuat dan mengelola permohonan
+- Verifikasi permohonan
+- Melihat notifikasi berkas dikembalikan
+- Ekspor data
+
+### PD Teknis
+- Melihat permohonan sesuai sektor
+- Verifikasi permohonan sesuai sektor
+- Membuat BAP
+- Dashboard dengan filter sektor
+
+### Penerbitan Berkas
+- Melihat dan mengelola penerbitan berkas
+- Membuat penerbitan berkas
+- Pengaturan tanda tangan digital
+- Ekspor data penerbitan berkas
+
+## API Endpoints
+
+### Notifikasi API
+- `GET /api/notifications` - Mendapatkan daftar notifikasi
+- `POST /api/notifications/{id}/update` - Update status notifikasi
+
+### Export API
+- `GET /permohonan/export/excel` - Ekspor permohonan ke Excel
+- `GET /permohonan/export/pdf-landscape` - Ekspor permohonan ke PDF
+- `GET /penerbitan-berkas/export/excel` - Ekspor penerbitan berkas ke Excel
+- `GET /penerbitan-berkas/export/pdf/landscape` - Ekspor penerbitan berkas ke PDF
+
+## Kontribusi
+
+Kontribusi sangat diterima! Silakan buat issue atau pull request untuk perbaikan dan fitur baru.
+
+## Lisensi
+
+Dikembangkan menggunakan Laravel Framework
 
 ---
 
-Dikembangkan menggunakan Laravel Framework
+**Catatan:** Pastikan untuk mengubah password default setelah instalasi pertama untuk keamanan sistem.
