@@ -166,11 +166,6 @@ Untuk membuat data dummy permohonan dan penerbitan berkas:
 php artisan db:seed --class=ComprehensiveDataSeeder
 ```
 
-Untuk mengosongkan data (kecuali user):
-```bash
-php artisan db:seed --class=ClearDataSeeder
-```
-
 ## Struktur Database
 
 Sistem menggunakan 7 tabel utama:
@@ -183,15 +178,7 @@ Sistem menggunakan 7 tabel utama:
 6. **ttd_settings** - Pengaturan tanda tangan digital
 7. **app_settings** - Pengaturan aplikasi
 
-### Relasi Database
-- `users` → `permohonans` (1:N) - SET NULL on delete
-- `users` → `penerbitan_berkas` (1:N) - SET NULL on delete
-- `users` → `log_permohonans` (1:N) - SET NULL on delete
-- `permohonans` → `penerbitan_berkas` (1:1) - CASCADE on delete
-- `permohonans` → `log_permohonans` (1:N) - CASCADE on delete
-- `jenis_usahas` → `permohonans` (1:N) - SET NULL on delete
-
-ERD lengkap dapat dilihat di file `database/dbml_schema.dbml` atau menggunakan format DBML untuk dbdiagram.io
+ERD lengkap dapat dilihat di file `database/dbml_schema.dbml`. File ini dapat digunakan di [dbdiagram.io](https://dbdiagram.io/) untuk melihat visualisasi ERD secara interaktif.
 
 ## Keamanan
 
@@ -249,10 +236,6 @@ ERD lengkap dapat dilihat di file `database/dbml_schema.dbml` atau menggunakan f
 - `GET /permohonan/export/pdf-landscape` - Ekspor permohonan ke PDF
 - `GET /penerbitan-berkas/export/excel` - Ekspor penerbitan berkas ke Excel
 - `GET /penerbitan-berkas/export/pdf/landscape` - Ekspor penerbitan berkas ke PDF
-
-## Kontribusi
-
-Kontribusi sangat diterima! Silakan buat issue atau pull request untuk perbaikan dan fitur baru.
 
 ## Lisensi
 

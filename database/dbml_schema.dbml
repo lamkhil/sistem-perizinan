@@ -1,0 +1,162 @@
+// Database Structure untuk Sistem Perizinan
+// Docs: https://dbml.dbdiagram.io/docs
+// Gunakan file ini di https://dbdiagram.io/ untuk melihat ERD visual
+
+Table users {
+  id bigint [primary key]
+  name varchar
+  email varchar [unique]
+  email_verified_at timestamp [null]
+  password varchar
+  role enum [note: 'admin, dpmptsp, pd_teknis, penerbitan_berkas']
+  jenis_pelaku_usaha varchar [null]
+  jenis_badan_usaha varchar [null]
+  nama_usaha varchar [null]
+  nik varchar [null]
+  npwp varchar [null]
+  alamat text [null]
+  no_telepon varchar [null]
+  sektor varchar [null]
+  jenis_proyek varchar [null]
+  verifikator varchar [null]
+  remember_token varchar [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table permohonans {
+  id bigint [primary key]
+  user_id bigint [null, note: 'SET NULL on delete']
+  jenis_usaha_id bigint [null]
+  no_permohonan varchar [unique, null]
+  nama_usaha varchar [null]
+  nama_perusahaan varchar [null]
+  pemilik varchar [null]
+  jenis_perusahaan varchar [null]
+  jenis_pelaku_usaha varchar [null]
+  jenis_badan_usaha varchar [null]
+  nik varchar [null]
+  tanggal_permohonan date [null]
+  nib varchar [null]
+  alamat_perusahaan text [null]
+  sektor varchar [null]
+  kbli varchar [null]
+  inputan_teks text [null]
+  modal_usaha decimal [null]
+  jenis_proyek varchar [null]
+  no_proyek varchar [null]
+  nama_perizinan varchar [null]
+  skala_usaha varchar [null]
+  risiko varchar [null]
+  jangka_waktu integer [null]
+  no_telephone varchar [null]
+  deadline date [null]
+  verifikator varchar [null]
+  verifikasi_dpmptsp varchar [null]
+  verifikasi_pd_teknis varchar [null]
+  status varchar [default: 'Menunggu Diproses']
+  pengembalian date [null]
+  keterangan_pengembalian text [null]
+  menghubungi date [null]
+  keterangan_menghubungi text [null]
+  status_menghubungi varchar [null]
+  perbaikan date [null]
+  keterangan_perbaikan text [null]
+  terbit date [null]
+  keterangan_terbit text [null]
+  pemroses_dan_tgl_surat varchar [null]
+  keterangan text [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table log_permohonans {
+  id bigint [primary key]
+  permohonan_id bigint [not null, note: 'CASCADE on delete']
+  user_id bigint [null, note: 'SET NULL on delete']
+  status_sebelum varchar
+  status_sesudah varchar
+  keterangan text [null]
+  action varchar [null]
+  old_data text [null]
+  new_data text [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table penerbitan_berkas {
+  id bigint [primary key]
+  user_id bigint [null, note: 'SET NULL on delete']
+  permohonan_id bigint [null, note: 'CASCADE on delete']
+  no_permohonan varchar [unique, null]
+  no_proyek varchar [null]
+  tanggal_permohonan date [null]
+  nib varchar [null]
+  kbli varchar [null]
+  nama_usaha varchar [null]
+  inputan_teks text [null]
+  jenis_pelaku_usaha varchar [null]
+  jenis_badan_usaha varchar [null]
+  pemilik varchar [null]
+  modal_usaha decimal [null]
+  alamat_perusahaan text [null]
+  alamat varchar [null]
+  kegiatan varchar [null]
+  jenis_proyek varchar [null]
+  nama_perizinan varchar [null]
+  skala_usaha varchar [null]
+  risiko varchar [null]
+  status enum [note: 'Dikembalikan, Diterima, Ditolak, Menunggu']
+  pemroses_dan_tgl_surat varchar [null]
+  nomor_bap varchar [null]
+  tanggal_bap date [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table jenis_usahas {
+  id bigint [primary key]
+  nama varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table ttd_settings {
+  id bigint [primary key]
+  mengetahui_title varchar [default: 'Mengetahui']
+  mengetahui_jabatan varchar [default: 'Koordinator Ketua Tim Kerja']
+  mengetahui_unit varchar [default: 'Pelayanan Terpadu Satu Pintu']
+  mengetahui_nama varchar [default: 'Yohanes Franklin, S.H.']
+  mengetahui_pangkat varchar [default: 'Penata Tk.1']
+  mengetahui_nip varchar [default: '198502182010011008']
+  mengetahui_photo varchar [null]
+  menyetujui_lokasi varchar [null]
+  menyetujui_tanggal varchar [null]
+  menyetujui_jabatan varchar [default: 'Ketua Tim Kerja Pelayanan Perizinan Berusaha']
+  menyetujui_nama varchar [default: 'Ulvia Zulvia, ST']
+  menyetujui_pangkat varchar [default: 'Penata Tk. 1']
+  menyetujui_nip varchar [default: '197710132006042012']
+  menyetujui_photo varchar [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table app_settings {
+  id bigint [primary key]
+  nama_mengetahui varchar [null]
+  nip_mengetahui varchar [null]
+  ttd_bap_mengetahui varchar [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// Relationships
+Ref: permohonans.user_id > users.id [delete: set null]
+Ref: permohonans.jenis_usaha_id > jenis_usahas.id [delete: set null]
+
+Ref: log_permohonans.permohonan_id > permohonans.id [delete: cascade]
+Ref: log_permohonans.user_id > users.id [delete: set null]
+
+Ref: penerbitan_berkas.user_id > users.id [delete: set null]
+Ref: penerbitan_berkas.permohonan_id > permohonans.id [delete: cascade]
+
