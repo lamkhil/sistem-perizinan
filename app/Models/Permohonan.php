@@ -187,7 +187,8 @@ class Permohonan extends Model
             return 'due_today';
         } else {
             $daysLeft = now()->diffInDays($this->getAttribute('deadline'), false);
-            if ($daysLeft <= 3) {
+            // Hanya alert jika h-1 (1 hari sebelum deadline)
+            if ($daysLeft == 1) {
                 return 'due_soon';
             }
             return 'on_time';

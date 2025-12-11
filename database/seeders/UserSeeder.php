@@ -66,9 +66,9 @@ class UserSeeder extends Seeder
         $this->command->info('🔑 Password default: [Role]@2025');
         $this->command->info('');
         $this->command->info('📋 Daftar User:');
-        $this->command->info('  - Admin: admin@dpmptsp.surabaya.go.id');
-        $this->command->info('  - DPMPTSP: dpmptsp@dpmptsp.surabaya.go.id');
-        $this->command->info('  - PD Teknis: [sektor]@dpmptsp.surabaya.go.id (contoh: dinkopdag@dpmptsp.surabaya.go.id)');
-        $this->command->info('  - Penerbitan Berkas: penerbitan@dpmptsp.surabaya.go.id');
+        $this->command->info('  - Admin: admin@dpmptsp.surabaya.go.id / Admin@2025');
+        $this->command->info('  - DPMPTSP: dpmptsp@dpmptsp.surabaya.go.id / Dpmptsp@2025');
+        $this->command->info('  - PD Teknis: [sektor]@dpmptsp.surabaya.go.id / PdTeknis@2025');
+        $this->command->info('  - Penerbitan Berkas: penerbitan@dpmptsp.surabaya.go.id / Penerbitan@2025');
     }
 }

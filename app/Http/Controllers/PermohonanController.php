@@ -31,7 +31,6 @@ class PermohonanController extends Controller
 
         $searchQuery = $request->query('search');
         $selectedSektor = $request->query('sektor');
-        $selectedDateFilter = $request->query('date_filter');
         $customDateFrom = $request->query('custom_date_from');
         $customDateTo = $request->query('custom_date_to');
         $selectedStatus = $request->query('status');
@@ -67,55 +66,22 @@ class PermohonanController extends Controller
             $permohonans->where('sektor', $selectedSektor);
         }
 
-        if ($selectedDateFilter) {
-            $now = Carbon::now();
-            $customDateFrom = $request->query('custom_date_from');
-            $customDateTo = $request->query('custom_date_to');
-            
-            switch ($selectedDateFilter) {
-                case 'today':
-                    $permohonans->whereDate('created_at', $now->toDateString());
-                    break;
-                case 'yesterday':
-                    $permohonans->whereDate('created_at', $now->subDay()->toDateString());
-                    break;
-                case 'this_week':
-                    $permohonans->whereBetween('created_at', [
-                        $now->startOfWeek()->toDateTimeString(),
-                        $now->endOfWeek()->toDateTimeString()
-                    ]);
-                    break;
-                case 'last_week':
-                    $permohonans->whereBetween('created_at', [
-                        $now->subWeek()->startOfWeek()->toDateTimeString(),
-                        $now->subWeek()->endOfWeek()->toDateTimeString()
-                    ]);
-                    break;
-                case 'this_month':
-                    $permohonans->whereMonth('created_at', $now->month)
-                               ->whereYear('created_at', $now->year);
-                    break;
-                case 'last_month':
-                    $lastMonth = $now->subMonth();
-                    $permohonans->whereMonth('created_at', $lastMonth->month)
-                               ->whereYear('created_at', $lastMonth->year);
-                    break;
-                case 'custom':
-                    if ($customDateFrom && $customDateTo) {
-                        // Filter range tanggal
-                        $permohonans->whereBetween('created_at', [
-                            Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
-                            Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
-                        ]);
-                    } elseif ($customDateFrom) {
-                        // Hanya dari tanggal (sampai hari ini)
-                        $permohonans->whereDate('created_at', '>=', $customDateFrom);
-                    } elseif ($customDateTo) {
-                        // Hanya sampai tanggal (dari awal)
-                        $permohonans->whereDate('created_at', '<=', $customDateTo);
-                    }
-                    break;
-            }
+        // Filter custom tanggal langsung tanpa perlu dropdown
+        $customDateFrom = $request->query('custom_date_from');
+        $customDateTo = $request->query('custom_date_to');
+        
+        if ($customDateFrom && $customDateTo) {
+            // Filter range tanggal
+            $permohonans->whereBetween('created_at', [
+                Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
+            ]);
+        } elseif ($customDateFrom) {
+            // Hanya dari tanggal (sampai hari ini)
+            $permohonans->whereDate('created_at', '>=', $customDateFrom);
+        } elseif ($customDateTo) {
+            // Hanya sampai tanggal (dari awal)
+            $permohonans->whereDate('created_at', '<=', $customDateTo);
         }
 
         // Terapkan filter status
@@ -155,7 +121,7 @@ class PermohonanController extends Controller
         $availableSektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $sektors = $availableSektors;
 
-        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDateFrom', 'customDateTo', 'selectedStatus'));
+        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'customDateFrom', 'customDateTo', 'selectedStatus'));
     }
 
     /**
@@ -257,6 +223,7 @@ class PermohonanController extends Controller
             $rules['jenis_badan_usaha'] = 'nullable|string';
             $rules['nib'] = 'required|string|max:20';
             $rules['verifikator'] = 'nullable|string';
+            // PD Teknis bisa menggunakan status Menunggu, Dikembalikan, Diterima, Ditolak, atau Terlambat
             $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
@@ -275,15 +242,20 @@ class PermohonanController extends Controller
             $rules['verifikator'] = 'required|string';
             $rules['status'] = 'required|in:Menunggu,Dikembalikan,Diterima,Ditolak,Terlambat';
         }
-        
-        // Status perlu tetap tervalidasi; verifikator tidak wajib untuk PD Teknis
-        $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
 
         $validated = $request->validate(
             $rules,
             [
                 'no_permohonan.required' => 'Nomor permohonan wajib diisi.',
                 'no_permohonan.unique' => 'Nomor permohonan sudah digunakan. Silakan ganti dengan nomor lain.',
+                'tanggal_permohonan.required' => 'Tanggal permohonan wajib diisi.',
+                'tanggal_permohonan.date' => 'Format tanggal permohonan tidak valid.',
+                'jenis_pelaku_usaha.required' => 'Jenis pelaku usaha wajib dipilih.',
+                'jenis_pelaku_usaha.in' => 'Jenis pelaku usaha harus dipilih dari opsi yang tersedia.',
+                'nib.required' => 'NIB wajib diisi.',
+                'nib.max' => 'NIB maksimal 20 karakter.',
+                'status.required' => 'Status wajib dipilih.',
+                'status.in' => 'Status harus dipilih dari opsi yang tersedia.',
             ]
         );
         
@@ -296,6 +268,10 @@ class PermohonanController extends Controller
             $validated['nama_usaha'] = null;
             // PD Teknis tidak mengatur verifikator
             $validated['verifikator'] = null;
+            // PENTING: Set sektor otomatis dari user->sektor untuk memastikan data muncul di dashboard
+            if ($user->sektor) {
+                $validated['sektor'] = $user->sektor;
+            }
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP tidak boleh mengisi nama_perusahaan
             $validated['nama_perusahaan'] = null;
@@ -322,24 +298,65 @@ class PermohonanController extends Controller
             $validated['jenis_pelaku_usaha'] = 'Badan Usaha';
         }
 
-        $permohonan = Permohonan::create($validated);
-
-        // Buat log
-        $tanggalBuat = now()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y');
-        LogPermohonan::create([
-            'permohonan_id' => $permohonan->id,
-            'user_id' => Auth::id(),
-            'status_sebelum' => 'Draft',
-            'status_sesudah' => $permohonan->status,
-            'keterangan' => 'Permohonan baru dibuat pada <strong>' . $tanggalBuat . '</strong>',
-        ]);
-
-        // Cek dan buat notifikasi deadline jika ada
-        if ($permohonan->getAttribute('deadline')) {
-            $permohonan->createDeadlineNotification();
+        // Validasi tambahan untuk PD Teknis: pastikan sektor user ada
+        if ($user->role === 'pd_teknis' && !$user->sektor) {
+            return redirect()->back()
+                ->withErrors(['sektor' => 'User PD Teknis harus memiliki sektor yang terdaftar. Silakan hubungi administrator.'])
+                ->withInput();
         }
 
-        return redirect()->route('dashboard')->with('success', 'Permohonan berhasil ditambahkan!');
+        try {
+            $permohonan = Permohonan::create($validated);
+
+            // Buat log
+            $tanggalBuat = now()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y');
+            LogPermohonan::create([
+                'permohonan_id' => $permohonan->id,
+                'user_id' => Auth::id(),
+                'status_sebelum' => 'Draft',
+                'status_sesudah' => $permohonan->status,
+                'keterangan' => 'Permohonan baru dibuat pada <strong>' . $tanggalBuat . '</strong>',
+            ]);
+
+            // Cek dan buat notifikasi deadline jika ada
+            if ($permohonan->getAttribute('deadline')) {
+                $permohonan->createDeadlineNotification();
+            }
+
+            // Clear cache untuk memastikan data baru langsung muncul di dashboard dan halaman permohonan
+            // Clear cache berdasarkan role dan sektor user
+            if ($user->role === 'pd_teknis' && $user->sektor) {
+                Cache::forget("dashboard_data_pd_teknis_{$user->sektor}");
+            } elseif ($user->role === 'dpmptsp') {
+                Cache::forget("dashboard_data_dpmptsp_");
+            } elseif ($user->role === 'admin') {
+                Cache::forget("dashboard_data_admin_");
+            }
+
+            // Redirect berdasarkan role untuk memastikan data langsung muncul
+            if ($user->role === 'pd_teknis') {
+                // Redirect ke halaman permohonan untuk melihat data yang baru dibuat
+                return redirect()->route('permohonan.index')
+                    ->with('success', 'Permohonan berhasil ditambahkan! Data akan langsung muncul di dashboard dan halaman permohonan.');
+            }
+
+            return redirect()->route('dashboard')
+                ->with('success', 'Permohonan berhasil ditambahkan!');
+                
+        } catch (\Exception $e) {
+            // Log error untuk debugging
+            Log::error('Error creating permohonan: ' . $e->getMessage(), [
+                'user_id' => $user->id,
+                'user_role' => $user->role,
+                'request_data' => $request->except(['_token']),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            // Return dengan error message yang user-friendly
+            return redirect()->back()
+                ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi atau hubungi administrator jika masalah berlanjut.'])
+                ->withInput();
+        }
     }
 
 
@@ -848,7 +865,7 @@ class PermohonanController extends Controller
 
         try {
             // Log request untuk debugging
-            \Log::info('BAP Generate Request:', [
+            Log::info('BAP Generate Request:', [
                 'user_id' => $user->id,
                 'user_role' => $user->role,
                 'permohonan_id' => $permohonan->id,
@@ -955,7 +972,7 @@ class PermohonanController extends Controller
             ];
             
             // Log untuk debugging (hapus di production jika tidak diperlukan)
-            \Log::info('BAP PDF Data:', [
+            Log::info('BAP PDF Data:', [
                 'persyaratan_count' => count($pdfData['data']['persyaratan'] ?? []),
                 'has_persyaratan' => !empty($pdfData['data']['persyaratan']),
             ]);
@@ -976,7 +993,7 @@ class PermohonanController extends Controller
             $noPermohonanClean = preg_replace('/[\/\\\\:\*\?"<>\|]/', '_', $noPermohonan);
             $filename = 'BAP_' . $noPermohonanClean . '_' . date('Y-m-d') . '.pdf';
             
-            \Log::info('Generating BAP PDF with filename: ' . $filename);
+            Log::info('Generating BAP PDF with filename: ' . $filename);
             
             // Generate dan download PDF
             return $pdf->download($filename);
@@ -994,18 +1011,19 @@ class PermohonanController extends Controller
                 ->withErrors($e->errors())
                 ->with('error', 'Validasi gagal: ' . implode(', ', $errorMessages))
                 ->withInput();
-        } catch (\Barryvdh\DomPDF\Exception\PdfException $e) {
-            \Log::error('PDF Generation Error: ' . $e->getMessage());
-            \Log::error('Stack trace: ' . $e->getTraceAsString());
-            \Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
+        } catch (\Exception $e) {
+            // Handle PDF exception atau exception lainnya
+            Log::error('PDF Generation Error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
             return redirect()->back()
                 ->with('error', 'Terjadi kesalahan saat menghasilkan PDF. Pastikan semua data sudah lengkap dan coba lagi.')
                 ->withInput();
-        } catch (\Exception $e) {
-            \Log::error('Error generating BAP PDF: ' . $e->getMessage());
-            \Log::error('File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            \Log::error('Stack trace: ' . $e->getTraceAsString());
-            \Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
+        } catch (\Throwable $e) {
+            Log::error('Error generating BAP PDF: ' . $e->getMessage());
+            Log::error('File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
             
             // Tampilkan error yang user-friendly tanpa expose detail sistem
             $errorMessage = 'Terjadi kesalahan saat menghasilkan PDF. ';

@@ -252,7 +252,7 @@
                                             @elseif($deadlineStatus == 'due_today')
                                                 <span class="ml-2 text-xs font-bold">HARI INI!</span>
                                             @elseif($deadlineStatus == 'due_soon')
-                                                <span class="ml-2 text-xs font-bold">SEGERA!</span>
+                                                <span class="ml-2 text-xs font-bold">Mendekati jatuh tempo</span>
                                             @endif
                                         </div>
                                     @else

@@ -988,10 +988,31 @@
                                     timer: 2000,
                                     showConfirmButton: false
                                 }).then(() => {
+                                    // Update nama dan NIP di form langsung tanpa reload
+                                    const namaInput = document.getElementById('nama_mengetahui');
+                                    const nipInput = document.getElementById('nip_mengetahui');
+                                    if (namaInput) namaInput.value = nama;
+                                    if (nipInput) nipInput.value = nip;
+                                    
+                                    // Sembunyikan form edit
+                                    const editForm = document.querySelector('[x-ref="editKoordinatorForm"]');
+                                    if (editForm) editForm.classList.add('hidden');
+                                    
+                                    // Reload untuk memastikan semua data ter-update
                                     window.location.reload();
                                 });
                             } else {
                                 alert(data.message || 'Nama dan NIP koordinator berhasil diperbarui.');
+                                // Update nama dan NIP di form langsung tanpa reload
+                                const namaInput = document.getElementById('nama_mengetahui');
+                                const nipInput = document.getElementById('nip_mengetahui');
+                                if (namaInput) namaInput.value = nama;
+                                if (nipInput) nipInput.value = nip;
+                                
+                                // Sembunyikan form edit
+                                const editForm = document.querySelector('[x-ref="editKoordinatorForm"]');
+                                if (editForm) editForm.classList.add('hidden');
+                                
                                 window.location.reload();
                             }
                         } else {

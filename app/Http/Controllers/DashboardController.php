@@ -244,8 +244,8 @@ class DashboardController extends Controller
         }
 
         // Filters
-        $selectedDateFilter = $request->query('date_filter');
-        $customDate = $request->query('custom_date');
+        $customDateFrom = $request->query('custom_date_from');
+        $customDateTo = $request->query('custom_date_to');
         $search = $request->query('search');
 
         $query = PenerbitanBerkas::with('user');
@@ -253,43 +253,19 @@ class DashboardController extends Controller
         // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
         // Tidak ada filter berdasarkan user_id
 
-        // Filter tanggal berdasarkan tanggal_permohonan (bukan created_at)
-        if ($selectedDateFilter) {
-            $now = Carbon::now();
-            switch ($selectedDateFilter) {
-                case 'today':
-                    $query->whereDate('tanggal_permohonan', $now->toDateString());
-                    break;
-                case 'yesterday':
-                    $query->whereDate('tanggal_permohonan', $now->subDay()->toDateString());
-                    break;
-                case 'this_week':
-                    $query->whereBetween('tanggal_permohonan', [
-                        $now->startOfWeek()->toDateTimeString(),
-                        $now->endOfWeek()->toDateTimeString(),
-                    ]);
-                    break;
-                case 'last_week':
-                    $query->whereBetween('tanggal_permohonan', [
-                        $now->subWeek()->startOfWeek()->toDateTimeString(),
-                        $now->subWeek()->endOfWeek()->toDateTimeString(),
-                    ]);
-                    break;
-                case 'this_month':
-                    $query->whereMonth('tanggal_permohonan', $now->month)
-                          ->whereYear('tanggal_permohonan', $now->year);
-                    break;
-                case 'last_month':
-                    $lastMonth = $now->subMonth();
-                    $query->whereMonth('tanggal_permohonan', $lastMonth->month)
-                          ->whereYear('tanggal_permohonan', $lastMonth->year);
-                    break;
-                case 'custom':
-                    if ($customDate) {
-                        $query->whereDate('tanggal_permohonan', $customDate);
-                    }
-                    break;
-            }
+        // Filter custom tanggal langsung tanpa perlu dropdown
+        if ($customDateFrom && $customDateTo) {
+            // Filter range tanggal
+            $query->whereBetween('tanggal_permohonan', [
+                Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
+            ]);
+        } elseif ($customDateFrom) {
+            // Hanya dari tanggal (sampai hari ini)
+            $query->whereDate('tanggal_permohonan', '>=', $customDateFrom);
+        } elseif ($customDateTo) {
+            // Hanya sampai tanggal (dari awal)
+            $query->whereDate('tanggal_permohonan', '<=', $customDateTo);
         }
 
         // Pencarian bebas
@@ -336,7 +312,7 @@ class DashboardController extends Controller
         // Ambil data TTD settings
         $ttdSettings = TtdSetting::getSettings();
 
-        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'selectedDateFilter', 'customDate', 'search', 'perPage'));
+        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'customDateFrom', 'customDateTo', 'search', 'perPage'));
     }
 
     public function exportPenerbitanBerkasExcel(Request $request)
@@ -349,49 +325,26 @@ class DashboardController extends Controller
             return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
         }
 
-        $selectedDateFilter = $request->query('date_filter');
-        $customDate = $request->query('custom_date');
+        $customDateFrom = $request->query('custom_date_from');
+        $customDateTo = $request->query('custom_date_to');
 
         $query = PenerbitanBerkas::with('user');
         // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
         // Tidak ada filter berdasarkan user_id
 
-        if ($selectedDateFilter) {
-            $now = Carbon::now();
-            switch ($selectedDateFilter) {
-                case 'today':
-                    $query->whereDate('tanggal_permohonan', $now->toDateString());
-                    break;
-                case 'yesterday':
-                    $query->whereDate('tanggal_permohonan', $now->subDay()->toDateString());
-                    break;
-                case 'this_week':
-                    $query->whereBetween('tanggal_permohonan', [
-                        $now->startOfWeek()->toDateTimeString(),
-                        $now->endOfWeek()->toDateTimeString(),
-                    ]);
-                    break;
-                case 'last_week':
-                    $query->whereBetween('tanggal_permohonan', [
-                        $now->subWeek()->startOfWeek()->toDateTimeString(),
-                        $now->subWeek()->endOfWeek()->toDateTimeString(),
-                    ]);
-                    break;
-                case 'this_month':
-                    $query->whereMonth('tanggal_permohonan', $now->month)
-                          ->whereYear('tanggal_permohonan', $now->year);
-                    break;
-                case 'last_month':
-                    $lastMonth = $now->subMonth();
-                    $query->whereMonth('tanggal_permohonan', $lastMonth->month)
-                          ->whereYear('tanggal_permohonan', $lastMonth->year);
-                    break;
-                case 'custom':
-                    if ($customDate) {
-                        $query->whereDate('tanggal_permohonan', $customDate);
-                    }
-                    break;
-            }
+        // Filter custom tanggal langsung tanpa perlu dropdown
+        if ($customDateFrom && $customDateTo) {
+            // Filter range tanggal
+            $query->whereBetween('tanggal_permohonan', [
+                Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
+            ]);
+        } elseif ($customDateFrom) {
+            // Hanya dari tanggal (sampai hari ini)
+            $query->whereDate('tanggal_permohonan', '>=', $customDateFrom);
+        } elseif ($customDateTo) {
+            // Hanya sampai tanggal (dari awal)
+            $query->whereDate('tanggal_permohonan', '<=', $customDateTo);
         }
 
         // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
@@ -413,49 +366,26 @@ class DashboardController extends Controller
             return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
         }
 
-        $selectedDateFilter = $request->query('date_filter');
-        $customDate = $request->query('custom_date');
+        $customDateFrom = $request->query('custom_date_from');
+        $customDateTo = $request->query('custom_date_to');
 
         $query = PenerbitanBerkas::with('user');
         // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
         // Tidak ada filter berdasarkan user_id
 
-        if ($selectedDateFilter) {
-            $now = Carbon::now();
-            switch ($selectedDateFilter) {
-                case 'today':
-                    $query->whereDate('tanggal_permohonan', $now->toDateString());
-                    break;
-                case 'yesterday':
-                    $query->whereDate('tanggal_permohonan', $now->subDay()->toDateString());
-                    break;
-                case 'this_week':
-                    $query->whereBetween('tanggal_permohonan', [
-                        $now->startOfWeek()->toDateTimeString(),
-                        $now->endOfWeek()->toDateTimeString(),
-                    ]);
-                    break;
-                case 'last_week':
-                    $query->whereBetween('tanggal_permohonan', [
-                        $now->subWeek()->startOfWeek()->toDateTimeString(),
-                        $now->subWeek()->endOfWeek()->toDateTimeString(),
-                    ]);
-                    break;
-                case 'this_month':
-                    $query->whereMonth('tanggal_permohonan', $now->month)
-                          ->whereYear('tanggal_permohonan', $now->year);
-                    break;
-                case 'last_month':
-                    $lastMonth = $now->subMonth();
-                    $query->whereMonth('tanggal_permohonan', $lastMonth->month)
-                          ->whereYear('tanggal_permohonan', $lastMonth->year);
-                    break;
-                case 'custom':
-                    if ($customDate) {
-                        $query->whereDate('tanggal_permohonan', $customDate);
-                    }
-                    break;
-            }
+        // Filter custom tanggal langsung tanpa perlu dropdown
+        if ($customDateFrom && $customDateTo) {
+            // Filter range tanggal
+            $query->whereBetween('tanggal_permohonan', [
+                Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
+            ]);
+        } elseif ($customDateFrom) {
+            // Hanya dari tanggal (sampai hari ini)
+            $query->whereDate('tanggal_permohonan', '>=', $customDateFrom);
+        } elseif ($customDateTo) {
+            // Hanya sampai tanggal (dari awal)
+            $query->whereDate('tanggal_permohonan', '<=', $customDateTo);
         }
 
         // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)

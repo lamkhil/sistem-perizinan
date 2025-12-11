@@ -30,45 +30,46 @@
                         </div>
                         
                         <!-- Filter Buttons -->
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 flex-wrap">
                             @if(auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp']))
-                            <div class="relative custom-dropdown">
-                                <select name="sektor" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
-                                    <option value="">Semua Sektor</option>
-                                    @foreach($sektors ?? [] as $sektor)
-                                        <option value="{{ $sektor }}" {{ ($selectedSektor ?? '') == $sektor ? 'selected' : '' }}>
-                                            {{ $sektor }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
+                            <!-- Filter Sektor dan Status - Sejajar Vertikal -->
+                            <div class="flex flex-col gap-2">
+                                <div class="relative custom-dropdown min-w-[150px] overflow-hidden">
+                                    <select name="sektor" onchange="this.form.submit()" class="h-11 pl-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer w-full">
+                                        <option value="">Semua Sektor</option>
+                                        @foreach($sektors ?? [] as $sektor)
+                                            <option value="{{ $sektor }}" {{ ($selectedSektor ?? '') == $sektor ? 'selected' : '' }}>
+                                                {{ $sektor }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="absolute top-0 bottom-0 right-0 flex items-center pr-3 pointer-events-none" style="width: 2.5rem; max-width: 100%;">
+                                        <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative custom-dropdown min-w-[150px] overflow-hidden">
+                                    <select name="status" onchange="this.form.submit()" class="h-11 pl-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer w-full">
+                                        <option value="">Semua Status</option>
+                                        <option value="Diterima" {{ ($selectedStatus ?? '') == 'Diterima' ? 'selected' : '' }}>Diterima</option>
+                                        <option value="Dikembalikan" {{ ($selectedStatus ?? '') == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+                                        <option value="Ditolak" {{ ($selectedStatus ?? '') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                        <option value="Menunggu" {{ ($selectedStatus ?? '') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+                                        <option value="Terlambat" {{ ($selectedStatus ?? '') == 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
+                                    </select>
+                                    <div class="absolute top-0 bottom-0 right-0 flex items-center pr-3 pointer-events-none" style="width: 2.5rem; max-width: 100%;">
+                                        <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                            @endif
-                            
-                            <div class="relative custom-dropdown">
-                                <select name="date_filter" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
-                                    <option value="">Semua Periode</option>
-                                    <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
-                                    <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
-                                    <option value="this_week" {{ ($selectedDateFilter ?? '') == 'this_week' ? 'selected' : '' }}>Minggu Ini</option>
-                                    <option value="last_week" {{ ($selectedDateFilter ?? '') == 'last_week' ? 'selected' : '' }}>Minggu Lalu</option>
-                                    <option value="this_month" {{ ($selectedDateFilter ?? '') == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
-                                    <option value="last_month" {{ ($selectedDateFilter ?? '') == 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
-                                    <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Custom</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            
-                            <div class="relative custom-dropdown">
-                                <select name="status" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
+                            @else
+                            <!-- Untuk role selain admin/dpmptsp, hanya tampilkan status -->
+                            <div class="relative custom-dropdown min-w-[150px] overflow-hidden">
+                                <select name="status" onchange="this.form.submit()" class="h-11 pl-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer w-full">
                                     <option value="">Semua Status</option>
                                     <option value="Diterima" {{ ($selectedStatus ?? '') == 'Diterima' ? 'selected' : '' }}>Diterima</option>
                                     <option value="Dikembalikan" {{ ($selectedStatus ?? '') == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
@@ -76,71 +77,40 @@
                                     <option value="Menunggu" {{ ($selectedStatus ?? '') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
                                     <option value="Terlambat" {{ ($selectedStatus ?? '') == 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
                                 </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <div class="absolute top-0 bottom-0 right-0 flex items-center pr-3 pointer-events-none" style="width: 2.5rem; max-width: 100%;">
                                     <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </div>
                             </div>
-                            
-                            @if(($searchQuery || ($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])) || $selectedDateFilter || $selectedStatus) && ($selectedDateFilter ?? '') != 'custom')
-                            <a href="{{ route('permohonan.index') }}" class="h-11 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center text-sm font-medium transition-colors">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                </svg>
-                                Reset
-                            </a>
                             @endif
-                        </div>
-                    </div>
-                    
-                    <!-- Custom Date Range -->
-                    @if(($selectedDateFilter ?? '') == 'custom')
-                    <div class="bg-primary-50 border border-primary-200 rounded-lg p-4 mt-3">
-                        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <label class="text-sm font-medium text-primary-700 flex items-center">
-                                    <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            
+                            <!-- Custom Date Range - Dikelompokkan dalam satu container -->
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                    <svg class="w-4 h-4 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                     </svg>
-                                    Dari Tanggal:
-                                </label>
-                                <input type="date" name="custom_date_from" value="{{ $customDateFrom ?? '' }}" 
-                                       class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
-                            </div>
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <label class="text-sm font-medium text-primary-700 flex items-center">
-                                    <svg class="w-4 h-4 mr-1 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                    </svg>
-                                    Sampai Tanggal:
-                                </label>
-                                <input type="date" name="custom_date_to" value="{{ $customDateTo ?? '' }}" 
-                                       class="h-10 px-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white">
-                            </div>
-                            <div class="flex gap-2">
-                                <button type="submit" class="h-10 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors flex items-center shadow-sm">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-                                    </svg>
-                                    Terapkan Filter
-                                </button>
-                                <a href="{{ route('permohonan.index', array_filter(['sektor' => $selectedSektor ?? '', 'status' => $selectedStatus ?? '', 'search' => $searchQuery ?? ''])) }}" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors flex items-center shadow-sm">
+                                    <label class="text-xs font-medium text-gray-700 whitespace-nowrap">Dari:</label>
+                                    <input type="date" name="custom_date_from" value="{{ $customDateFrom ?? '' }}" 
+                                           onchange="this.form.submit()"
+                                           class="h-9 px-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white min-w-[140px]">
+                                    <label class="text-xs font-medium text-gray-700 whitespace-nowrap ml-1">Sampai:</label>
+                                    <input type="date" name="custom_date_to" value="{{ $customDateTo ?? '' }}" 
+                                           onchange="this.form.submit()"
+                                           class="h-9 px-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm bg-white min-w-[140px]">
+                                </div>
+                                @if($searchQuery || ($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])) || $customDateFrom || $customDateTo || $selectedStatus)
+                                <a href="{{ route('permohonan.index', array_filter(['sektor' => (auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp']) && $selectedSektor) ? $selectedSektor : null])) }}" class="h-9 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center justify-center text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                     </svg>
-                                    Reset Tanggal
+                                    Reset
                                 </a>
+                                @endif
                             </div>
                         </div>
-                        <p class="text-xs text-primary-600 mt-2 flex items-center">
-                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Pilih range tanggal (dari tanggal sampai tanggal) untuk memfilter data permohonan
-                        </p>
                     </div>
-                    @endif
                 </form>
             </div>
             
@@ -176,7 +146,7 @@
         </div>
         
         <!-- Active Filters Display -->
-        @if($searchQuery || ($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])) || $selectedDateFilter)
+        @if($searchQuery || ($selectedSektor && auth()->user() && in_array(auth()->user()->role, ['admin', 'dpmptsp'])) || $customDateFrom || $customDateTo)
         <div class="mt-4 pt-4 border-t border-gray-200">
             <div class="flex flex-wrap gap-2">
                 @if($searchQuery)
@@ -195,27 +165,18 @@
                     Sektor: {{ $selectedSektor }}
                 </span>
                 @endif
-                @if($selectedDateFilter)
+                @if($customDateFrom || $customDateTo)
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                     <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
-                    @if($selectedDateFilter == 'custom')
-                        Periode: {{ $customDate ?? '' }}
-                    @elseif($selectedDateFilter == 'today')
-                        Periode: Hari Ini
-                    @elseif($selectedDateFilter == 'yesterday')
-                        Periode: Kemarin
-                    @elseif($selectedDateFilter == 'this_week')
-                        Periode: Minggu Ini
-                    @elseif($selectedDateFilter == 'last_week')
-                        Periode: Minggu Lalu
-                    @elseif($selectedDateFilter == 'this_month')
-                        Periode: Bulan Ini
-                    @elseif($selectedDateFilter == 'last_month')
-                        Periode: Bulan Lalu
-                    @else
-                        Periode: {{ $selectedDateFilter ?? 'Periode Tidak Diketahui' }}
+                    Periode: 
+                    @if($customDateFrom && $customDateTo)
+                        {{ \Carbon\Carbon::parse($customDateFrom)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($customDateTo)->format('d/m/Y') }}
+                    @elseif($customDateFrom)
+                        Dari {{ \Carbon\Carbon::parse($customDateFrom)->format('d/m/Y') }}
+                    @elseif($customDateTo)
+                        Sampai {{ \Carbon\Carbon::parse($customDateTo)->format('d/m/Y') }}
                     @endif
                 </span>
                 @endif
@@ -523,55 +484,86 @@
         
         .custom-dropdown:hover .dropdown-arrow {
             color: #0E2A66;
-            transform: translateY(1px);
         }
         
-        .custom-dropdown select:focus + .dropdown-arrow {
+        .custom-dropdown select:focus ~ div .dropdown-arrow {
             color: #0E2A66;
         }
         
         .dropdown-arrow {
-            transition: all 0.2s ease;
+            transition: color 0.2s ease;
+        }
+        
+        /* Pastikan arrow tidak keluar dari container */
+        .custom-dropdown.overflow-hidden {
+            overflow: hidden !important;
+        }
+        
+        /* Pastikan arrow container tidak keluar dari batas */
+        .custom-dropdown .absolute {
+            right: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+        
+        /* Pastikan select memiliki padding yang cukup */
+        .custom-dropdown select {
+            padding-right: 2.5rem !important;
         }
     </style>
 
+    @php
+        $successMessage = session('success');
+        $errorMessages = $errors->any() ? $errors->all() : [];
+    @endphp
     <script>
-        // Handle date filter dropdown change
-        document.addEventListener('DOMContentLoaded', function() {
-            const dateFilterSelect = document.querySelector('select[name="date_filter"]');
-            const customDateSection = document.querySelector('div:has(input[name="custom_date_from"])');
-            
-            if (dateFilterSelect) {
-                dateFilterSelect.addEventListener('change', function() {
-                    if (this.value === 'custom') {
-                        // Show custom date section with animation
-                        const customSection = document.querySelector('div:has(input[name="custom_date_from"])');
-                        if (customSection) {
-                            customSection.style.display = 'block';
-                            customSection.style.opacity = '0';
-                            customSection.style.transform = 'translateY(-10px)';
-                            
-                            setTimeout(() => {
-                                customSection.style.transition = 'all 0.3s ease';
-                                customSection.style.opacity = '1';
-                                customSection.style.transform = 'translateY(0)';
-                            }, 10);
-                        }
-                    } else {
-                        // Hide custom date section
-                        const customSection = document.querySelector('div:has(input[name="custom_date_from"])');
-                        if (customSection) {
-                            customSection.style.transition = 'all 0.3s ease';
-                            customSection.style.opacity = '0';
-                            customSection.style.transform = 'translateY(-10px)';
-                            
-                            setTimeout(() => {
-                                customSection.style.display = 'none';
-                            }, 300);
-                        }
-                    }
-                });
-            }
-        });
+        // Script untuk custom date sudah tidak diperlukan karena langsung muncul
+
+        // Tampilkan notifikasi success jika ada
+        var successMessage = {!! $successMessage ? json_encode($successMessage) : 'null' !!};
+        if (successMessage) {
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: successMessage,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        toast: false,
+                        position: 'center'
+                    });
+                } else {
+                    alert(successMessage);
+                }
+            });
+        }
+
+        // Tampilkan notifikasi error jika ada
+        var errorMessages = {!! json_encode($errorMessages) !!};
+        if (errorMessages && errorMessages.length > 0) {
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof Swal !== 'undefined') {
+                    var errorHtml = '<ul class="text-left list-disc list-inside mt-2">';
+                    errorMessages.forEach(function(error) {
+                        errorHtml += '<li class="mb-1">' + error + '</li>';
+                    });
+                    errorHtml += '</ul>';
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan',
+                        html: errorHtml,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        width: '500px'
+                    });
+                } else {
+                    alert(errorMessages.join('\n'));
+                }
+            });
+        }
     </script>
 </x-sidebar-layout>

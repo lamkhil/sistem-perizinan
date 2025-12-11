@@ -14,15 +14,31 @@ class AppSetting extends Model
 
     /**
      * Get atau create setting untuk koordinator
+     * Default nama: Yohanes Franklin, S.H., M.H.
+     * Default NIP: 198502182010011008
      */
     public static function getKoordinator()
     {
-        return static::firstOrCreate(
+        $koordinator = static::firstOrCreate(
             ['id' => 1],
             [
-                'nama_mengetahui' => null,
-                'nip_mengetahui' => null,
+                'nama_mengetahui' => 'Yohanes Franklin, S.H., M.H.',
+                'nip_mengetahui' => '198502182010011008',
             ]
         );
+        
+        // Jika nama masih null atau kosong, set default
+        if (empty($koordinator->nama_mengetahui)) {
+            $koordinator->update(['nama_mengetahui' => 'Yohanes Franklin, S.H., M.H.']);
+            $koordinator->refresh();
+        }
+        
+        // Jika NIP masih null atau kosong, set default
+        if (empty($koordinator->nip_mengetahui)) {
+            $koordinator->update(['nip_mengetahui' => '198502182010011008']);
+            $koordinator->refresh();
+        }
+        
+        return $koordinator;
     }
 }

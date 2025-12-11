@@ -38,7 +38,7 @@
 
             <!-- Notifikasi Success/Error -->
             @if(session('success'))
-                <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative" role="alert">
+                <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative" role="alert" id="success-notification">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
@@ -46,6 +46,14 @@
                         <span class="font-medium">{{ session('success') }}</span>
                     </div>
                 </div>
+                <script>
+                    // Auto refresh setelah 2 detik jika ada success message terkait TTD
+                    @if(str_contains(session('success'), 'TTD') || str_contains(session('success'), 'tanda tangan'))
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
+                    @endif
+                </script>
             @endif
 
             @if(session('error'))
@@ -81,99 +89,103 @@
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200 bg-header-light">
-                    <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
-                        <div class="flex items-center gap-4 flex-shrink-0">
-                            <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                 <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                 </svg>
-                                 Data Permohonan
-                            </h3>
-                            <!-- Export Buttons -->
-                            <div class="flex gap-3 flex-shrink-0 flex-wrap">
-                                <!-- Kolom kiri: Excel -->
-                                <div class="flex flex-col gap-2">
-                                    <a href="{{ route('penerbitan-berkas.export.excel') }}" 
-                                       class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm">
-                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
-                                        Export Excel (Semua)
-                                    </a>
-                                    <a href="{{ route('penerbitan-berkas.export.excel', request()->only(['date_filter','custom_date'])) }}" 
-                                       class="inline-flex items-center px-3 py-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors text-sm">
-                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
-                                        Export Excel (Per Tanggal)
-                                    </a>
-                                </div>
-
-                                <!-- Kolom kanan: PDF -->
-                                <div class="flex flex-col gap-2">
-                                    <a href="{{ route('penerbitan-berkas.export.pdf.landscape') }}" 
-                                       class="inline-flex items-center px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm">
-                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
-                                        Export PDF (Semua)
-                                    </a>
-                                    <a href="{{ route('penerbitan-berkas.export.pdf.landscape', request()->only(['date_filter','custom_date'])) }}" 
-                                       class="inline-flex items-center px-3 py-1.5 bg-violet-600 text-white rounded-md hover:bg-violet-700 transition-colors text-sm">
-                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
-                                        Export PDF (Per Tanggal)
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Header dengan Title dan Export Buttons -->
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+                        <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                            <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Data Permohonan
+                        </h3>
                         
-                        <!-- Filter Section - Vertical Stacked Layout -->
-                        <div class="w-full md:pl-4">
-                            <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex flex-col gap-3">
-                                <!-- Row 1: Per Page & Date Filter -->
-                                <div class="flex items-center gap-3">
-                                    <select name="per_page" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                        <!-- Export Buttons - Horizontal Layout -->
+                        <div class="flex flex-wrap gap-2">
+                            <a href="{{ route('penerbitan-berkas.export.excel') }}" 
+                               class="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Export Excel (Semua)
+                            </a>
+                            <a href="{{ route('penerbitan-berkas.export.excel', request()->only(['custom_date_from','custom_date_to'])) }}" 
+                               class="inline-flex items-center px-3 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Export Excel (Per Tanggal)
+                            </a>
+                            <a href="{{ route('penerbitan-berkas.export.pdf.landscape') }}" 
+                               class="inline-flex items-center px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Export PDF (Semua)
+                            </a>
+                            <a href="{{ route('penerbitan-berkas.export.pdf.landscape', request()->only(['custom_date_from','custom_date_to'])) }}" 
+                               class="inline-flex items-center px-3 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors text-sm font-medium">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Export PDF (Per Tanggal)
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Section -->
+                    <div class="border-t border-gray-200 pt-4">
+                        <form method="GET" action="{{ route('penerbitan-berkas') }}" class="space-y-4">
+                            <!-- Row 1: Search Bar -->
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <div class="flex h-11">
+                                        <input type="text" name="search" value="{{ $search ?? '' }}" 
+                                               placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..."
+                                               class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <button type="submit" class="px-4 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 flex items-center justify-center">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Filter Buttons -->
+                                <div class="flex gap-2 flex-wrap">
+                                    <!-- Per Page -->
+                                    <select name="per_page" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm appearance-none bg-white cursor-pointer min-w-[150px]">
                                         <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
                                         <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
                                         <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
                                         <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
                                     </select>
                                     
-                                    <select name="date_filter" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                                        <option value="">Semua Periode</option>
-                                        <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
-                                        <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
-                                        <option value="this_week" @selected(($selectedDateFilter ?? '')==='this_week')>Minggu Ini</option>
-                                        <option value="last_week" @selected(($selectedDateFilter ?? '')==='last_week')>Minggu Lalu</option>
-                                        <option value="this_month" @selected(($selectedDateFilter ?? '')==='this_month')>Bulan Ini</option>
-                                        <option value="last_month" @selected(($selectedDateFilter ?? '')==='last_month')>Bulan Lalu</option>
-                                        <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
-                                    </select>
-                                    
-                                    @if(($selectedDateFilter ?? '')==='custom')
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
-                                    @endif
-                                </div>
-                                
-                                <!-- Row 2: Search & Reset -->
-                                <div class="flex items-center gap-3">
-                                    <div class="flex-1 relative">
-                                        <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-full pl-4 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
-                                        <button type="submit" class="absolute right-0 top-0 bottom-0 px-4 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 flex items-center justify-center">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    <!-- Custom Date Range - Dikelompokkan dalam satu container -->
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                            <svg class="w-4 h-4 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                             </svg>
-                                        </button>
+                                            <label class="text-xs font-medium text-gray-700 whitespace-nowrap">Dari:</label>
+                                            <input type="date" name="custom_date_from" value="{{ $customDateFrom ?? '' }}" 
+                                                   onchange="this.form.submit()"
+                                                   class="h-9 px-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white min-w-[140px]">
+                                            <label class="text-xs font-medium text-gray-700 whitespace-nowrap ml-1">Sampai:</label>
+                                            <input type="date" name="custom_date_to" value="{{ $customDateTo ?? '' }}" 
+                                                   onchange="this.form.submit()"
+                                                   class="h-9 px-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white min-w-[140px]">
+                                        </div>
+                                        @if($search || $customDateFrom || $customDateTo)
+                                        <a href="{{ route('penerbitan-berkas') }}" class="h-9 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center justify-center text-sm font-medium transition-colors">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                            </svg>
+                                            Reset
+                                        </a>
+                                        @endif
                                     </div>
-                                    
-                                    <a href="{{ route('penerbitan-berkas') }}" class="px-5 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm whitespace-nowrap flex items-center justify-center">
-                                        Reset
-                                    </a>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                     <div class="overflow-x-auto">
@@ -584,7 +596,7 @@
 
                 <!-- Form Edit TTD (Hidden by default) -->
                 <div x-show="editTTD" x-transition class="mb-6 p-4 bg-gray-50 rounded-lg">
-                    <form method="POST" action="{{ route('ttd-settings.update') }}" enctype="multipart/form-data" class="space-y-6">
+                    <form method="POST" action="{{ route('ttd-settings.update') }}" enctype="multipart/form-data" class="space-y-6" id="ttdSettingsForm">
                         @csrf
                         @method('PUT')
                         
@@ -1012,7 +1024,20 @@
                         <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
                         <div class="h-32 border-b border-gray-300 mb-2 flex items-center justify-center">
                             @if($ttdSettings->menyetujui_photo)
-                                <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="max-h-32 max-w-64 object-contain">
+                                @php
+                                    $file = $ttdSettings->menyetujui_photo;
+                                    $url = null;
+                                    if ($file) {
+                                        if (file_exists(public_path('storage/ttd_photos/' . $file))) {
+                                            $url = asset('storage/ttd_photos/' . $file);
+                                        } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
+                                            $url = asset('storage/ttd-photos/' . $file);
+                                        }
+                                    }
+                                @endphp
+                                @if($url)
+                                    <img src="{{ $url }}" alt="TTD Menyetujui" class="max-h-32 max-w-64 object-contain">
+                                @endif
                             @endif
                         </div>
                         <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->menyetujui_nama }}</p>

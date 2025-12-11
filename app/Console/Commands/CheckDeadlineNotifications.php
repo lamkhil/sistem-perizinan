@@ -90,24 +90,27 @@ class CheckDeadlineNotifications extends Command
 
                 case 'due_soon':
                     // Cek apakah sudah ada notifikasi untuk permohonan ini
-                    $existingNotification = LogPermohonan::where('permohonan_id', $permohonan->id)
-                        ->where('action', 'deadline_due_soon')
-                        ->whereDate('created_at', now()->toDateString())
-                        ->first();
+                    // Hanya alert jika h-1 (1 hari sebelum deadline)
+                    $daysLeft = now()->diffInDays($permohonan->deadline, false);
+                    if ($daysLeft == 1) {
+                        $existingNotification = LogPermohonan::where('permohonan_id', $permohonan->id)
+                            ->where('action', 'deadline_due_soon')
+                            ->whereDate('created_at', now()->toDateString())
+                            ->first();
 
-                    if (!$existingNotification) {
-                        $daysLeft = now()->diffInDays($permohonan->deadline, false);
-                        LogPermohonan::create([
-                            'permohonan_id' => $permohonan->id,
-                            'user_id' => 1, // System user
-                            'status_sebelum' => $permohonan->status ?? 'Diterima',
-                            'status_sesudah' => $permohonan->status ?? 'Diterima',
-                            'keterangan' => "⏳ PERINGATAN: Permohonan deadline dalam {$daysLeft} hari ({$permohonan->deadline->format('d/m/Y')})",
-                            'action' => 'deadline_due_soon',
-                            'old_data' => null,
-                            'new_data' => json_encode(['deadline' => $permohonan->deadline->toDateString()])
-                        ]);
-                        $dueSoonCount++;
+                        if (!$existingNotification) {
+                            LogPermohonan::create([
+                                'permohonan_id' => $permohonan->id,
+                                'user_id' => 1, // System user
+                                'status_sebelum' => $permohonan->status ?? 'Diterima',
+                                'status_sesudah' => $permohonan->status ?? 'Diterima',
+                                'keterangan' => "⏳ Mendekati jatuh tempo: Deadline besok ({$permohonan->deadline->format('d/m/Y')})",
+                                'action' => 'deadline_due_soon',
+                                'old_data' => null,
+                                'new_data' => json_encode(['deadline' => $permohonan->deadline->toDateString()])
+                            ]);
+                            $dueSoonCount++;
+                        }
                     }
                     break;
             }

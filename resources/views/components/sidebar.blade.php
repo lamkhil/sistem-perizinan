@@ -325,6 +325,10 @@
                                                                 showConfirmButton: false
                                                             });
                                                             this.expanded = false;
+                                                            // Update notification data langsung
+                                                            notification.status = data.permohonan.status;
+                                                            notification.menghubungi = data.permohonan.menghubungi;
+                                                            notification.keterangan_menghubungi = data.permohonan.keterangan_menghubungi;
                                                             // Refresh notifications - dispatch event
                                                             window.dispatchEvent(new CustomEvent('refresh-notifications'));
                                                         } else {

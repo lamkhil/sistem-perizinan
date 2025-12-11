@@ -38,7 +38,7 @@ class TtdSetting extends Model
                 'mengetahui_title' => 'Mengetahui',
                 'mengetahui_jabatan' => 'Koordinator Ketua Tim Kerja',
                 'mengetahui_unit' => 'Pelayanan Terpadu Satu Pintu',
-                'mengetahui_nama' => 'Yohanes Franklin, S.H.',
+                'mengetahui_nama' => 'Yohanes Franklin, S.H., M.H.',
                 'mengetahui_pangkat' => 'Penata Tk.1',
                 'mengetahui_nip' => '198502182010011008',
                 'menyetujui_lokasi' => 'Surabaya',
