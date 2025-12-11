@@ -648,7 +648,7 @@
                                     $ttdSrc = $koordinator->ttd_bap_mengetahui;
                                     // Jika bukan base64, berarti path file
                                     if (!str_starts_with($ttdSrc, 'data:image')) {
-                                        $ttdSrc = asset('storage/ttd_photos/' . $ttdSrc);
+                                        $ttdSrc = secure_asset('storage/ttd_photos/' . $ttdSrc);
                                     }
                                 @endphp
                                 <img id="displayTtdMengetahui" src="{{ $ttdSrc }}" alt="TTD Mengetahui" class="w-full h-48 object-contain">

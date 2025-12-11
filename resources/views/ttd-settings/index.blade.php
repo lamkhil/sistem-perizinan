@@ -150,7 +150,7 @@
                                 <!-- Tampilkan foto TTD jika ada -->
                                 @if($ttdSettings->mengetahui_photo)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" 
+                                        <img src="{{ secure_asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" 
                                              alt="TTD Mengetahui" 
                                              class="mx-auto h-16 w-auto object-contain border border-gray-300 rounded">
                                         <p class="text-xs text-gray-500 mt-1">Preview TTD</p>
@@ -172,7 +172,7 @@
                                 <!-- Tampilkan foto TTD jika ada -->
                                 @if($ttdSettings->menyetujui_photo)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" 
+                                        <img src="{{ secure_asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" 
                                              alt="TTD Menyetujui" 
                                              class="mx-auto h-16 w-auto object-contain border border-gray-300 rounded">
                                         <p class="text-xs text-gray-500 mt-1">Preview TTD</p>
