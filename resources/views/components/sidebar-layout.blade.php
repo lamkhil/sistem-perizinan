@@ -49,7 +49,7 @@
                     if (logoutForm) {
                         logoutForm.submit();
                     } else {
-                        window.location.href = '{{ route("logout") }}';
+                        window.location.href = '/logout';
                     }
                 }
             });

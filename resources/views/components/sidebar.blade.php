@@ -515,7 +515,7 @@
                         if (result.isConfirmed) {
                             const form = document.createElement('form');
                             form.method = 'POST';
-                            form.action = '{{ route('logout') }}';
+                            form.action = '/logout';
                             
                             const csrfToken = document.createElement('input');
                             csrfToken.type = 'hidden';
@@ -604,14 +604,14 @@ function handleLogout(event) {
         if (form) {
             form.submit();
         } else {
-            window.location.href = '{{ route("logout.get") }}';
+            window.location.href = '/logout';
         }
     } catch (error) {
-        window.location.href = '{{ route("logout.get") }}';
+        window.location.href = '/logout';
     }
 }
 
 window.emergencyLogout = function() {
-    window.location.href = '{{ route("logout.get") }}';
+    window.location.href = '/logout';
 };
 </script>
