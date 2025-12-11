@@ -29,10 +29,11 @@ class SecurityHeaders
         if (!$isDevelopment) {
             // CSP untuk production - lebih ketat
             $csp = "default-src 'self'; " .
-                   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net; " .
+                   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net https://static.cloudflareinsights.com; " .
                    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; " .
                    "font-src 'self' https://fonts.gstatic.com https://fonts.bunny.net data:; " .
                    "img-src 'self' data: https:; " .
+                   "connect-src 'self' https://static.cloudflareinsights.com; " .
                    "frame-ancestors 'self';";
             $response->headers->set('Content-Security-Policy', $csp);
         }
