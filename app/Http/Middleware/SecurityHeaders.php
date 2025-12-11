@@ -28,12 +28,15 @@ class SecurityHeaders
         // CSP hanya aktif di production untuk keamanan
         if (!$isDevelopment) {
             // CSP untuk production - lebih ketat
+            // Pastikan connect-src di-set untuk mengizinkan API call dan Cloudflare
+            // Pastikan script-src include Cloudflare insights
             $csp = "default-src 'self'; " .
                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net https://static.cloudflareinsights.com; " .
+                   "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net https://static.cloudflareinsights.com; " .
                    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; " .
                    "font-src 'self' https://fonts.gstatic.com https://fonts.bunny.net data:; " .
                    "img-src 'self' data: https:; " .
-                   "connect-src 'self' https://static.cloudflareinsights.com; " .
+                   "connect-src 'self' http://perizinan.dpmptsp-surabaya.my.id https://perizinan.dpmptsp-surabaya.my.id https://static.cloudflareinsights.com; " .
                    "frame-ancestors 'self';";
             $response->headers->set('Content-Security-Policy', $csp);
         }
