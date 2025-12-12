@@ -758,6 +758,11 @@ class DashboardController extends Controller
             'keterangan_menghubungi' => 'nullable|string',
         ]);
 
+        // Sanitize input teks untuk mencegah XSS
+        if (isset($validated['keterangan_menghubungi']) && is_string($validated['keterangan_menghubungi'])) {
+            $validated['keterangan_menghubungi'] = strip_tags($validated['keterangan_menghubungi']);
+        }
+
         $oldStatus = $permohonan->status;
         $oldMenghubungi = $permohonan->menghubungi;
         $oldKeteranganMenghubungi = $permohonan->keterangan_menghubungi;
