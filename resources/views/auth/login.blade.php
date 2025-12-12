@@ -416,7 +416,7 @@
                         <input type="checkbox" name="remember">
                         <span>Ingat Saya</span>
                     </label>
-                    <a href="#" class="forgot-link">Lupa Password?</a>
+                    <a href="{{ route('password.request') }}" class="forgot-link">Lupa Password?</a>
                 </div>
 
                 <!-- Login Button -->

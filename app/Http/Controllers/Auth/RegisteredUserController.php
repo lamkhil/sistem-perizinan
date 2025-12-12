@@ -51,9 +51,10 @@ class RegisteredUserController extends Controller
             return back()->withErrors(['role' => 'Role admin sudah ada dan tidak dapat dibuat lagi.']);
         }
 
+        // Sanitize input untuk mencegah XSS
         $userData = [
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => strip_tags($request->name),
+            'email' => strtolower(trim($request->email)),
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ];
